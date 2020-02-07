@@ -1,0 +1,63 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path" : "pages/travels/travels",
+			"style" : {}
+		},
+		{
+			"path" : "pages/me/me",
+			"style" : {}
+		},
+		{
+			"path" : "pages/registLogin/registLogin",
+			"style" : {}
+		},
+		{
+			"path" : "pages/meInfo/meInfo",
+			"style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#FFD655"
+			}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "Tips",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color":"wheat",
+		"selectedColor":"#ffd655",
+		"borderStyle":"black",
+		"backgroundColor":"#C8C7CC",
+		"list": [
+//			{
+//				"pagePath": "pages/index/index",
+//				"iconPath": "static/tabBarIco/index.png",
+//				"selectedIconPath": "static/tabBarIco/index_sel.png",
+//				"text": "首页"
+//			},
+			{
+				"pagePath":"pages/travels/travels",
+				"text":"游记",
+				"iconPath":"static/tabBarIco/search.png",
+				"selectedIconPath":"static/tabBarIco/search_sel.png"
+			},
+			{
+				"pagePath":"pages/travels/travels",
+				"text":"动态",
+				"iconPath":"static/tabBarIco/search.png",
+				"selectedIconPath":"static/tabBarIco/search_sel.png"
+			},
+			{
+				"pagePath":"pages/me/me",
+				"text":"我的",
+				"iconPath":"static/tabBarIco/me.png",
+				"selectedIconPath":"./static/tabBarIco/me_sel.png"
+			}
+		]
+
+	}
+}
