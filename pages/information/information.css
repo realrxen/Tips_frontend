@@ -1,0 +1,58 @@
+/* 尝试的滚动条 */
+.BarWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left:auto;
+    margin-right:auto;
+
+
+}
+.buttonWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+
+}
+.button{
+    padding: 15rpx;
+    font-size: 30rpx;
+}
+.myIcon{
+    margin-left: auto;
+}
+/* 滚动条start */
+.scroll-row{
+    width: 100%;
+    white-space: nowrap;
+    height: 100rpx;
+}
+.scroll-row-item{
+    display: inline-block!important;
+    padding: 20rpx 50rpx 20rpx 50rpx
+}
+
+.font-color-change3{
+    color: #FFD655;
+    border-bottom:thick solid #FFD655;
+    font-size: 35rpx;
+    font-weight: bold;
+}
+.publish
+image{
+    width: 120upx !important;
+    height: 100upx !important;
+    border-radius: 40upx;
+    z-index: 500;
+}
+.publish{
+    position: fixed;
+    bottom: 5upx;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+
+}

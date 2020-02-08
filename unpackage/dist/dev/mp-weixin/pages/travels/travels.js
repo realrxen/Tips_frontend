@@ -186,6 +186,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -224,11 +225,11 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages.vue */ 53));};var serverUrl = _common.default.serverUrl;var _default = { components: { HMmessages: HMmessages }, data: function data() {return { imgUrl: "", tempFace: "", userInfo: {}, token: '', type: '', imgs: [] };}, onLoad: function onLoad() {var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;console.log(userInfo);}}, methods: { upload: function upload() {// if(this.imgs.length===0){
+//
+var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages.vue */ 79));};var serverUrl = _common.default.serverUrl;var _default = { components: { HMmessages: HMmessages }, data: function data() {return { imgUrl: "", tempFace: "", userInfo: {}, token: '', type: '', imgs: [] };}, onLoad: function onLoad() {var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;console.log(userInfo);}}, methods: { upload: function upload() {// if(this.imgs.length===0){
       // 	this.HMmessages.show("成功",{iconColor:'#ffffff',fontColor:'#ffffff', background:"#ffd655"})
       // }	
-      var i = 0;var length = this.imgs.length;this.upLoadApi(i, length);}, upLoadApi: function upLoadApi(i, length) {var _this = this;var userInfo = this.getGlobalUser("globalUser");uni.uploadFile({ url: serverUrl + '/oss/insert?parentId=' + userInfo.userId, filePath: this.imgs[i], name: "file",
-        success: function success(uploadFileRes) {
+      var i = 0;var length = this.imgs.length;this.upLoadApi(i, length);}, upLoadApi: function upLoadApi(i, length) {var _this = this;var userInfo = this.getGlobalUser("globalUser");uni.uploadFile({ url: serverUrl + '/oss/insert?parentId=' + userInfo.userId, filePath: this.imgs[i], name: "file", success: function success(uploadFileRes) {
           var response = JSON.parse(uploadFileRes.data);
           console.log(response.data);
           if (response.code == 0) {

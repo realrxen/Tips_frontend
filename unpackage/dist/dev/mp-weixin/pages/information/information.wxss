@@ -1,0 +1,73 @@
+/* 尝试的滚动条 */
+.BarWrapper.data-v-8336f93c{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    margin-left:auto;
+    margin-right:auto;
+}
+.buttonWrapper.data-v-8336f93c{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    opacity: 1;
+}
+.button.data-v-8336f93c{
+    padding: 15rpx;
+    font-size: 30rpx;
+}
+.myIcon.data-v-8336f93c{
+    margin-left: auto;
+}
+/* 滚动条start */
+.scroll-row.data-v-8336f93c{
+    width: 100%;
+    white-space: nowrap;
+    height: 100rpx;
+}
+.scroll-row-item.data-v-8336f93c{
+    display: inline-block!important;
+    padding: 20rpx 50rpx 20rpx 50rpx
+}
+.font-color-change3.data-v-8336f93c{
+    color: #FFD655;
+    border-bottom:thick solid #FFD655;
+    font-size: 35rpx;
+    font-weight: bold;
+}
+.publish
+image.data-v-8336f93c{
+    width: 120rpx !important;
+    height: 100rpx !important;
+    border-radius: 40rpx;
+    z-index: 500;
+}
+.publish.data-v-8336f93c{
+    position: fixed;
+    bottom: 5rpx;
+    left: 0;
+    right: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+

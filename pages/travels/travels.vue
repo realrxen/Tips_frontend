@@ -36,6 +36,7 @@
 	</view>
 </template>
 
+
 <script>
 	import common from "../../common/common.js"
 	import HMmessages from "../../components/HM-messages/HMmessages.vue"

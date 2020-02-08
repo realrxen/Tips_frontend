@@ -1,0 +1,48 @@
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.itemWrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 5rpx 13rpx;
+    background-color: #FFFFFF;
+}
+.coverPicture{
+    width: 350rpx;
+    height: 250rpx;
+    border-radius: 5%;
+}
+.title{
+    font-size: 30rpx;
+    font-weight: bold;
+}
+.resultWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.userWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* padding: 20rpx; */
+}
+.mediaWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.faceIcon{
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 5rpx;
+}
+.myIcon{
+}
+.thumbCount{
+    margin-left: 5rpx;
+}

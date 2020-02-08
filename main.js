@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
-
+import Divider from './components/Divider/Divider.vue'
+Vue.component("Divider",Divider)
 Vue.config.productionTip = false
 Vue.prototype.getGlobalUser=function(key){
 	var userInfo = uni.getStorageSync("globalUser")

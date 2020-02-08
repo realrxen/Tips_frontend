@@ -1,0 +1,50 @@
+/**
+	n内外边距
+ */
+.p-2{
+	padding: 20rpx;
+}
+
+/**
+ * flex布局
+ */
+.flex{
+	display: flex;
+}
+.align-centet{
+	align-items: center;
+}
+.justify-between{
+	justify-content: space-between;
+}
+.justify-center{
+	justify-content: center;
+}
+.flex-1{
+	flex: 1;
+}
+
+/**
+ * 圆角
+ */
+.rounded-circle{
+	border-radius: 100%;
+}
+
+/**
+ * 宽度
+ */
+.w-100{
+	width: 100%;
+}
+
+/**
+ * scroll-view
+ */
+/* .scroll-view{
+	width: 100%;
+	white-space: nowrap;
+}
+.scroll-row-item{
+	display: inline-block!important;
+} */

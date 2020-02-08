@@ -21,10 +21,33 @@
 			}
 		}
         ,{
-            "path" : "pages/infomation/infomation",
+            "path" : "pages/information/information",
             "style" : {}
         }
-    ],
+        ,{
+            "path" : "pages/search/search",
+            "style" : {}
+        },
+		{
+			"path":"pages/userspace/UserSpace",
+			"style":{
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "个人空间",
+				"navigationBarBackgroundColor": "#FFD655",
+				"app-plus":{
+					"scrollIndicator":"none",
+					"titleNView":{
+						"type":"transparent",
+						"buttons":[
+							{
+								"type":"menu"
+							}
+						]
+					}
+				}
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Tips",
@@ -36,19 +59,25 @@
 		"selectedColor":"#ffd655",
 		"borderStyle":"black",
 		"backgroundColor":"#C8C7CC",
+		// "midButton":{
+		// 	"width":"80px",
+		// 	"height":"50px",
+		// 	"text":"????",
+		// 	"iconPath":"static/icos/hot.png"
+		// },
 		"list": [
-//			{
-//				"pagePath": "pages/index/index",
-//				"iconPath": "static/tabBarIco/index.png",
-//				"selectedIconPath": "static/tabBarIco/index_sel.png",
-//				"text": "首页"
-//			},
-			// {
-			// 	"pagePath":"pages/travels/travels",
-			// 	"text":"游记",
-			// 	"iconPath":"static/tabBarIco/search.png",
-			// 	"selectedIconPath":"static/tabBarIco/search_sel.png"
-			// },
+			{
+				"pagePath": "pages/information/information",
+				"iconPath": "static/tabBarIco/index.png",
+				"selectedIconPath": "static/tabBarIco/index_sel.png",
+				"text": "首页"
+			},
+			{
+				"pagePath":"pages/search/search",
+				"text":"游记",
+				"iconPath":"static/tabBarIco/search.png",
+				"selectedIconPath":"static/tabBarIco/search_sel.png"
+			},
 			{
 				"pagePath":"pages/travels/travels",
 				"text":"动态",
@@ -60,8 +89,13 @@
 				"text":"我的",
 				"iconPath":"static/tabBarIco/me.png",
 				"selectedIconPath":"./static/tabBarIco/me_sel.png"
+			},
+			{
+				"pagePath":"pages/userspace/UserSpace",
+				"text":"个人中心",
+				"iconPath":"static/tabBarIco/me.png",
+				"selectedIconPath":"./static/tabBarIco/me_sel.png"
 			}
 		]
-
 	}
 }

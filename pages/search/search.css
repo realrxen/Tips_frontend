@@ -1,0 +1,48 @@
+.search-icon{
+	width: 40upx;
+	height: 40upx;
+}
+
+.search-text{
+	font-size: 14px;
+	background-color:#F8F8F8;
+	height: 60upx;
+	width: 650upx;
+}
+
+.search-block{
+	display: flex;
+	flex-direction: row;
+	/* 设置内边距 */
+	padding: 0upx 20upx 20upx 20upx;
+	/* 固定搜索栏 */
+	position: fixed;
+	top: 100;
+	z-index: 2000;
+	background-color: #F8F8F8;
+}
+
+.search-icon-wrapper{
+	background-color:#F8F8F8;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0upx 10upx;
+}
+
+.poster{
+	width: 200upx;
+	height: 270upx;
+}
+
+.movie-list{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 100upx 10upx 0upx 10upx;
+	
+}
+.movie-wrapper{
+	padding: 20upx;
+	
+}
