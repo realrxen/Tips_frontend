@@ -21,20 +21,42 @@
 						注册/登录
 					</view>
 				</navigator>
-			</view>	
-			
+			</view>
+
 			<view class="set-wrapper" v-if="userIsLogin">
 				<navigator url="../meInfo/meInfo">
 					<image src="../../static/icos/settings.png" class="settings"></image>
 				</navigator>
 			</view>
-			
+
 		</view>
+		<view>
+			<UniListItem @click="toSpace" title="我的空间" showExtraIcon>
+				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
+			</UniListItem>
+			<UniListItem title="浏览历史" showExtraIcon>
+				<text slot="icon" class="iconfont icon-dongtai10"></text>
+			</UniListItem>
+			<UniListItem title="社区认证" showExtraIcon>
+				<text slot="icon" class="iconfont icon-dongtai11"></text>
+			</UniListItem>
+			<UniListItem @click="skip" title="审核帖子" showExtraIcon>
+				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
+			</UniListItem>
+			<UniListItem @click="skip" title="积分兑换" showExtraIcon>
+				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
+			</UniListItem>
+		</view>
+
 	</view>
 </template>
 
 <script>
+	import UniListItem from '../../components/uni-ui/uni-list-item/uni-list-item.vue'
 	export default {
+		components:{
+			UniListItem
+		},
 		data() {
 			return {
 				userIsLogin:false,
@@ -42,7 +64,7 @@
 			}
 		},
 		methods: {
-			
+
 		},
 		onShow() {
 			// var me = this

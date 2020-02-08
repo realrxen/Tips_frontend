@@ -47,7 +47,11 @@
 				}
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/souvenir/souvenir",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Tips",

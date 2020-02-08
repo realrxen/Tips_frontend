@@ -17,10 +17,10 @@
 	-webkit-flex-direction: row;
 	        flex-direction: row;
 	/* 设置内边距 */
-	padding: 0rpx 20rpx 20rpx 20rpx;
+	padding: 15rpx;
 	/* 固定搜索栏 */
 	position: fixed;
-	top: 100;
+	top: 0;
 	z-index: 2000;
 	background-color: #F8F8F8;
 }

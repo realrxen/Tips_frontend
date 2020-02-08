@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "counter": "/components/souvenir/counter/counter"
+  }
+}

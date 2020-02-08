@@ -63,7 +63,7 @@
 				show:false,
 				userinfo:{
 					bgimg:1,
-					userpic:"../../static/icos/default-face.png",
+					userpic:"http://img4.imgtn.bdimg.com/it/u=3006607636,42691152&fm=11&gp=0.jpg",
 					username:"昵称",
 					sex:1,
 					age:20,
@@ -83,8 +83,8 @@
 				tabIndex:0,
 				tabBars:[
 					{ name:"主页",id:"zhuye" },
-					{ name:"糗事",id:"qiushi" },
-					{ name:"动态",id:"dongtai" },
+					{ name:"动态",id:"qiushi" },
+					{ name:"游记",id:"dongtai" },
 				],
 				tablist:[ {},
 					{
@@ -101,7 +101,7 @@
 								titlepic:"",
 								video:false,
 								share:false,
-								path:"深圳 龙岗",
+								path:"北京",
 								sharenum:20,
 								commentnum:30,
 								goodnum:20
@@ -117,7 +117,7 @@
 								titlepic:"../../static/demo/datapic/11.jpg",
 								video:false,
 								share:false,
-								path:"深圳 龙岗",
+								path:"北京",
 								sharenum:20,
 								commentnum:30,
 								goodnum:20
@@ -136,7 +136,7 @@
 									long:"2:47"
 								},
 								share:false,
-								path:"深圳 龙岗",
+								path:"北京",
 								sharenum:20,
 								commentnum:30,
 								goodnum:20
@@ -157,7 +157,7 @@
 								titlepic:"",
 								video:false,
 								share:false,
-								path:"深圳 龙岗",
+								path:"北京",
 								sharenum:20,
 								commentnum:30,
 								goodnum:20
@@ -173,7 +173,7 @@
 								titlepic:"../../static/demo/datapic/11.jpg",
 								video:false,
 								share:false,
-								path:"深圳 龙岗",
+								path:"北京",
 								sharenum:20,
 								commentnum:30,
 								goodnum:20
@@ -192,7 +192,7 @@
 									long:"2:47"
 								},
 								share:false,
-								path:"深圳 龙岗",
+								path:"北京",
 								sharenum:20,
 								commentnum:30,
 								goodnum:20
@@ -243,7 +243,7 @@
 						titlepic:"../../static/demo/datapic/11.jpg",
 						video:false,
 						share:false,
-						path:"深圳 龙岗",
+						path:"北京",
 						sharenum:20,
 						commentnum:30,
 						goodnum:20

@@ -8,6 +8,7 @@
 	-webkit-box-pack: start;
 	-webkit-justify-content: flex-start;
 	        justify-content: flex-start;
+	margin-top: 93rpx;
 }
 .itemWrapper{
 	display: -webkit-box;

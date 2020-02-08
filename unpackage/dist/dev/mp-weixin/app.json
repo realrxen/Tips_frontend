@@ -6,7 +6,8 @@
     "pages/meInfo/meInfo",
     "pages/information/information",
     "pages/search/search",
-    "pages/userspace/UserSpace"
+    "pages/userspace/UserSpace",
+    "pages/souvenir/souvenir"
   ],
   "subPackages": [],
   "window": {
@@ -55,6 +56,5 @@
   },
   "usingComponents": {
     "divider": "/components/Divider/Divider"
-  },
-  "sitemapLocation": "sitemap42.json"
+  }
 }
