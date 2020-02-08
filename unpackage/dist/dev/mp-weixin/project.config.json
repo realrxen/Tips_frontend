@@ -9,7 +9,9 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
 	"appid": "wx089fa3c4c3dd75d0",
-	"projectname": "travel",
+	"projectname": "Tips",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

@@ -20,6 +20,10 @@
 				"navigationBarBackgroundColor": "#FFD655"
 			}
 		}
+        ,{
+            "path" : "pages/infomation/infomation",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -39,12 +43,12 @@
 //				"selectedIconPath": "static/tabBarIco/index_sel.png",
 //				"text": "首页"
 //			},
-			{
-				"pagePath":"pages/travels/travels",
-				"text":"游记",
-				"iconPath":"static/tabBarIco/search.png",
-				"selectedIconPath":"static/tabBarIco/search_sel.png"
-			},
+			// {
+			// 	"pagePath":"pages/travels/travels",
+			// 	"text":"游记",
+			// 	"iconPath":"static/tabBarIco/search.png",
+			// 	"selectedIconPath":"static/tabBarIco/search_sel.png"
+			// },
 			{
 				"pagePath":"pages/travels/travels",
 				"text":"动态",
