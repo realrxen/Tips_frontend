@@ -162,6 +162,7 @@
 
 		/* 标题start */
 		.title{
+			width: 100%;
 			font-size: 32rpx;
 			padding: 0 20rpx 0 32rpx;
 			margin: 10rpx 0 0 0;

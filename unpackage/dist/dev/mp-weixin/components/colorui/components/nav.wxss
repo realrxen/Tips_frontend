@@ -1,0 +1,8 @@
+
+.font-color-change3.data-v-2b33d4ff{
+    color: #FFD655;
+    border-bottom:thick solid #FFD655;
+    font-size: 35rpx;
+    font-weight: bold;
+}
+

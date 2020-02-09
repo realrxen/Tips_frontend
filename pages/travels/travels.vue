@@ -1,38 +1,40 @@
 <template>
 	<view class="page page-fill">
-		
+
 		<view class="travels">
 			<!-- 标题 -->
 			<view class="travels-title">
 				<input type="text" placeholder="给旅行日记起个标题吧" class="place-text" v-model="titleData"/>
 			</view>
 			<!-- 描述 -->
-			<view class="travels-describe">
-				<textarea  placeholder="描述下你的旅行心得,帮助更多旅行的人" v-model="contentData"/>
-			</view>
-		</view>
-		<view class="travels-image">
-			<view class="topimg">
-				<image src="../../static/tab/topimg.png" mode="widthFix" @click="changePendingFace"></image>
-			</view>
-			<!-- 九宫格 -->
-			<view class="conteng">
-				<block v-for="(item,index) in imgs" :key="index">
-					<view class="conteng-img">
-						<image :src="item" mode="aspectFill" class="uploadimg" @click="preImage(index)"></image>
-						<image src="../../static/tab/deteimg.svg" mode="widthFix" class="deleteimg" @click="deleteImg(index)"></image>
-					</view>
-				</block>
-			</view>
-		</view>
+<!--			<view class="travels-describe">-->
+<!--				<textarea  placeholder="描述下你的旅行心得,帮助更多旅行的人" v-model="contentData"/>-->
+<!--			</view>-->
+			<RichText></RichText>
+<!--		<RichText></RichText>-->
+<!--		<view class="travels-image">-->
+<!--			<view class="topimg">-->
+<!--				<image src="../../static/tab/topimg.png" mode="widthFix" @click="changePendingFace"></image>-->
+<!--			</view>-->
+<!--			&lt;!&ndash; 九宫格 &ndash;&gt;-->
+<!--			<view class="conteng">-->
+<!--				<block v-for="(item,index) in imgs" :key="index">-->
+<!--					<view class="conteng-img">-->
+<!--						<image :src="item" mode="aspectFill" class="uploadimg" @click="preImage(index)"></image>-->
+<!--						<image src="../../static/tab/deteimg.svg" mode="widthFix" class="deleteimg" @click="deleteImg(index)"></image>-->
+<!--					</view>-->
+<!--				</block>-->
+<!--			</view>-->
+<!--		</view>-->
 		<!-- 发布 -->
+			<UploadImages></UploadImages>
 		<view class="release" @click="upload">
 			发布
 		</view>
 		<HMmessages ref="HMmessages" @complete="HMmessages = $refs.HMmessages" @clickMessage="clickMessage"></HMmessages>
-	
-		
-	</view>
+
+		</view>
+		<Tabbar></Tabbar>
 	</view>
 </template>
 
@@ -40,10 +42,14 @@
 <script>
 	import common from "../../common/common.js"
 	import HMmessages from "../../components/HM-messages/HMmessages.vue"
+	import RichText from "./components/richtext/RichText.vue";
+	import UploadImages from "../../components/colorui/components/uploadImages";
 	var serverUrl = common.serverUrl
 	export default {
 		components:{
-			HMmessages
+			HMmessages,
+			RichText,
+			UploadImages
 		},
 		data() {
 			return {
@@ -66,12 +72,12 @@
 		},
 		methods: {
 			upload(){
-				
+
 				// if(this.imgs.length===0){
 				// 	this.HMmessages.show("成功",{iconColor:'#ffffff',fontColor:'#ffffff', background:"#ffd655"})
-				// }	
+				// }
 				var i = 0
-				var length = this.imgs.length 
+				var length = this.imgs.length
 				this.upLoadApi(i,length)
 			},
 			upLoadApi(i,length){
@@ -92,12 +98,12 @@
 						}else{
 							return
 						}
-					}	
+					}
 					},
 					complete(){}
 					}
 			)},
-			
+
 			// 重新选择头像
 			changePendingFace(){
 				uni.chooseImage({
@@ -110,7 +116,7 @@
 					// console.log(res.tempFilePaths)
 					// this.imgUrl=tempFilePath
 					// console.log(this.imgUrl)
-					
+
 					this.imgs.push(res.tempFilePaths[0])
 					console.log(this.imgs)
 					}

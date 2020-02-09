@@ -2,6 +2,10 @@ import Vue from 'vue'
 import App from './App'
 import Divider from './components/Divider/Divider.vue'
 Vue.component("Divider",Divider)
+import cuCustom from './components/colorui/components/cu-custom.vue'
+Vue.component('cu-custom',cuCustom)
+import Tabbar from './components/colorui/components/bar.vue'
+Vue.component('Tabbar',Tabbar)
 Vue.config.productionTip = false
 Vue.prototype.getGlobalUser=function(key){
 	var userInfo = uni.getStorageSync("globalUser")

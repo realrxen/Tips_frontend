@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "t-color-picker": "/components/t-color-picker/t-color-picker"
+  }
+}

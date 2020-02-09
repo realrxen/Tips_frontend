@@ -1,6 +1,6 @@
 <template>
     <view class="page page-fill">
-        <view class="BarWrapper">
+        <!-- <view class="BarWrapper">
             <view class="buttonWrapper">
                 <view class="button" v-for="(tabBar,order) in tabBars" :key="order"
                       :class="tabIndex===order?'font-color-change3':''"
@@ -16,7 +16,8 @@
         </block>
         <view class="publish animated fadeInUp">
             <image src="../../static/tab/fab.png" mode="widthFix" @click="write"></image>
-        </view>
+        </view> -->
+		<tabBar></tabBar>
     </view>
 </template>
 
@@ -47,7 +48,7 @@
                         faceIcon:'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
                         createTime:'2000-10-07',
                         isFollow:false,
-                        title:'LoveLOVELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDASDSAD看附件打开附件打开啦基督教考虑到房价快递君框架的克里夫健康的即可饥渴',
+                        title:'Lo看附件打开附件打开啦基督教考虑到房价快递君框架的克里夫健康的即可饥渴',
                         coverPicture:"http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg",
                         love:{
                             type:'like',

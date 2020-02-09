@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/post/post",
     "pages/travels/travels",
     "pages/me/me",
     "pages/registLogin/registLogin",
@@ -13,48 +14,12 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Tips",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#FFD655",
     "backgroundColor": "#F8F8F8"
   },
-  "tabBar": {
-    "color": "wheat",
-    "selectedColor": "#ffd655",
-    "borderStyle": "black",
-    "backgroundColor": "#C8C7CC",
-    "list": [
-      {
-        "pagePath": "pages/information/information",
-        "iconPath": "static/tabBarIco/index.png",
-        "selectedIconPath": "static/tabBarIco/index_sel.png",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/search/search",
-        "text": "游记",
-        "iconPath": "static/tabBarIco/search.png",
-        "selectedIconPath": "static/tabBarIco/search_sel.png"
-      },
-      {
-        "pagePath": "pages/travels/travels",
-        "text": "动态",
-        "iconPath": "static/tabBarIco/search.png",
-        "selectedIconPath": "static/tabBarIco/search_sel.png"
-      },
-      {
-        "pagePath": "pages/me/me",
-        "text": "我的",
-        "iconPath": "static/tabBarIco/me.png",
-        "selectedIconPath": "./static/tabBarIco/me_sel.png"
-      },
-      {
-        "pagePath": "pages/userspace/UserSpace",
-        "text": "个人中心",
-        "iconPath": "static/tabBarIco/me.png",
-        "selectedIconPath": "./static/tabBarIco/me_sel.png"
-      }
-    ]
-  },
   "usingComponents": {
-    "divider": "/components/Divider/Divider"
+    "divider": "/components/Divider/Divider",
+    "cu-custom": "/components/colorui/components/cu-custom",
+    "tabbar": "/components/colorui/components/bar"
   }
 }

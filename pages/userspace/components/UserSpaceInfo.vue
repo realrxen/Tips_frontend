@@ -2,8 +2,8 @@
 	<view class="user-space-userinfo">
 		<view class="user-space-userinfo-item">
 			<view>账号信息</view>
-			<view>糗龄：{{getRegAge}}</view>
-			<view>糗百ID：{{userinfo.id}}</view>
+			<view>用户名：{{getRegAge}}</view>
+			<view>ID：{{userinfo.id}}</view>
 		</view>
 		<view class="user-space-userinfo-item">
 			<view>个人信息</view>

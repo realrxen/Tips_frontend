@@ -36,6 +36,7 @@
 		@hide="togleShow"
 		@lahei="lahei"
 		@beizhu="beizhu"></user-space-popup>
+		<Tabbar></Tabbar>
 
 	</view>
 </template>

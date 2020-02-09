@@ -9,9 +9,13 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni, createApp) {__webpack_require__(/*! uni-pages */ 4);__webpack_require__(/*! @dcloudio/uni-stat */ 5);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Divider = function Divider() {return __webpack_require__.e(/*! import() | components/Divider/Divider */ "components/Divider/Divider").then(__webpack_require__.bind(null, /*! ./components/Divider/Divider.vue */ 81));};
+var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Divider = function Divider() {return __webpack_require__.e(/*! import() | components/Divider/Divider */ "components/Divider/Divider").then(__webpack_require__.bind(null, /*! ./components/Divider/Divider.vue */ 87));};
 
-_vue.default.component("Divider", Divider);
+_vue.default.component("Divider", Divider);var cuCustom = function cuCustom() {return __webpack_require__.e(/*! import() | components/colorui/components/cu-custom */ "components/colorui/components/cu-custom").then(__webpack_require__.bind(null, /*! ./components/colorui/components/cu-custom.vue */ 94));};
+
+_vue.default.component('cu-custom', cuCustom);var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ./components/colorui/components/bar.vue */ 99));};
+
+_vue.default.component('Tabbar', Tabbar);
 _vue.default.config.productionTip = false;
 _vue.default.prototype.getGlobalUser = function (key) {
   var userInfo = uni.getStorageSync("globalUser");
@@ -101,10 +105,31 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
   onLaunch: function onLaunch() {
-    console.log('App Launch');
+    uni.getSystemInfo({
+      success: function success(e) {
+
+
+
+
+
+
+
+
+
+        Vue.prototype.StatusBar = e.statusBarHeight;
+        var custom = wx.getMenuButtonBoundingClientRect();
+        Vue.prototype.Custom = custom;
+        Vue.prototype.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+
+
+
+
+
+      } });
+
   },
   onShow: function onShow() {
     console.log('App Show');
@@ -112,6 +137,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   onHide: function onHide() {
     console.log('App Hide');
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 12 */

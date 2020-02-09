@@ -8,8 +8,8 @@
 /* 选中的样式 */
 .activetext{background: #ffdd00 !important;}
 /* 标题 */
-.place-text{color: #808080 !important; font-size: 30rpx;}
-.travels-title{margin: 40rpx 0;}
+.place-text{color: #808080 !important; font-size: 30rpx; padding: 0px 20px}
+.travels-title{margin: 20rpx 0 10rpx 0;}
 /* 描述 */
 .travels-describe textarea{width: 100%; color: #808080 !important; font-size: 30rpx;}
 /* 上传图片 */

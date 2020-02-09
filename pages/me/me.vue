@@ -47,6 +47,7 @@
 				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 			</UniListItem>
 		</view>
+		<Tabbar></Tabbar>
 
 	</view>
 </template>
