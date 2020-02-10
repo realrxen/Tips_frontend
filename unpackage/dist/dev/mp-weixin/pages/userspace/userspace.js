@@ -133,7 +133,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var userSpaceHead = function userSpaceHead() {return __webpack_require__.e(/*! import() | pages/userspace/components/UserSpaceHead */ "pages/userspace/components/UserSpaceHead").then(__webpack_require__.bind(null, /*! ./components/UserSpaceHead.vue */ 151));};var userSpaceUserinfo = function userSpaceUserinfo() {return Promise.all(/*! import() | pages/userspace/components/UserSpaceInfo */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/userspace/components/UserSpaceInfo")]).then(__webpack_require__.bind(null, /*! ./components/UserSpaceInfo.vue */ 158));};var userSpacePopup = function userSpacePopup() {return __webpack_require__.e(/*! import() | pages/userspace/components/UserSpacePopup */ "pages/userspace/components/UserSpacePopup").then(__webpack_require__.bind(null, /*! ./components/UserSpacePopup.vue */ 166));};var swiperTabHead = function swiperTabHead() {return __webpack_require__.e(/*! import() | components/index/swiper-tab-head */ "components/index/swiper-tab-head").then(__webpack_require__.bind(null, /*! ../../components/index/swiper-tab-head.vue */ 173));};var homeData = function homeData() {return __webpack_require__.e(/*! import() | components/home/home-data */ "components/home/home-data").then(__webpack_require__.bind(null, /*! ../../components/home/home-data.vue */ 180));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common-list */ "components/common/common-list").then(__webpack_require__.bind(null, /*! ../../components/common/common-list.vue */ 187));};var loadMore = function loadMore() {return __webpack_require__.e(/*! import() | components/common/load-more */ "components/common/load-more").then(__webpack_require__.bind(null, /*! ../../components/common/load-more.vue */ 194));};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var userSpaceHead = function userSpaceHead() {return __webpack_require__.e(/*! import() | pages/userspace/components/UserSpaceHead */ "pages/userspace/components/UserSpaceHead").then(__webpack_require__.bind(null, /*! ./components/UserSpaceHead.vue */ 202));};var userSpaceUserinfo = function userSpaceUserinfo() {return Promise.all(/*! import() | pages/userspace/components/UserSpaceInfo */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/userspace/components/UserSpaceInfo")]).then(__webpack_require__.bind(null, /*! ./components/UserSpaceInfo.vue */ 209));};var userSpacePopup = function userSpacePopup() {return __webpack_require__.e(/*! import() | pages/userspace/components/UserSpacePopup */ "pages/userspace/components/UserSpacePopup").then(__webpack_require__.bind(null, /*! ./components/UserSpacePopup.vue */ 217));};var swiperTabHead = function swiperTabHead() {return __webpack_require__.e(/*! import() | components/index/swiper-tab-head */ "components/index/swiper-tab-head").then(__webpack_require__.bind(null, /*! ../../components/index/swiper-tab-head.vue */ 224));};var homeData = function homeData() {return __webpack_require__.e(/*! import() | components/home/home-data */ "components/home/home-data").then(__webpack_require__.bind(null, /*! ../../components/home/home-data.vue */ 231));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common-list */ "components/common/common-list").then(__webpack_require__.bind(null, /*! ../../components/common/common-list.vue */ 238));};var loadMore = function loadMore() {return __webpack_require__.e(/*! import() | components/common/load-more */ "components/common/load-more").then(__webpack_require__.bind(null, /*! ../../components/common/load-more.vue */ 245));};var _default =
+
 
 
 
@@ -197,6 +198,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   data: function data() {
     return {
       show: false,
+      show1: false,
       userinfo: {
         bgimg: 1,
         userpic: "http://img4.imgtn.bdimg.com/it/u=3006607636,42691152&fm=11&gp=0.jpg",
@@ -223,6 +225,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       { name: "游记", id: "dongtai" }],
 
       tablist: [{},
+
+
       {
         loadtext: "上拉加载更多",
         list: [
@@ -346,6 +350,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   onNavigationBarButtonTap: function onNavigationBarButtonTap(e) {
     if (e.index == 0) {this.togleShow();}
   },
+  onLoad: function onLoad() {
+    this.show1 = false;
+  },
+  onHide: function onHide() {
+    this.show1 = false;
+  },
   methods: {
     // 操作菜单显示隐藏
     togleShow: function togleShow() {
@@ -391,6 +401,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     },
     tabtap: function tabtap(index) {
       this.tabIndex = index;
+    },
+    pop: function pop(data) {
+      this.show1 = data;
     } } };exports.default = _default;
 
 /***/ }),

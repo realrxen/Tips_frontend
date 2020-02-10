@@ -21,25 +21,41 @@
 <!--					   class="poster"></image>-->
 <!--			</view>-->
 <!--		</view>-->
-		<Tabbar></Tabbar>
+		<PopUp :show="show"></PopUp>
+		<Tabbar @pop="pop"></Tabbar>
 	</view>
 </template>
 
 <script>
 	import SearchBar from "../../components/colorui/components/searchbar.vue"
 	import SearchItem from "./components/SearchItem.vue";
+	import Tabbar from "../../components/colorui/components/bar";
+	import PopUp from "../../components/popup/popup";
 	export default {
 		components:{
 		SearchItem,
-		SearchBar
+		SearchBar,
+		Tabbar,
+		PopUp,
 		},
 		data() {
 			return {
-
+				show:false
 			}
 		},
+		onLoad() {},
+		onShow() {
+			// setTimeout(() => {
+			this.show = false;
+			// }, 500);
+		},
+		onHide() {
+			this.show = false;
+		},
 		methods: {
-
+			pop(data){
+				this.show = data;
+			}
 		}
 	}
 </script>

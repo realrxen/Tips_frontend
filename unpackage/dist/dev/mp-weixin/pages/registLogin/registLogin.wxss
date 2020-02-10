@@ -37,9 +37,9 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	
+
 	border-bottom: solid 1px #DBDBDA;
-	
+
 	padding-bottom: 20rpx;
 }
 .words-lbl {
@@ -55,13 +55,29 @@
 
 /* 注册登录 end */
 
+/*密码登录start*/
+.password-login-Wrapper{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	padding-top: 10rpx;
+	padding-bottom: 30rpx;}
+
+/*密码登录end*/
+
 /* 第三方登录 start */
 .third-wrapper {
 	width: 100%;
 	/* 固定底部 */
 	/* bottom: 0;
 	position: fixed; */
-	
+
 	margin-top: 60rpx;
 }
 .third-line {
@@ -79,11 +95,11 @@
 .third-words {
 	color: #A9A9A9;
 	font-size: 13px;
-	
+
 	display: -webkit-box;
-	
+
 	display: -webkit-flex;
-	
+
 	display: flex;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
@@ -102,11 +118,11 @@
 }
 .third-icos-wrapper {
 	margin-top: 30rpx;
-	
+
 	display: -webkit-box;
-	
+
 	display: -webkit-flex;
-	
+
 	display: flex;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;

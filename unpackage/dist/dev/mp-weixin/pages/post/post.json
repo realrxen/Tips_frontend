@@ -3,6 +3,7 @@
     "nav": "/components/colorui/components/nav",
     "user-post": "/pages/post/components/UserPost",
     "card": "/components/colorui/components/card",
-    "tabbar": "/components/colorui/components/bar"
+    "tabbar": "/components/colorui/components/bar",
+    "pop-up": "/components/popup/popup"
   }
 }

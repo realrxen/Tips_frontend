@@ -140,7 +140,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 106));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 99));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 303));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 290));};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 122));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 115));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 129));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 136));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 143));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -162,7 +174,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     Nav: Nav,
     UserPost: UserPost,
     Card: Card,
-    Tabbar: Tabbar },
+    Tabbar: Tabbar,
+    PopUp: PopUp },
 
   data: function data() {
 
@@ -226,12 +239,155 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
           hateCount: 10 },
 
         commentCount: 8622000,
-        collectCount: 7000 }] };
+        collectCount: 7000 }],
 
 
+      dataList: [
+      { posts: [
+        {
+          username: "Seeumt",
+          faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
+          createTime: '2000-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg",
+          love: {
+            type: 'like',
+            likeCount: 6000,
+            hateCount: 0 },
+
+          commentCount: 8222000,
+          collectCount: 5000 },
+
+        {
+          username: 'Tips',
+          faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
+          createTime: '2010-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "",
+          love: {
+            type: 'like',
+            likeCount: 8000,
+            hateCount: 100 },
+
+          commentCount: 0,
+          collectCount: 7000 },
+
+        {
+          username: 'Test1',
+          faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
+          createTime: '2010-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg",
+          love: {
+            type: 'hate',
+            likeCount: 0,
+            hateCount: 1 },
+
+          commentCount: 8622000,
+          collectCount: 7000 },
+
+        {
+          username: 'Test2',
+          faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
+          createTime: '2010-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg",
+          love: {
+            type: '',
+            likeCount: 8000,
+            hateCount: 10 },
+
+          commentCount: 8622000,
+          collectCount: 7000 }] },
+
+
+      { posts: [
+        {
+          username: "Tips",
+          faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
+          createTime: '2000-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+          love: {
+            type: 'like',
+            likeCount: 6000,
+            hateCount: 0 },
+
+          commentCount: 8222000,
+          collectCount: 5000 },
+
+        {
+          username: 'Tips',
+          faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
+          createTime: '2010-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "",
+          love: {
+            type: 'like',
+            likeCount: 8000,
+            hateCount: 100 },
+
+          commentCount: 0,
+          collectCount: 7000 },
+
+        {
+          username: 'Test1',
+          faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
+          createTime: '2010-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+          love: {
+            type: 'hate',
+            likeCount: 0,
+            hateCount: 1 },
+
+          commentCount: 8622000,
+          collectCount: 7000 },
+
+        {
+          username: 'Test2',
+          faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
+          createTime: '2010-10-07',
+          isFollow: false,
+          title: 'Love',
+          coverPicture: "https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+          love: {
+            type: '',
+            likeCount: 8000,
+            hateCount: 10 },
+
+          commentCount: 8622000,
+          collectCount: 7000 }] }],
+
+
+
+      show: false,
+      tabIndex: 0 };
 
   },
-  methods: {} };exports.default = _default;
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
+    // setTimeout(() => {
+    this.show = false;
+    // }, 500);
+  },
+  onHide: function onHide() {
+    this.show = false;
+  },
+  methods: {
+    tabChanged: function tabChanged(data) {
+      this.tabIndex = data;
+    },
+    pop: function pop(data) {
+      this.show = data;
+    } } };exports.default = _default;
 
 /***/ })
 ],[[15,"common/runtime","common/vendor"]]]);

@@ -133,7 +133,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var SearchBar = function SearchBar() {return __webpack_require__.e(/*! import() | components/colorui/components/searchbar */ "components/colorui/components/searchbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/searchbar.vue */ 298));};var SearchItem = function SearchItem() {return __webpack_require__.e(/*! import() | pages/search/components/SearchItem */ "pages/search/components/SearchItem").then(__webpack_require__.bind(null, /*! ./components/SearchItem.vue */ 144));};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var SearchBar = function SearchBar() {return __webpack_require__.e(/*! import() | components/colorui/components/searchbar */ "components/colorui/components/searchbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/searchbar.vue */ 188));};var SearchItem = function SearchItem() {return __webpack_require__.e(/*! import() | pages/search/components/SearchItem */ "pages/search/components/SearchItem").then(__webpack_require__.bind(null, /*! ./components/SearchItem.vue */ 195));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar */ 115));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 143));};var _default =
+
+
+
 
 
 
@@ -166,14 +169,28 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 {
   components: {
     SearchItem: SearchItem,
-    SearchBar: SearchBar },
+    SearchBar: SearchBar,
+    Tabbar: Tabbar,
+    PopUp: PopUp },
 
   data: function data() {
-    return {};
-
+    return {
+      show: false };
 
   },
-  methods: {} };exports.default = _default;
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
+    // setTimeout(() => {
+    this.show = false;
+    // }, 500);
+  },
+  onHide: function onHide() {
+    this.show = false;
+  },
+  methods: {
+    pop: function pop(data) {
+      this.show = data;
+    } } };exports.default = _default;
 
 /***/ }),
 

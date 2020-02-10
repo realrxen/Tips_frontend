@@ -6,6 +6,8 @@ import cuCustom from './components/colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
 import Tabbar from './components/colorui/components/bar.vue'
 Vue.component('Tabbar',Tabbar)
+import PopUp from "./components/popup/popup";
+Vue.component('PopUp',PopUp)
 Vue.config.productionTip = false
 Vue.prototype.getGlobalUser=function(key){
 	var userInfo = uni.getStorageSync("globalUser")

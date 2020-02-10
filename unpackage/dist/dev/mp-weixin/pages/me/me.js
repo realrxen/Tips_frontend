@@ -133,7 +133,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var UniListItem = function UniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/uni-list-item/uni-list-item.vue */ 130));};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var UniListItem = function UniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/uni-list-item/uni-list-item.vue */ 174));};var _default =
+
 
 
 
@@ -196,13 +197,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   data: function data() {
     return {
       userIsLogin: false,
-      userInfo: {} };
+      userInfo: {},
+      show: false };
 
   },
-  methods: {},
-
+  methods: {
+    pop: function pop(data) {
+      this.show = data;
+    } },
 
   onShow: function onShow() {
+    this.show = false;
     // var me = this
     // var userInfo = uni.getStorageSync("globalUser")
     // if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
@@ -213,6 +218,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } else {
       this.userIsLogin = false;
     }
+  },
+  onHide: function onHide() {
+    this.show = false;
   } };exports.default = _default;
 
 /***/ }),

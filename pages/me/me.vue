@@ -47,7 +47,8 @@
 				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 			</UniListItem>
 		</view>
-		<Tabbar></Tabbar>
+		<PopUp :show="show"></PopUp>
+		<Tabbar @pop="pop"></Tabbar>
 
 	</view>
 </template>
@@ -61,13 +62,17 @@
 		data() {
 			return {
 				userIsLogin:false,
-				userInfo:{}
+				userInfo:{},
+				show:false
 			}
 		},
 		methods: {
-
+			pop(data){
+				this.show = data;
+			}
 		},
 		onShow() {
+			this.show=false
 			// var me = this
 			// var userInfo = uni.getStorageSync("globalUser")
 			// if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
@@ -78,6 +83,9 @@
 			}else{
 				this.userIsLogin = false
 			}
+		},
+		onHide(){
+			this.show=false
 		}
 	}
 </script>

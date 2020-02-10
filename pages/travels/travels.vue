@@ -34,7 +34,8 @@
 		<HMmessages ref="HMmessages" @complete="HMmessages = $refs.HMmessages" @clickMessage="clickMessage"></HMmessages>
 
 		</view>
-		<Tabbar></Tabbar>
+		<PopUp :show="show"></PopUp>
+		<Tabbar @pop="pop"></Tabbar>
 	</view>
 </template>
 

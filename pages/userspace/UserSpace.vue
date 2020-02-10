@@ -36,7 +36,8 @@
 		@hide="togleShow"
 		@lahei="lahei"
 		@beizhu="beizhu"></user-space-popup>
-		<Tabbar></Tabbar>
+		<PopUp :show="show1"></PopUp>
+		<Tabbar @pop="pop"></Tabbar>
 
 	</view>
 </template>
@@ -62,6 +63,7 @@
 		data() {
 			return {
 				show:false,
+				show1:false,
 				userinfo:{
 					bgimg:1,
 					userpic:"http://img4.imgtn.bdimg.com/it/u=3006607636,42691152&fm=11&gp=0.jpg",
@@ -87,7 +89,9 @@
 					{ name:"动态",id:"qiushi" },
 					{ name:"游记",id:"dongtai" },
 				],
-				tablist:[ {},
+				tablist:[ {
+
+				},
 					{
 						loadtext:"上拉加载更多",
 						list:[
@@ -211,6 +215,12 @@
 		onNavigationBarButtonTap(e) {
 			if(e.index==0){ this.togleShow(); }
 		},
+		onLoad(){
+			this.show1 = false;
+		},
+		onHide(){
+			this.show1=false
+		},
 		methods: {
 			// 操作菜单显示隐藏
 			togleShow(){
@@ -257,6 +267,9 @@
 			tabtap(index){
 				this.tabIndex=index;
 			},
+			pop(data){
+				this.show1 = data;
+			}
 		}
 	}
 </script>

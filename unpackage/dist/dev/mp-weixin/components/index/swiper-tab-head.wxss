@@ -13,7 +13,7 @@
 	border-bottom: 6rpx solid #FEDE33;
 	width: 70rpx;
 	margin: auto;
-	border-top: 6rpx solid #FEDE33;
+	border-top: 6rpx solid #FFD655;
 	border-radius:20rpx;
 }
 

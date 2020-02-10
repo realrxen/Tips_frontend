@@ -1,1 +1,1 @@
-<view class="page page-fill"><search-bar vue-id="1" bind:__l="__l"></search-bar><search-item vue-id="2" bind:__l="__l"></search-item><tabbar vue-id="3" bind:__l="__l"></tabbar></view>
+<view class="page page-fill"><search-bar vue-id="1" bind:__l="__l"></search-bar><search-item vue-id="2" bind:__l="__l"></search-item><pop-up vue-id="3" show="{{show}}" bind:__l="__l"></pop-up><tabbar bind:pop="__e" vue-id="4" data-event-opts="{{[['^pop',[['pop']]]]}}" bind:__l="__l"></tabbar></view>

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="cu-bar search bg-white">
+		<view class="cu-bar search-bar search bg-white">
 				<view class="cu-avatar round" style="background-image:url(http://img4.imgtn.bdimg.com/it/u=3006607636,42691152&fm=11&gp=0.jpg)"></view>
 				<view class="search-form round">
 					<text class="cuIcon-search"></text>
@@ -24,9 +24,14 @@
 		methods: {
 
 		}
-	}
+	}	
 </script>
 
 <style>
-
+	.search-bar{
+		position: fixed;
+		top: 0;
+		z-index: 2000;
+		width: 100%;
+	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view class="page page-fill">
+	<view class="page page-fill User-Post">
 		<view class="article">
 			<!-- 头像昵称 -->
 			<view class="userWrapper">
@@ -38,11 +38,25 @@
 					@click="openDetail"></image> -->
 				</view>
 			</view>
-			
+			<view class="myTagsWrapper">
+				<view  class="bg-main myTag">
+					<view class="tagContent">#周末</view>
+				</view>
+				<view  class="bg-main myTag">
+					<view class="tagContent">#自驾游</view>
+				</view>
+				<view  class="bg-main myTag">
+					<view class="tagContent">#低消费</view>
+				</view>
+				<view  class="bg-main myTag">
+					<view class="tagContent">#自然</view>
+				</view>
+			</view>
+
 			<!--图标按钮-->
 			<view class="operationIconsWrapper">
 				<!-- 点赞 -->
-				<view class="myIcon animated faster" hover-class="rubberBand font-color-change"
+				<view class="myIcon cuIcon-like animated faster" hover-class="rubberBand font-color-change"
 				@click="love('like')"
 				:class="post.love.type==='like' ? 'font-color-change2':''"
 				>
@@ -50,7 +64,7 @@
 						<text class="iconText">{{post.love.likeCount>0?post.love.likeCount:'喜欢'}}</text>
 				</view>
 				<!-- 点踩 -->
-				<view class="myIcon animated faster" hover-class="rubberBand font-color-change"
+				<view class="myIcon cuIcon-selection animated faster" hover-class="rubberBand font-color-change"
 				@click="love('hate')"
 				:class="post.love.type==='hate' ? 'font-color-change2':''"
 				>
@@ -58,12 +72,12 @@
 						<text class="iconText">{{post.love.hateCount>0?post.love.hateCount:'不喜欢'}}</text>
 				</view>
 				<!-- 评论 -->
-				<view class="myIcon animated faster" hover-class="rubberBand font-color-change">
+				<view class="myIcon animated cuIcon-comment faster" hover-class="rubberBand font-color-change">
 						<text class="iconfont icon-shanzi icon"></text>
 						<text class="iconText">{{post.commentCount>0?post.commentCount:'评论'}}</text>
 				</view>
 				<!-- 收藏 -->
-				<view class="myIcon animated faster" hover-class="rubberBand font-color-change">
+				<view class="myIcon animated cuIcon-forward faster" hover-class="rubberBand font-color-change">
 						<text class="iconfont icon-dahongdenglong icon"></text>
 						<text class="iconText">{{post.collectCount}}</text>
 				</view>

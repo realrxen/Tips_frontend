@@ -8,7 +8,9 @@
     "pages/information/information",
     "pages/search/search",
     "pages/userspace/UserSpace",
-    "pages/souvenir/souvenir"
+    "pages/souvenir/souvenir",
+    "pages/registLogin/login",
+    "pages/registLogin/teleLogin"
   ],
   "subPackages": [],
   "window": {
@@ -20,6 +22,7 @@
   "usingComponents": {
     "divider": "/components/Divider/Divider",
     "cu-custom": "/components/colorui/components/cu-custom",
-    "tabbar": "/components/colorui/components/bar"
+    "tabbar": "/components/colorui/components/bar",
+    "pop-up": "/components/popup/popup"
   }
 }

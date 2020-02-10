@@ -54,6 +54,12 @@
 	    ,{
             "path" : "pages/souvenir/souvenir",
             "style" : {}
+        },{
+            "path" : "pages/registLogin/login",
+            "style" : {}
+        },{
+            "path" : "pages/registLogin/teleLogin",
+            "style" : {}
         }
 
     ],

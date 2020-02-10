@@ -6553,14 +6553,14 @@ to {
 	display: none;
 }
 .nav .cu-item {
-	height: 90rpx;
+	height: 86rpx;
 	display: inline-block;
-	line-height: 90rpx;
+	line-height: 86rpx;
 	margin: 0 10rpx;
 	padding: 0 20rpx;
 }
 .nav .cu-item.cur {
-	border-bottom: 4rpx solid;
+	border-bottom: 8rpx solid #ffd655;
 }
     /* ==================
          时间轴

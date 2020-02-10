@@ -2,7 +2,7 @@
 	<view class="uni-tab-bar">
 		<scroll-view scroll-x class="uni-swiper-tab" :style="scrollStyle">
 			<block v-for="(tab,index) in tabBars" :key="tab.id">
-				<view class="swiper-tab-list" 
+				<view class="swiper-tab-list"
 				:class="{'active':tabIndex==index}"
 				@tap="tabtap(index)"
 				:style="scrollItemStyle">
@@ -51,7 +51,7 @@
 	border-bottom: 6upx solid #FEDE33;
 	width: 70upx;
 	margin: auto;
-	border-top: 6upx solid #FEDE33;
+	border-top: 6upx solid #FFD655;
 	border-radius:20upx;
 }
 </style>

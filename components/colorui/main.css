@@ -1949,15 +1949,15 @@ button.cuIcon.lg {
 }
 
 .nav .cu-item {
-	height: 90upx;
+	height: 86upx;
 	display: inline-block;
-	line-height: 90upx;
+	line-height: 86upx;
 	margin: 0 10upx;
 	padding: 0 20upx;
 }
 
 .nav .cu-item.cur {
-	border-bottom: 4upx solid;
+	border-bottom: 8upx solid #ffd655;
 }
 
 /* ==================

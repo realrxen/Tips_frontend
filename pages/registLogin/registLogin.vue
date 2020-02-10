@@ -1,37 +1,48 @@
 <template>
 	<view class="body">
 		<form @submit="formSubmit">
-		
+
 			<view class="face-wrapper">
 				<image src="../../static/icos/default-face.png" class="face"></image>
 			</view>
-			
+
 			<view class="info-wrapper">
 				<label class="words-lbl">账号</label>
-				<input type="text" value="" name="userId" placeholder="请输入用户名" class="input" placeholder-class="graywords"/>
+				<input type="text" value="" name="userId" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" class="input" placeholder-class="graywords"/>
+				<template v-if="status">
+					<input v-model="username" class="input" type="text" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" value="" placeholder-class="graywords" />
+				</template>
+				<template v-else>
+					<input v-model="telephone" class="input" type="text" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" value="" placeholder-class="graywords" />
+				</template>
 			</view>
 			<view class="info-wrapper" style="margin-top: 40upx;">
 				<label class="words-lbl">密码</label>
 				<input type="text" value="" name="password" password="true" class="input" placeholder="请输入密码" placeholder-class="graywords"                                  />
 			</view>
-			<button type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">注册/登录</button>
+			<button type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">登录</button>
 		</form>
+		<view class="password-login-Wrapper">
+			<view style="font-size: 30rpx;color: #969896;" @click="changeLogin">{{status?'验证码登录':'账号密码登录'}}</view>
+			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
+			<view style="font-size: 30rpx;color: #969896;">忘记密码</view>
+		</view>
 		<!-- 第三方登录H5不支持，所以隐藏掉 -->
 	<!-- #ifndef H5 -->
 		<view class="third-wrapper">
-			
+
 			<view class="third-line">
 				<view class="single-line">
 					<view class="line"></view>
 				</view>
-				
+
 				<view class="third-words">第三方账号登录</view>
-				
+
 				<view class="single-line">
 					<view class="line"></view>
 				</view>
 			</view>
-			
+
 			<view class="third-icos-wrapper">
 				<!-- 5+app 用qq/微信/微博 登录 小程序用微信小程序登录 h5不支持 -->
 				<!-- #ifdef APP-PLUS -->
@@ -57,6 +68,12 @@
 			return{
 				// userId:"",
 				// password:""
+				status:true,
+				username:'',
+				password:'',
+				telephone:'',
+				code:'',
+				codeTime:0
 			};
 		},
 		methods:{
@@ -118,13 +135,13 @@
 											})
 										}
 									}
-									
+
 								})
 							}
 						})
 					}
 				})
-				var appOAuthLogin 
+				var appOAuthLogin
 			}
 			,
 			//实现在微信小程序的微信登录
@@ -205,13 +222,23 @@
 								image:"../../static/icos/error1.jpg"
 							})
 						}
-						
+
 					}
 				})
+			},
+			initForm(){
+				this.username='',
+				this.password='',
+				this.telephone='',
+				this.code=''
+			},
+			changeLogin(){
+				this.initForm()
+				this.status=!this.status
 			}
 		},
-		
-		
+
+
 	}
 </script>
 

@@ -45,6 +45,7 @@
 			return {
 				InputBottom: 0,
 				selectedIndex:1,
+				isShow:true
 			};
 		},
 		methods: {
@@ -69,9 +70,12 @@
 			},
 			skip23(){
 				this.selectedIndex=3
-				uni.redirectTo({
-				    url: '../travels/travels'
-				});
+				// uni.redirectTo({
+				//     url: '../travels/travels'
+				// });
+				this.$emit('pop',this.isShow)
+				this.isShow=!this.isShow
+
 			},
 			skip24(){
 				this.selectedIndex=4

@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "search-item": "/pages/search/components/SearchItem",
-    "search-bar": "/components/colorui/components/searchbar"
+    "search-bar": "/components/colorui/components/searchbar",
+    "tabbar": "/components/colorui/components/bar",
+    "pop-up": "/components/popup/popup"
   }
 }
