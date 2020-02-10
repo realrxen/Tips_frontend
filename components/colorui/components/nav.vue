@@ -19,7 +19,7 @@
         },
         data() {
             return {
-                tabIndex: 0,
+                tabIndex: 1,
                 scrollLeft: 0,
 				content:["关注","热门"]
             };

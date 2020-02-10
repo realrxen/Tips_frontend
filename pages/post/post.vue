@@ -2,7 +2,7 @@
 	<view class="page-fill page">
 		<Nav :tabsArray="tabsArray" @tabChanged="tabChanged"></Nav>
 		<block v-for="(item,dataIndex) in dataList" :key="dataIndex">
-			<template v-if="tabIndex===dataIndex">
+			<template v-if="tabIndex===item.id">
 				<block v-for="(post,index) in item.posts" :key=index>
 					<UserPost :post='post' :index='index'
 							  @follow='follow' @love='love'></UserPost>
@@ -101,7 +101,8 @@
 					}
 				],
 				dataList:[
-						{posts:[
+						{	id:0,
+							posts:[
 							{
 								username:"Seeumt",
 								faceIcon:'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
@@ -163,7 +164,8 @@
 								collectCount:7000,
 							}
 						]},
-					    {posts:[
+					    {	id:1,
+					    	posts:[
 							{
 								username:"Tips",
 								faceIcon:'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
@@ -183,7 +185,7 @@
 								username:'Tips',
 								faceIcon:'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
 								createTime:'2010-10-07',
-								isFollow:false,
+								isFollow:true,
 								title:'Love',
 								coverPicture:"",
 								love:{
@@ -198,7 +200,7 @@
 								username:'Test1',
 								faceIcon:'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
 								createTime:'2010-10-07',
-								isFollow:false,
+								isFollow:true,
 								title:'Love',
 								coverPicture:"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
 								love:{

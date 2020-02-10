@@ -243,7 +243,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
       dataList: [
-      { posts: [
+      { id: 0,
+        posts: [
         {
           username: "Seeumt",
           faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
@@ -305,7 +306,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
           collectCount: 7000 }] },
 
 
-      { posts: [
+      { id: 1,
+        posts: [
         {
           username: "Tips",
           faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
@@ -325,7 +327,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
           username: 'Tips',
           faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
           createTime: '2010-10-07',
-          isFollow: false,
+          isFollow: true,
           title: 'Love',
           coverPicture: "",
           love: {
@@ -340,7 +342,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
           username: 'Test1',
           faceIcon: 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/078fccb64ca0403b99df750194dee314.jpg',
           createTime: '2010-10-07',
-          isFollow: false,
+          isFollow: true,
           title: 'Love',
           coverPicture: "https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
           love: {
