@@ -15,41 +15,22 @@
 			</view>
 			<view>
 				<!--标题-->
-				<view class="title" @click="openDetail">{{post.title}}</view>
+				<view class="title" @click="openDetail">{{post.content}}</view>
 				<!--图片-->
-				<view class="imageWrapper">
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-					<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image>
-	<!-- 				<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image> -->
-	<!-- 				<image :src="post.coverPicture" class="coverPicture" v-if="post.coverPicture"
-					@click="openDetail"></image> -->
+<!--				<view class="imageWrapper">-->
+<!--					<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
+<!--					@click="openDetail"></image>-->
+
+<!--				</view>-->
+				<view class="bg-white padding">
+					<view class="grid col-3 grid-square">
+							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
+					</view>
 				</view>
 			</view>
 			<view class="myTagsWrapper">
-				<view  class="bg-main myTag">
-					<view class="tagContent">#周末</view>
-				</view>
-				<view  class="bg-main myTag">
-					<view class="tagContent">#自驾游</view>
-				</view>
-				<view  class="bg-main myTag">
-					<view class="tagContent">#低消费</view>
-				</view>
-				<view  class="bg-main myTag">
-					<view class="tagContent">#自然</view>
+				<view  class="bg-main myTag" v-for="(tag,index) in post.tags" :key="tag.tagId">
+					<view class="tagContent">#{{tag.name}}</view>
 				</view>
 			</view>
 
@@ -113,7 +94,7 @@
 			},
 			follow(index){
 				// 点击后触发一个事件给父组件
-				this.$emit('follow',this.index)
+				this.$emit('follow',this.post.userId)
 			},
 			openSpace(){
 				uni.navigateTo({

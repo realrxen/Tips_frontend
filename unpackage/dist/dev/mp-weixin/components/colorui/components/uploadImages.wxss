@@ -5,4 +5,7 @@
 .myImages{
     border-radius: 20rpx;
 }
+.myText{
+ float: right;
+}
 

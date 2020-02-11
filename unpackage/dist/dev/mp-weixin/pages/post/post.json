@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "nav": "/components/colorui/components/nav",
     "user-post": "/pages/post/components/UserPost",

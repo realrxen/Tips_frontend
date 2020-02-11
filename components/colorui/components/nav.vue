@@ -1,7 +1,7 @@
 <template>
     <view>
         <scroll-view scroll-x class="bg-gray nav text-center">
-            <view class="cu-item" :class="index===tabIndex?'font-color-change3 cur':''" v-for="(item,index) in content" :key="index"
+            <view class="cu-item" :class="index===tabIndex?'font-color-change3 cur':''" v-for="(item,index) in tabsArray" :key="index"
                   @tap="tabSelect" :data-id="index">
                 {{item}}
             </view>
@@ -13,9 +13,7 @@
     export default {
         name: "nav",
         props:{
-            // tabIndex:Number,
             tabsArray:Array
-
         },
         data() {
             return {

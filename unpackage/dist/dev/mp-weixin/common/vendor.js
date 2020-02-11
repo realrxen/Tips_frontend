@@ -1655,19 +1655,19 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 162:
+/***/ 168:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 163);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 169);
 
 
 /***/ }),
 
-/***/ 163:
+/***/ 169:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -1698,7 +1698,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 164);
+module.exports = __webpack_require__(/*! ./runtime */ 170);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -1715,7 +1715,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 164:
+/***/ 170:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -8478,7 +8478,23 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 214:
+/***/ 21:
+/*!******************************************!*\
+  !*** D:/Uni-app/travel/common/common.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const serverUrl = "http://10.3.186.123:8080"
+var serverUrl = "http://192.168.1.7:8086";var _default =
+
+{
+  serverUrl: serverUrl };exports.default = _default;
+
+/***/ }),
+
+/***/ 234:
 /*!****************************************!*\
   !*** D:/Uni-app/travel/common/time.js ***!
   \****************************************/
@@ -8575,23 +8591,38 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 27:
-/*!******************************************!*\
-  !*** D:/Uni-app/travel/common/common.js ***!
-  \******************************************/
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const serverUrl = "http://10.3.186.123:8080"
-var serverUrl = "http://192.168.1.6:8086";var _default =
+var g;
 
-{
-  serverUrl: serverUrl };exports.default = _default;
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 
-/***/ 285:
+/***/ 305:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -8730,37 +8761,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "cloud-download-filled": "\uE8E9",
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
-
-/***/ }),
-
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
 
 /***/ }),
 
@@ -9682,7 +9682,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": {}, "pages/travels/travels": {}, "pages/me/me": {}, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/souvenir/souvenir": {}, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": {}, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/souvenir/souvenir": {}, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 
@@ -9698,7 +9698,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 84:
+/***/ 90:
 /*!*********************************************!*\
   !*** D:/Uni-app/travel/utils/interfaces.js ***!
   \*********************************************/

@@ -2,7 +2,9 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path" : "pages/post/post",
-			"style" : {}
+			"style": {
+				"enablePullDownRefresh":true //开启下拉页面刷新
+			}
 		},
 		{
 			"path" : "pages/travels/travels",
@@ -10,6 +12,10 @@
 		},
 		{
 			"path" : "pages/me/me",
+			"style" : {}
+		},
+		{
+			"path" : "pages/send/Send",
 			"style" : {}
 		},
 		{

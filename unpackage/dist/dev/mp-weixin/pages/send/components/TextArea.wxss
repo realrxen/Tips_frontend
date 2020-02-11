@@ -1,0 +1,11 @@
+
+.textarea{
+	/* border:5px solid red; */
+	width: 100%;
+	padding: 20rpx 20rpx 0;
+}
+.myIcon{
+	color: #FF0000;
+	font-size: 100rpx;
+}
+

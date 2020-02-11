@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "my-text-area": "/pages/send/components/TextArea",
+    "tags": "/components/colorui/components/tags",
+    "upload-images": "/components/colorui/components/uploadImages",
+    "bottom-bar": "/pages/send/components/BottomBar"
+  }
+}

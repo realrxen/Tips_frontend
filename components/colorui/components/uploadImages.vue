@@ -1,11 +1,11 @@
 <template>
-    <view>
-        <view class="cu-bar bg-gray margin-top">
-            <view class="action" style="text-align: right">
+    <view class="bg-white">
+        <view class="cu-bar bg-white margin-top">
+            <view class="action myText" style="text-align:right">
                 亲，不超过9张哟！
             </view>
         </view>
-        <view class="cu-form-group">
+        <view class="cu-form-group bg-white">
             <view class="grid col-3 grid-square flex-sub">
                 <view class="bg-img" v-for="(item,index) in imgList" :key="index" @tap="ViewImage" :data-url="imgList[index]">
                     <image :src="imgList[index]" mode="aspectFill" class="myImages"></image>
@@ -78,5 +78,8 @@
     }
     .myImages{
         border-radius: 20upx;
+    }
+    .myText{
+     float: right;
     }
 </style>

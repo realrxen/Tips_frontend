@@ -1,8 +1,8 @@
 <template>
-    <view class="content" :class="{'active':show}">
+    <view class="content" :class="{'active':show}" v-if="show">
         <view class="tabbar-box-wrap">
             <view class="tabbar-box">
-                <view class="tabbar-box-item" style="border-bottom: 1px  solid #c8c8c8">
+                <view class="tabbar-box-item" @click="goToPage('../send/Send')" style="border-bottom: 1px  solid #c8c8c8">
                     <view class="cuIcon-discover myIcon"></view>
                     <view class="myContent">发动态</view>
                 </view>
