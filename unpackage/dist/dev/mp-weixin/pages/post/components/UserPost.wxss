@@ -153,6 +153,22 @@
 			color: #FFD655;
 }
 	/* 操作图标end */
+	/* 用户编辑删除按钮start */
+.operationWrapper {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: end;
+		-webkit-justify-content: flex-end;
+		        justify-content: flex-end;
+		margin-top: 15rpx;
+}
+.operationText {
+		font-size: 14px;
+		margin-right: 10rpx;
+		color: #c7c0c0;
+}
+	/* 用户编辑删除按钮end */
 
 
 

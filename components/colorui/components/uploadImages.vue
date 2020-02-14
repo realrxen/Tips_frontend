@@ -49,12 +49,15 @@
                     sourceType: ['album'], //从相册选择
                     success: (res) => {
                         if (this.imgList.length !== 0) {
-                            this.imgList = this.imgList.concat(res.tempFilePaths)
+                            this.imgList = this.imgList.concat(res.tempFilePaths);
+                            this.$emit('getImgList',this.imgList)
                         } else {
                             this.imgList = res.tempFilePaths
+                            this.$emit('getImgList',this.imgList)
                         }
                     }
                 });
+
             },
             ViewImage(e) {
                 uni.previewImage({
@@ -70,7 +73,8 @@
                     confirmText: '删除',
                     success: res => {
                         if (res.confirm) {
-                            this.imgList.splice(e.currentTarget.dataset.index, 1)
+                            this.imgList.splice(e.currentTarget.dataset.index, 1);
+                            this.$emit('getImgList',this.imgList)
                         }
                     }
                 })

@@ -7,21 +7,29 @@
             <textarea class="myTextArea" maxlength="-1" :disabled="modalName!=null" foucus @input="textareaBInput" placeholder="把你的想法说给大家听听吧"></textarea>
         </view>
         <view class="warn-text bg-white">最多200字呦</view>
+        <HMmessages></HMmessages>
     </view>
 </template>
 
 <script>
+    import HMmessages from "../../../components/HM-messages/HMmessages";
 	export default {
 		name:"MyTextArea",
 	    data() {
 	        return {
-				content:"Tips!",
-                textareaValue:""
+                content:""
 			}
 	    },
+        components:{
+		    HMmessages
+        },
 	    methods: {
             textareaBInput(e) {
-                this.textareaValue = e.detail.value
+                this.content = e.detail.value
+                this.$emit('getContent',this.content)
+            },
+            warning(msg) {
+                this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})
             }
 	    }
 	}

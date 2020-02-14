@@ -165,7 +165,7 @@
 			width: 100%;
 			font-size: 32rpx;
 			padding: 0 20rpx 0 32rpx;
-			margin: 10rpx 0 0 0;
+			margin: 18rpx 0 0 0;
 			line-height: 1.2;
 		}
 		/* 标题end */

@@ -1,13 +1,11 @@
 <template class="bg-white">
 	<view class="send page-fill page">
 		<!-- <NavBar></NavBar> -->
-		<MyTextArea></MyTextArea>
-<!--		<view class="textWrapper">-->
-
-<!--		</view>-->
-		<Tags></Tags>
-		<UploadImages :isPost="isPost"></UploadImages>
-		<BottomBar></BottomBar>
+		<MyTextArea @getContent="getTextContent"></MyTextArea>
+		<Tags @getTagIds="getTagIds"></Tags>
+		<UploadImages :isPost="isPost" @getImgList="getImgList"></UploadImages>
+		<HMmessages></HMmessages>
+		<BottomBar :Post="postForm" @click="send"></BottomBar>
 
 	</view>
 </template>
@@ -16,6 +14,7 @@
 	import MyTextArea from "./components/TextArea.vue"
 	import Tags from "../../components/colorui/components/tags";
 	import UploadImages from "../../components/colorui/components/uploadImages";
+	import HMmessages from "../../components/HM-messages/HMmessages";
 	import BottomBar from "./components/BottomBar.vue"
 	export default {
 		// props:{
@@ -26,6 +25,7 @@
 			MyTextArea,
 			Tags,
 			UploadImages,
+			HMmessages,
 			BottomBar,
 
 		},
@@ -33,9 +33,16 @@
 			return {
 				isCard: false,
 				isPost:true,
-				content:'',
+				showback:false,
 				imageList:[],
-				showback:false
+				postForm:{
+					userId:"",
+					content:"",
+					type:true,
+					tagIds:"",
+					imgUrls:[],
+					location:"",
+				}
 			};
 		},
 		computed:{
@@ -66,38 +73,52 @@
 			}
 			return true
 		},
-		onload(){
-			uni.getStorage({
-				key:"postDraft",
-				success:(res)=>{
-					let result = JSON.prase(res.data)
-					this.content= result.content
-					this.imageList= result.imageList
-				}
-			})
+		onload() {
+			// TODO onload()函数加载缓存不可以
+		},
+		onShow() {
+			var userInfo = uni.getStorageSync("globalUser")
+			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+				this.userInfo=userInfo
+				this.postForm.userId=this.userInfo.userId
+
+			}
 		},
 		// onReady() {
 		// 	this.imageList = this.list
 		// },
 		methods: {
-			up(){
-				uni.chooseImage({
-				    count: 6, //默认9
-				    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-				    sourceType: ['album'], //从相册选择
-				    success: function (res) {
-				        console.log(JSON.stringify(res.tempFilePaths));
-				    }
-				});
+			/*获取图片数组*/
+			getImgList(data) {
+				this.postForm.imgUrls = data;
+				console.log(this.postForm)
 			},
-			saveDraft(){
+			/*获取标签ids String*/
+			getTagIds(data) {
+				this.postForm.tagIds = data;
+			},
+			/*获取文本内容*/
+			getTextContent(data) {
+				this.postForm.content = data;
+			},
+			// up() {
+			// 	uni.chooseImage({
+			// 		count: 6, //默认9
+			// 		sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+			// 		sourceType: ['album'], //从相册选择
+			// 		success: function (res) {
+			// 			console.log(JSON.stringify(res.tempFilePaths));
+			// 		}
+			// 	});
+			// },
+			saveDraft() {
 				let obj = {
-						content:this.content,
-						imageList:this.imageList
-					}
+					content: this.content,
+					imageList: this.imageList
+				}
 				uni.setStorage({
-					key:"postDraft",
-					data:JSON.stringify(obj)
+					key: "postDraft",
+					data: JSON.stringify(obj)
 				})
 			},
 
@@ -105,10 +126,12 @@
 				this.isCard = e.detail.value
 			},
 
-			changeImage(e){
+			changeImage(e) {
 				console.log(e)
-				this.imageList=e
-			}
+				this.imageList = e
+			},
+
+
 		}
 	}
 </script>

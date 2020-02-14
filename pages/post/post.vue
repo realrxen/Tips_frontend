@@ -4,13 +4,12 @@
 		<block v-for="(item,dataIndex) in dataList" :key="dataIndex">
 			<template v-if="tabIndex===item.id">
 				<block v-for="(post,index) in item.posts" :key=index>
-					<UserPost :post='post' :index='index'
-							  @follow='follow' @love='love'></UserPost>
+					<UserPost :post='post' :index='index' :currentUserId='userId'
+							  @follow='follow' @love='love' @deletePost='deletePost'></UserPost>
 					<Divider></Divider>
 				</block>
 			</template>
 		</block>
-
 
 		<PopUp :show="show"></PopUp>
 		<Tabbar @pop="pop"></Tabbar>
@@ -254,7 +253,52 @@
 			this.show = false;
 		},
 		methods: {
-		
+			
+			deletePost(data){
+				var postId= data
+				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
+					url:serverUrl+'/posts/'+postId,
+					method:'DELETE',
+					success: (res) => {
+						if(res.data.code===10007){
+							uni.showToast({title:res.data.msg,duration:1500})
+							if(this.tabIndex===1){
+								var currentDataList = this.dataList[this.tabIndex].posts
+								currentDataList.forEach(function(item,index) {
+									if (item.postId === postId) {
+										currentDataList.splice(index, 1)
+									}
+								})
+								var otherDataList = this.dataList[this.tabIndex-1].posts
+								otherDataList.forEach(function(item,index) {
+									if (item.postId === postId) {
+										otherDataList.splice(index, 1)
+									}
+								})
+							}if(this.tabIndex===0){
+								var currentDataList = this.dataList[this.tabIndex].posts
+								currentDataList.forEach(function(item,index) {
+									if (item.postId === postId) {
+										currentDataList.splice(index, 1)
+									}
+								})
+								var otherDataList = this.dataList[this.tabIndex+1].posts
+								otherDataList.forEach(function(item,index) {
+									if (item.postId === postId) {
+										otherDataList.splice(index, 1)
+									}
+								})
+							}
+						}
+					}
+				})
+				
+			},
+
 			// 点击关注
 
 			follow(e){

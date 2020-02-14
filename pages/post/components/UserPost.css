@@ -132,3 +132,18 @@
 		}
 		/* 操作图标end */
 
+	/* 用户编辑删除按钮start */
+
+	.operationWrapper {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 15rpx;
+	}
+	.operationText {
+		font-size: 14px;
+		margin-right: 10rpx;
+		color: #c7c0c0;
+
+	}
+	/* 用户编辑删除按钮end */
+

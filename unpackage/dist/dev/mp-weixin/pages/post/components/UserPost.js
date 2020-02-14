@@ -116,116 +116,165 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  name: "UserPost",
-  props: {
-    post: Object,
-    index: Number },
-
-  data: function data() {
-    return {};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
-  },
-  methods: {
-    love: function love(type) {
-      this.$emit("love", {
-        type: type,
-        index: this.index });
-
-    },
-    goToPostDetail: function goToPostDetail(e) {
-      var postId = e.currentTarget.dataset.postid;
-      uni.navigateTo({
-        url: './PostDetail?postId=' + postId });
 
 
-    },
-    follow: function follow(index) {
-      // 点击后触发一个事件给父组件
-      this.$emit('follow', this.post.userId);
-    },
-    openSpace: function openSpace() {
-      uni.navigateTo({
-        url: "../userCenter/userCenter" });
 
-    } } };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var serverUrl = _common.default.serverUrl;var _default = { name: "UserPost", props: { post: Object, index: Number, currentUserId: String }, data: function data() {return { userId: "", userInfo: {}, token: '', type: '' };}, onLoad: function onLoad() {var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;console.log(this.userId);}}, methods: { deletePost: function deletePost(e) {var postId = e.currentTarget.dataset.postid;this.$emit("deletePost", postId);}, love: function love(type) {this.$emit("love", { type: type, index: this.index });}, goToPostDetail: function goToPostDetail(e) {var postId = e.currentTarget.dataset.postid;uni.navigateTo({ url: './PostDetail?postId=' + postId });}, follow: function follow(index) {// 点击后触发一个事件给父组件
+      this.$emit('follow', this.post.userId);}, openSpace: function openSpace() {uni.navigateTo({ url: "../userCenter/userCenter" });} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

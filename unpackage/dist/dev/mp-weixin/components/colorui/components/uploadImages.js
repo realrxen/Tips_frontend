@@ -168,10 +168,13 @@ var _default =
         success: function success(res) {
           if (_this.imgList.length !== 0) {
             _this.imgList = _this.imgList.concat(res.tempFilePaths);
+            _this.$emit('getImgList', _this.imgList);
           } else {
             _this.imgList = res.tempFilePaths;
+            _this.$emit('getImgList', _this.imgList);
           }
         } });
+
 
     },
     ViewImage: function ViewImage(e) {
@@ -189,6 +192,7 @@ var _default =
         success: function success(res) {
           if (res.confirm) {
             _this2.imgList.splice(e.currentTarget.dataset.index, 1);
+            _this2.$emit('getImgList', _this2.imgList);
           }
         } });
 

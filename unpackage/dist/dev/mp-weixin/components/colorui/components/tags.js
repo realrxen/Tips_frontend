@@ -116,7 +116,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}} //
+//
+//
 //
 //
 //
@@ -137,14 +139,17 @@ var _default =
       tags: [
       {
         "tagId": "1",
+        "isSelected": false,
         "name": "周末游" },
 
       {
         "tagId": "3",
+        "isSelected": false,
         "name": "古镇" },
 
       {
         "tagId": "5",
+        "isSelected": false,
         "name": "一日游" }],
 
 
@@ -154,26 +159,34 @@ var _default =
     };
   },
   methods: {
-    tagSelect: function tagSelect(e) {
+    changeTagSelect: function changeTagSelect(e) {var _this = this;
       var tagId = e.currentTarget.dataset.tagid;
-      this.selectedTagIds.push(tagId);
-      this.selectedTagId = tagId;
-
-    },
-    tagIsSelected: function tagIsSelected() {
-      var selectedTagId = this.selectedTagId;
-      this.selectedTagIds.forEach(function (item) {
-        if (item === selectedTagId) {
-          return true;
-        } else {
-          return false;
+      var tagList = this.tags;
+      var selectedTagIdsList = this.selectedTagIds;
+      tagList.forEach(function (tag) {
+        if (tag.tagId === tagId) {
+          if (tag.isSelected) {
+            selectedTagIdsList.forEach(function (item, order) {
+              if (item === tagId) {
+                selectedTagIdsList.splice(order, 1);
+                tag.isSelected = !tag.isSelected;
+                var uniqueTagIds = _toConsumableArray(new Set(selectedTagIdsList));
+                _this.selectedTagIds = uniqueTagIds;
+                // console.log(this.selectedTagIds);
+              }
+            });
+          } else {
+            selectedTagIdsList.push(tagId);
+            tag.isSelected = !tag.isSelected;
+            var uniqueTagIds = _toConsumableArray(new Set(selectedTagIdsList));
+            _this.selectedTagIds = uniqueTagIds;
+            // console.log(this.selectedTagIds)
+          }
         }
       });
-    } },
 
-  computed: {
-    isSelected: function isSelected() {
-      return this.tagIsSelected();
+      this.$emit('getTagIds', this.selectedTagIds.toString());
+
     } } };exports.default = _default;
 
 /***/ }),

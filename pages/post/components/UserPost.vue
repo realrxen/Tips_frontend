@@ -23,7 +23,7 @@
 <!--					@click="goToPostDetail"></image>-->
 
 <!--				</view>-->
-				<view class="bg-white padding">
+				<view class="bg-white" :class="post.imgUrls.length>0?'padding-thirty':'padding-xs'">
 					<view class="grid col-3 grid-square">
 							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
 					</view>
@@ -65,6 +65,10 @@
 						<text class="iconText">{{post.collectCount}}</text>
 				</view>
 			</view>
+			<view class="operationWrapper" v-if="currentUserId==post.userId&&currentUserId!=''">
+				<view class="operationText">编辑</view>
+				<view class="operationText" @tap="deletePost" :data-postId="post.postId">删除</view>
+			</view>
 		</view>
 
 	</view>
@@ -73,19 +77,39 @@
 
 
 <script>
+	import common from "../../../common/common.js"
+	var serverUrl = common.serverUrl
 	export default{
 		name:"UserPost",
 		props:{
 			post:Object,
-			index:Number
+			index:Number,
+			currentUserId:String
 		},
 		data() {
 				return {
-
+				userId:"",
+				userInfo:{},
+				token:'',
+				type:'',
 				}
 
 			},
+			onLoad() {
+				var userInfo = uni.getStorageSync("globalUser")
+				if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+					this.userInfo=userInfo
+					this.token="Bearer "+this.userInfo.token
+					this.type=this.userInfo.tokenType
+					this.userId=this.userInfo.userId
+					console.log(this.userId)
+				}
+			},
 		methods:{
+			deletePost(e){
+				var postId = e.currentTarget.dataset.postid
+				this.$emit("deletePost",postId)
+			},
 			love(type){
 				this.$emit("love",{
 					type,

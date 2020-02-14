@@ -133,8 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MyTextArea = function MyTextArea() {return __webpack_require__.e(/*! import() | pages/send/components/TextArea */ "pages/send/components/TextArea").then(__webpack_require__.bind(null, /*! ./components/TextArea.vue */ 197));};var Tags = function Tags() {return __webpack_require__.e(/*! import() | components/colorui/components/tags */ "components/colorui/components/tags").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/tags */ 204));};var UploadImages = function UploadImages() {return __webpack_require__.e(/*! import() | components/colorui/components/uploadImages */ "components/colorui/components/uploadImages").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 183));};var BottomBar = function BottomBar() {return __webpack_require__.e(/*! import() | pages/send/components/BottomBar */ "pages/send/components/BottomBar").then(__webpack_require__.bind(null, /*! ./components/BottomBar.vue */ 211));};var _default =
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MyTextArea = function MyTextArea() {return __webpack_require__.e(/*! import() | pages/send/components/TextArea */ "pages/send/components/TextArea").then(__webpack_require__.bind(null, /*! ./components/TextArea.vue */ 197));};var Tags = function Tags() {return __webpack_require__.e(/*! import() | components/colorui/components/tags */ "components/colorui/components/tags").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/tags */ 204));};var UploadImages = function UploadImages() {return __webpack_require__.e(/*! import() | components/colorui/components/uploadImages */ "components/colorui/components/uploadImages").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 183));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 169));};var BottomBar = function BottomBar() {return Promise.all(/*! import() | pages/send/components/BottomBar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/send/components/BottomBar")]).then(__webpack_require__.bind(null, /*! ./components/BottomBar.vue */ 211));};var _default =
 
 
 
@@ -161,6 +160,7 @@ __webpack_require__.r(__webpack_exports__);
     MyTextArea: MyTextArea,
     Tags: Tags,
     UploadImages: UploadImages,
+    HMmessages: HMmessages,
     BottomBar: BottomBar },
 
 
@@ -168,9 +168,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isCard: false,
       isPost: true,
-      content: '',
+      showback: false,
       imageList: [],
-      showback: false };
+      postForm: {
+        userId: "",
+        content: "",
+        type: true,
+        tagIds: "",
+        imgUrls: [],
+        location: "" } };
+
 
   },
   computed: {
@@ -201,30 +208,44 @@ __webpack_require__.r(__webpack_exports__);
     }
     return true;
   },
-  onload: function onload() {var _this2 = this;
-    uni.getStorage({
-      key: "postDraft",
-      success: function success(res) {
-        var result = JSON.prase(res.data);
-        _this2.content = result.content;
-        _this2.imageList = result.imageList;
-      } });
+  onload: function onload() {
+    // TODO onload()函数加载缓存不可以
+  },
+  onShow: function onShow() {
+    var userInfo = uni.getStorageSync("globalUser");
+    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+      this.userInfo = userInfo;
+      this.postForm.userId = this.userInfo.userId;
 
+    }
   },
   // onReady() {
   // 	this.imageList = this.list
   // },
   methods: {
-    up: function up() {
-      uni.chooseImage({
-        count: 6, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album'], //从相册选择
-        success: function success(res) {
-          console.log(JSON.stringify(res.tempFilePaths));
-        } });
-
+    /*获取图片数组*/
+    getImgList: function getImgList(data) {
+      this.postForm.imgUrls = data;
+      console.log(this.postForm);
     },
+    /*获取标签ids String*/
+    getTagIds: function getTagIds(data) {
+      this.postForm.tagIds = data;
+    },
+    /*获取文本内容*/
+    getTextContent: function getTextContent(data) {
+      this.postForm.content = data;
+    },
+    // up() {
+    // 	uni.chooseImage({
+    // 		count: 6, //默认9
+    // 		sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+    // 		sourceType: ['album'], //从相册选择
+    // 		success: function (res) {
+    // 			console.log(JSON.stringify(res.tempFilePaths));
+    // 		}
+    // 	});
+    // },
     saveDraft: function saveDraft() {
       var obj = {
         content: this.content,

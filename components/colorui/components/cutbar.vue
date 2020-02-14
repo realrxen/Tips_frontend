@@ -2,7 +2,7 @@
     <view class="cu-bar bg-gray solid-bottom CommentTitlewrapper">
         <view>
             <text class="cuIcon-title"></text>
-            <text class="myCutBarTitle">{{text}} <text class="myCommentCount">{{" "+commentCount}}</text>
+            <text class="myCutBarTitle">{{text}}</text> <text class="myCommentCount">{{" "+commentCount}}</text>
         </view>
     </view>
 </template>

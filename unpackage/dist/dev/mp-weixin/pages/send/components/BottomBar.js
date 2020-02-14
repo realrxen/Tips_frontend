@@ -116,7 +116,21 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -129,12 +143,70 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-var _default =
-{
-  name: "BottomBar",
-  data: function data() {
-    return {};
-  } };exports.default = _default;
+var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", props: { Post: Object }, data: function data() {return { userId: "", userInfo: {}, token: '', type: '' };
+  },
+  //TODO 子组件不可以用onLoad(),但可用created()函数
+  created: function created() {
+    var userInfo = uni.getStorageSync("globalUser");
+    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+      this.userInfo = userInfo;
+      this.token = "Bearer " + this.userInfo.token;
+      this.type = this.userInfo.tokenType;
+      this.userId = this.userInfo.userId;
+    }
+  },
+
+  methods: {
+    send: function send() {var _this = this;
+      uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        url: serverUrl + '/posts/',
+        data: {
+          "userId": this.Post.userId,
+          "content": this.Post.content,
+          "type": this.Post.type,
+          "tagIds": this.Post.tagIds,
+          "location": this.Post.location },
+
+        method: 'POST',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            var currentPostId = res.data.data;
+            var imgs = _this.Post.imgUrls;
+            if (imgs.length > 0) {
+              for (var i = 0; i < imgs.length; i++) {
+                uni.uploadFile({
+                  header: {
+                    "Authorization": _this.token,
+                    "type": _this.type },
+
+                  url: serverUrl + '/oss/insert?parentId=' + currentPostId,
+                  filePath: imgs[i],
+                  name: "file",
+                  method: 'POST',
+                  success: function success(response) {
+
+                    uni.showToast({
+                      title: "发布成功!",
+                      duration: 2000 });
+
+                    uni.navigateBack({ delta: 1 });
+                  } });
+
+              }} else {
+              uni.showToast({ title: "发布成功!", duration: 1200 });
+              uni.navigateBack({ delta: 1 });
+            }
+            // 
+          }
+        } });
+
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

@@ -79,7 +79,7 @@
 	import Comments from "../../components/uni-ui/comments/comments";
 	import ChatBar from "../../components/colorui/components/chatbar";
 	// import ChatBar from "../../components/user-chat/user-chat-bottom";
-	var serverUrl = common.serverUrl
+	var serverUrl = common.serverUrl;
 	export default{
 		name:"PostDetail",
 		props:{

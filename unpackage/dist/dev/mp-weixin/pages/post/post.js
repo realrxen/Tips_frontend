@@ -159,7 +159,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -178,8 +177,8 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-//
-var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 148));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 134));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 155));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 162));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 141));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0,
+var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 148));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 134));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 155));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 162));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 141));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [
+      { id: 0,
         posts: [
         {
           username: "Seeumt",
@@ -397,9 +396,54 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
   },
   methods: {
 
+    deletePost: function deletePost(data) {var _this3 = this;
+      var postId = data;
+      uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        url: serverUrl + '/posts/' + postId,
+        method: 'DELETE',
+        success: function success(res) {
+          if (res.data.code === 10007) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
+            if (_this3.tabIndex === 1) {
+              var currentDataList = _this3.dataList[_this3.tabIndex].posts;
+              currentDataList.forEach(function (item, index) {
+                if (item.postId === postId) {
+                  currentDataList.splice(index, 1);
+                }
+              });
+              var otherDataList = _this3.dataList[_this3.tabIndex - 1].posts;
+              otherDataList.forEach(function (item, index) {
+                if (item.postId === postId) {
+                  otherDataList.splice(index, 1);
+                }
+              });
+            }if (_this3.tabIndex === 0) {
+              var currentDataList = _this3.dataList[_this3.tabIndex].posts;
+              currentDataList.forEach(function (item, index) {
+                if (item.postId === postId) {
+                  currentDataList.splice(index, 1);
+                }
+              });
+              var otherDataList = _this3.dataList[_this3.tabIndex + 1].posts;
+              otherDataList.forEach(function (item, index) {
+                if (item.postId === postId) {
+                  otherDataList.splice(index, 1);
+                }
+              });
+            }
+          }
+        } });
+
+
+    },
+
     // 点击关注
 
-    follow: function follow(e) {var _this3 = this;
+    follow: function follow(e) {var _this4 = this;
       var idolId = e;
       uni.request({
         header: {
@@ -415,9 +459,9 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
         success: function success(res) {
           if (res.data.code === 123) {
             uni.showToast({ title: res.data.msg, duration: 1500 });
-            var dataList = _this3.dataList;
-            if (_this3.tabIndex === 1) {
-              _this3.dataList[_this3.tabIndex].posts.forEach(function (item) {
+            var dataList = _this4.dataList;
+            if (_this4.tabIndex === 1) {
+              _this4.dataList[_this4.tabIndex].posts.forEach(function (item) {
                 if (item.userId === idolId) {
                   item.isFollow = true;
                   dataList[0].posts = dataList[0].posts.concat(item);

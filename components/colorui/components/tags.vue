@@ -5,7 +5,9 @@
         </view>
         <view class='myTagsWrapper flex flex-wrap bg-white'>
             <view class="padding-xs" v-for="tag in tags" :key="tag.tagId">
-                <view class="cu-tag myTag" @tap="tagSelect" :class="isSelected?'bg-main':'bg-gray'" :data-tagId="tag.tagId">{{tag.name}}</view>
+                <view class="cu-tag myTag" @tap="changeTagSelect"
+                      :class="tag.isSelected?'bg-main':'bg-gray'"
+                      :data-tagId="tag.tagId">{{tag.name}}</view>
             </view>
         </view>
     </view>
@@ -19,14 +21,17 @@
                 tags: [
                     {
                         "tagId": "1",
+                        "isSelected":false,
                         "name": "周末游"
                     },
                     {
                         "tagId": "3",
+                        "isSelected":false,
                         "name": "古镇"
                     },
                     {
                         "tagId": "5",
+                        "isSelected":false,
                         "name": "一日游"
                     }
                 ],
@@ -36,28 +41,39 @@
             }
         },
         methods:{
-            tagSelect(e) {
+            changeTagSelect(e) {
                 var tagId = e.currentTarget.dataset.tagid
-                this.selectedTagIds.push(tagId)
-                this.selectedTagId = tagId;
-
-            },
-            tagIsSelected(){
-                var selectedTagId=this.selectedTagId
-                this.selectedTagIds.forEach(function(item) {
-                    if (item === selectedTagId) {
-                        return true
-                    }else {
-                        return false
+                var tagList = this.tags
+                var selectedTagIdsList= this.selectedTagIds
+                tagList.forEach(tag=>{
+                    if (tag.tagId === tagId) {
+                        if (tag.isSelected) {
+                            selectedTagIdsList.forEach((item, order) => {
+                                if (item === tagId) {
+                                    selectedTagIdsList.splice(order,1)
+                                    tag.isSelected=!tag.isSelected
+                                    var uniqueTagIds = [...new Set(selectedTagIdsList)]
+                                    this.selectedTagIds=uniqueTagIds
+                                    // console.log(this.selectedTagIds);
+                                }
+                            });
+                        }else {
+                            selectedTagIdsList.push(tagId)
+                            tag.isSelected=!tag.isSelected
+                            var uniqueTagIds = [...new Set(selectedTagIdsList)]
+                            this.selectedTagIds=uniqueTagIds
+                            // console.log(this.selectedTagIds)
+                        }
                     }
                 })
-            }
+
+                this.$emit('getTagIds',this.selectedTagIds.toString())
+
+            },
+
+
         },
-        computed:{
-            isSelected(){
-                return this.tagIsSelected()
-            }
-        }
+
 
     }
 </script>

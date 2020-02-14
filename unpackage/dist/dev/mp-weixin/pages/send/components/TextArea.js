@@ -116,30 +116,38 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../../components/HM-messages/HMmessages */ 169));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   name: "MyTextArea",
   data: function data() {
     return {
-      content: "Tips!",
-      textareaValue: "" };
+      content: "" };
 
   },
+  components: {
+    HMmessages: HMmessages },
+
   methods: {
     textareaBInput: function textareaBInput(e) {
-      this.textareaValue = e.detail.value;
+      this.content = e.detail.value;
+      this.$emit('getContent', this.content);
+    },
+    warning: function warning(msg) {
+      this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
     } } };exports.default = _default;
 
 /***/ }),
