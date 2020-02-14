@@ -995,6 +995,7 @@
 
 .cuIcon-title:before {
 	content: "\e82f";
+	color: #ffd655;
 }
 
 .cuIcon-recordfill:before {

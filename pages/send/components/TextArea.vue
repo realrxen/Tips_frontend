@@ -1,11 +1,12 @@
 <template>
-    <view>
+    <view class="bg-white">
 <!--         <textarea placeholder="把你的想法说给大家听听吧"-->
 <!--		 v-model="content"-->
 <!--		 class="textarea"/>-->
-        <view class="cu-form-group margin-top">
-            <textarea maxlength="-1" :disabled="modalName!=null" foucus @input="textareaBInput" placeholder="把你的想法说给大家听听吧"></textarea>
+        <view class="cu-form-group margin-top bg-white  ">
+            <textarea class="myTextArea" maxlength="-1" :disabled="modalName!=null" foucus @input="textareaBInput" placeholder="把你的想法说给大家听听吧"></textarea>
         </view>
+        <view class="warn-text bg-white">最多200字呦</view>
     </view>
 </template>
 
@@ -37,4 +38,14 @@
 		color: #FF0000;
 		font-size: 100rpx;
 	}
+    .warn-text{
+        float: right;
+        margin-right: 20rpx;
+        color: #c8c8c8;
+    }
+    .myTextArea {
+        width: 100%;
+        height: 240rpx;
+    }
+
 </style>

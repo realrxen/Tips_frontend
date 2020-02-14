@@ -1,8 +1,8 @@
 <template>
-    <view class="bg-white">
-        <view class="cu-bar bg-white margin-top">
-            <view class="action myText" style="text-align:right">
-                亲，不超过9张哟！
+    <view class="bg-gray UpLoadWrapper">
+        <view class="TextWrapper bg-gray">
+            <view class="myText" style="text-align:right">
+                {{warningText}}{{imgList.length}}/{{limitLength}}
             </view>
         </view>
         <view class="cu-form-group bg-white">
@@ -13,8 +13,8 @@
                         <text class='cuIcon-close'></text>
                     </view>
                 </view>
-                <view class="solids" @tap="ChooseImage" v-if="imgList.length<9">
-                    <text class='cuIcon-cameraadd' style="border:#3c3c3c"></text>
+                <view class="solids" @tap="ChooseImage" v-if="imgList.length<limitLength">
+                    <text class='cuIcon-add' style="border:#3c3c3c"></text>
                 </view>
             </view>
         </view>
@@ -23,19 +23,32 @@
 
 <script>
     export default {
+        props:{
+            isPost:{
+                  type: Boolean,
+                  default:true
+                }
+        },
         data() {
             return {
                 imgList: [],
+                warningText:this.isPost?"点击预览图片":"选择封面"
+
             };
+        },
+        computed:{
+            limitLength(){
+                return this.isPost?9:1
+            }
         },
         methods: {
             ChooseImage() {
                 uni.chooseImage({
-                    count: 9, //默认9
+                    count: this.isPost?9:1,
                     sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
                     sourceType: ['album'], //从相册选择
                     success: (res) => {
-                        if (this.imgList.length != 0) {
+                        if (this.imgList.length !== 0) {
                             this.imgList = this.imgList.concat(res.tempFilePaths)
                         } else {
                             this.imgList = res.tempFilePaths
@@ -73,6 +86,10 @@
 </script>
 
 <style>
+    .UpLoadWrapper{
+        display: flex;
+        flex-direction: column;
+    }
     .cu-form-group .title {
         min-width: calc(4em + 15px);
     }
@@ -80,6 +97,7 @@
         border-radius: 20upx;
     }
     .myText{
-     float: right;
+        float: right;
+        margin-right: 30rpx;
     }
 </style>

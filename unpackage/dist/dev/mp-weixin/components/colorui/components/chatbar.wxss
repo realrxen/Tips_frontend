@@ -1,0 +1,24 @@
+
+.box.data-v-56072797 {
+    margin: 20rpx 0;
+}
+.box view.cu-bar.data-v-56072797 {
+    margin-top: 20rpx;
+}
+.chatBar.data-v-56072797{
+    width: 100%;
+    bottom: 0;
+    font-size: 40rpx;
+    line-height: 100rpx;
+    text-align: center;
+    position: fixed;
+    z-index: 999;
+    border-radius: 20rpx;
+}
+.sendBtn.data-v-56072797{
+    width: 90rpx;
+    height: 50rpx;
+    border-radius: 10rpx;
+}
+
+

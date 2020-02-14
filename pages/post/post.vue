@@ -254,18 +254,11 @@
 			this.show = false;
 		},
 		methods: {
+		
 			// 点击关注
 
 			follow(e){
 				var idolId=e;
-				// if(this.tabIndex===1&&this.userId!==""){
-				// 	this.dataList[1].posts.forEach((item)=> {
-				// 		if (item.userId === idolId) {
-				// 			item.isFollow=true
-				// 			this.dataList[0].posts=this.dataList[0].posts.concat(item)
-				// 		}
-				// 	})
-				// }
 				uni.request({
 					header:{
 						"Authorization":this.token,

@@ -1,8 +1,10 @@
-<template>
+<template class="bg-white">
 	<view class="fixed-bottom">
 		<view class="iconWrapper">
 			<view class="iconfont cuIcon-paint myIcon animated" hover-class="jello"></view>
-			<view class="iconfont cuIcon-tag myIcon animated" hover-class="jello"></view>
+			<navigator url="../components/colorui/components/verticalnav">
+				<view class="iconfont cuIcon-tag myIcon animated" hover-class="jello"></view>
+			</navigator>
 			<view class="iconfont cuIcon-album myIcon animated" hover-class="jello"></view>
 		</view>
 		<view class="bg-main send animated" hover-class="flash" style="color: #FFFFFF;">发送</view>

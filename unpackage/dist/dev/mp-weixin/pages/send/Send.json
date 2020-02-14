@@ -1,4 +1,7 @@
 {
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "发动态",
+  "navigationBarBackgroundColor": "#FFD655",
   "usingComponents": {
     "my-text-area": "/pages/send/components/TextArea",
     "tags": "/components/colorui/components/tags",

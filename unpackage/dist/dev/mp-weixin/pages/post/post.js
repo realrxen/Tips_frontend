@@ -179,7 +179,7 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 135));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 121));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 142));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 149));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 128));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0,
+var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 148));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 134));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 155));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 162));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 141));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0,
         posts: [
         {
           username: "Seeumt",
@@ -396,18 +396,11 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
     this.show = false;
   },
   methods: {
+
     // 点击关注
 
     follow: function follow(e) {var _this3 = this;
       var idolId = e;
-      // if(this.tabIndex===1&&this.userId!==""){
-      // 	this.dataList[1].posts.forEach((item)=> {
-      // 		if (item.userId === idolId) {
-      // 			item.isFollow=true
-      // 			this.dataList[0].posts=this.dataList[0].posts.concat(item)
-      // 		}
-      // 	})
-      // }
       uni.request({
         header: {
           "Authorization": this.token,

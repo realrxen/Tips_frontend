@@ -1,10 +1,11 @@
 <template>
-	<view class="page page-fill User-Post">
+	<view>
+		<view class="page page-fill User-Post">
 		<view class="article">
 			<!-- 头像昵称 -->
-			<view class="userWrapper">
+			<view class="userWrapper"  @click="goToPostDetail" :data-postId="post.postId">
 				<view class="userInfoWrapper">
-					<image :src="post.faceIcon" class="faceIcon" lazy-load @click="openSpace"></image>
+					<image :src="post.faceIcon" class="faceIcon" lazy-load></image>
 					<view class="userDetailWrapper">
 						<view class="userName">{{post.username}}</view>
 						<view class="createTime">{{post.createTime}}</view>
@@ -15,11 +16,11 @@
 			</view>
 			<view>
 				<!--标题-->
-				<view class="title" @click="openDetail">{{post.content}}</view>
+				<view class="title" @click="goToPostDetail" :data-postId="post.postId">{{post.content}}</view>
 				<!--图片-->
 <!--				<view class="imageWrapper">-->
 <!--					<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
-<!--					@click="openDetail"></image>-->
+<!--					@click="goToPostDetail"></image>-->
 
 <!--				</view>-->
 				<view class="bg-white padding">
@@ -28,7 +29,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="myTagsWrapper">
+			<view class="myTagsWrapper"  @click="goToPostDetail" :data-postId="post.postId">
 				<view  class="bg-main myTag" v-for="(tag,index) in post.tags" :key="tag.tagId">
 					<view class="tagContent">#{{tag.name}}</view>
 				</view>
@@ -53,7 +54,8 @@
 						<text class="iconText">{{post.love.hateCount>0?post.love.hateCount:'不喜欢'}}</text>
 				</view>
 				<!-- 评论 -->
-				<view class="myIcon animated cuIcon-comment faster" hover-class="rubberBand font-color-change">
+				<view class="myIcon animated cuIcon-comment faster" hover-class="rubberBand font-color-change"
+				  @click="goToPostDetail" :data-postId="post.postId">
 						<text class="iconfont icon-shanzi icon"></text>
 						<text class="iconText">{{post.commentCount>0?post.commentCount:'评论'}}</text>
 				</view>
@@ -65,6 +67,7 @@
 			</view>
 		</view>
 
+	</view>
 	</view>
 </template>
 
@@ -89,8 +92,12 @@
 					index:this.index
 					})
 			},
-			openDetail(){
-				console.log("详情页面")
+			goToPostDetail(e){
+				var postId = e.currentTarget.dataset.postid
+				uni.navigateTo({
+					url:'./PostDetail?postId='+postId
+				})
+
 			},
 			follow(index){
 				// 点击后触发一个事件给父组件

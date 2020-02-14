@@ -11,14 +11,15 @@
     "pages/userspace/UserSpace",
     "pages/souvenir/souvenir",
     "pages/registLogin/login",
-    "pages/registLogin/teleLogin"
+    "pages/registLogin/teleLogin",
+    "pages/post/PostDetail"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Tips",
     "navigationBarBackgroundColor": "#FFD655",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#FFFEFF"
   },
   "usingComponents": {
     "divider": "/components/Divider/Divider",
@@ -26,5 +27,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap69.json"
+  "sitemapLocation": "sitemap92.json"
 }

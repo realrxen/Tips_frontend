@@ -1,9 +1,12 @@
-<template>
-	<view class="bg-white">
+<template class="bg-white">
+	<view class="send page-fill page">
 		<!-- <NavBar></NavBar> -->
 		<MyTextArea></MyTextArea>
+<!--		<view class="textWrapper">-->
+
+<!--		</view>-->
 		<Tags></Tags>
-		<UploadImages></UploadImages>
+		<UploadImages :isPost="isPost"></UploadImages>
 		<BottomBar></BottomBar>
 
 	</view>
@@ -29,6 +32,7 @@
 		data() {
 			return {
 				isCard: false,
+				isPost:true,
 				content:'',
 				imageList:[],
 				showback:false
@@ -110,5 +114,9 @@
 </script>
 
 <style>
+	.send{
+		display: flex;
+		flex-direction: column;
+	}
 
 </style>

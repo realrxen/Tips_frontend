@@ -1,11 +1,21 @@
 
 .textarea{
-	/* border:5px solid red; */
-	width: 100%;
-	padding: 20rpx 20rpx 0;
+		/* border:5px solid red; */
+		width: 100%;
+		padding: 20rpx 20rpx 0;
 }
 .myIcon{
-	color: #FF0000;
-	font-size: 100rpx;
+		color: #FF0000;
+		font-size: 100rpx;
 }
+.warn-text{
+        float: right;
+        margin-right: 20rpx;
+        color: #c8c8c8;
+}
+.myTextArea {
+        width: 100%;
+        height: 240rpx;
+}
+
 

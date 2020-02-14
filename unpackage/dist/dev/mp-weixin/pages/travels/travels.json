@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "h-mmessages": "/components/HM-messages/HMmessages",
-    "rich-text": "/pages/travels/components/richtext/RichText",
+    "t-color-picker": "/components/t-color-picker/t-color-picker",
     "upload-images": "/components/colorui/components/uploadImages"
   }
 }

@@ -1465,7 +1465,8 @@ button.cuIcon.lg {
 .cu-list.grid.col-3>.cu-item:nth-child(3n):after,
 .cu-list.grid.col-4>.cu-item:nth-child(4n):after,
 .cu-list.grid.col-5>.cu-item:nth-child(5n):after {
-	border-right-width: 0
+	border-right-width: 0;
+	background-color: darkgray;
 }
 
 .cu-list.card-menu {

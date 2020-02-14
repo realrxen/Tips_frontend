@@ -16,7 +16,14 @@
 		},
 		{
 			"path" : "pages/send/Send",
-			"style" : {}
+			"style" : {
+				"app-plus":{
+					"titleNView": false
+				},
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "发动态",
+				"navigationBarBackgroundColor": "#FFD655"
+			}
 		},
 		{
 			"path" : "pages/registLogin/registLogin",
@@ -66,6 +73,9 @@
         },{
             "path" : "pages/registLogin/teleLogin",
             "style" : {}
+        },{
+            "path" : "pages/post/PostDetail",
+            "style" : {}
         }
 
     ],
@@ -74,7 +84,7 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Tips",
 		"navigationBarBackgroundColor": "#FFD655",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#FFFEFF"
 	}
 	// "tabBar": {
 	// 	// "color":"wheat",

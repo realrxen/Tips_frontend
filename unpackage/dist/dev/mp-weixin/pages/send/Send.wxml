@@ -1,1 +1,1 @@
-<view class="bg-white"><my-text-area vue-id="1" bind:__l="__l"></my-text-area><tags vue-id="2" bind:__l="__l"></tags><upload-images vue-id="3" bind:__l="__l"></upload-images><bottom-bar vue-id="4" bind:__l="__l"></bottom-bar></view>
+<view class="send page-fill page"><my-text-area vue-id="1" bind:__l="__l"></my-text-area><tags vue-id="2" bind:__l="__l"></tags><upload-images vue-id="3" isPost="{{isPost}}" bind:__l="__l"></upload-images><bottom-bar vue-id="4" bind:__l="__l"></bottom-bar></view>
