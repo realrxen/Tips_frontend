@@ -194,6 +194,7 @@
 					mask:false,
 					duration:1500
 				})
+				uni.navigateBack({delta:1})
 			},
 			logout(){
 				var userInfo = this.getGlobalUser("globalUser")
@@ -209,9 +210,7 @@
 					success:(res) => {
 						if(res.data.code==0){
 							uni.removeStorageSync("globalUser")
-							uni.switchTab({
-								url:"../me/me"
-							})
+							uni.navigateBack({delta:1})
 						}
 					}
 				})

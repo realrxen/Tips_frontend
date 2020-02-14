@@ -1,9 +1,9 @@
 <template class="bg-white">
 	<view class="send page-fill page">
 		<!-- <NavBar></NavBar> -->
-		<MyTextArea @getContent="getTextContent"></MyTextArea>
-		<Tags @getTagIds="getTagIds"></Tags>
-		<UploadImages :isPost="isPost" @getImgList="getImgList"></UploadImages>
+		<MyTextArea @getContent="getTextContent" :editText="post.content"></MyTextArea>
+		<Tags @getTagIds="getTagIds" :hasSelectTagList="hasSelectTagList"></Tags>
+		<UploadImages :isPost="isPost" @getImgList="getImgList" :imgUrls="imgUrls"></UploadImages>
 		<HMmessages></HMmessages>
 		<BottomBar :Post="postForm" @click="send"></BottomBar>
 
@@ -31,9 +31,12 @@
 		},
 		data() {
 			return {
+				postId:"",
 				isCard: false,
 				isPost:true,
 				showback:false,
+				hasSelectTagList:[],
+				hasPostImgs:[],
 				imageList:[],
 				postForm:{
 					userId:"",
@@ -42,7 +45,8 @@
 					tagIds:"",
 					imgUrls:[],
 					location:"",
-				}
+				},
+				post:{},
 			};
 		},
 		computed:{
@@ -61,7 +65,7 @@
 						if(res.confirm){
 							this.saveDraft()
 						}else{
-							 uni.removeStorageSync("postDraft")
+							 uni.removeStorageSync("postDraft ")
 						}
 						uni.navigateBack({
 							delta:1
@@ -73,8 +77,35 @@
 			}
 			return true
 		},
-		onload() {
-			// TODO onload()函数加载缓存不可以
+		onLoad(paramsObj) {
+			var userInfo = uni.getStorageSync("globalUser")
+			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+				this.userInfo=userInfo
+				this.token="Bearer "+this.userInfo.token
+				this.type=this.userInfo.tokenType
+				this.userId=this.userInfo.userId
+			}else{
+				this.isFollow=false
+			}
+			this.postId = paramsObj.postId
+			/* 返回PostDTO */
+			uni.request({
+				url:serverUrl+'/posts/'+this.postId,
+				method:'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						var post =res.data.data
+						this.post= post
+					}
+
+				},
+				fail: () => {
+
+				},
+				complete: () => {
+
+				}
+			});
 		},
 		onShow() {
 			var userInfo = uni.getStorageSync("globalUser")

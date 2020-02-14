@@ -1,129 +1,218 @@
 <template>
-	<view>
-		<template v-if="status">
-			<view class="face-wrapper">
-				<image src="../../static/icos/default-face.png" class="face"></image>
-			</view>
-			<!-- <view class="text-login">账号密码登录</view> -->
-			<view class="loginFormWrapper">
-				<view class="form-item" style="margin-bottom: 20rpx;">
-					<label class="words-label">账号</label>
-					<template v-if="status">
-						<input v-model="username" class="input" type="text" placeholder="用户名/手机号/邮箱" value="" placeholder-class="graywords" />
-						<view class="form-item">
-							<label class="words-label">密码</label>
-							<input  v-model="password" class="input" style="margin-bottom: 20rpx;" type="text" placeholder="请输入密码" value="" placeholder-class="graywords" />
-							<view class="forgetPwd" style="background-color: #FFFFFF;">忘记密码?</view>
-						</view>
-					</template>
+	<view class="body">
 
-					<template v-else>
-						<input v-model="telephone" class="input" type="text" placeholder="用户名/手机号/邮箱" value="" placeholder-class="graywords" />
-						<view class="form-item">
-							<label class="words-label">验证码</label>
-							<input  v-model="code" class="input" style="margin-bottom: 20rpx;" type="text" placeholder="请输入密码" value="" placeholder-class="graywords" />
-							<view :class="codeTime>0?'forgetPwd1':'forgetPwd'" style="color: #ffffff; text-align: center;" @click="getCode">{{codeTime>0?codeTime+'s':'获取验证码'}}</view>
-						</view>
-					</template>
+		<view class="face-wrapper">
+			<image src="../../static/icos/default-face.png" class="face"></image>
+		</view>
+
+		<view class="info-wrapper">
+			<label class="words-lbl">手机号</label>
+			<input type="text" value="" name="userId" placeholder="请输入手机号" class="input" placeholder-class="graywords"/>
+		</view>
+		<view class="info-wrapper" style="margin-top: 40upx;">
+			<label class="words-lbl">验证码</label>
+			<input type="text" value="" name="otpCode" class="input" placeholder="请输入验证码" placeholder-class="graywords"                                  />
+		</view>
+		<view class="registerBtnWrapper">
+			<view class="registerBtn" type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">注册</view>
+		</view>
+
+		<!-- 第三方登录H5不支持，所以隐藏掉 -->
+	<!-- #ifndef H5 -->
+		<view class="third-wrapper">
+
+			<view class="third-line">
+				<view class="single-line">
+					<view class="line"></view>
 				</view>
 
-			</view>
-		</template>
-		<template v-else>
-			<navigator url="./teleLogin">
-				<view class="text-login">手机验证码登录</view>
-			</navigator>
-			<view class="loginFormWrapper">
-				<view class="form-item" style="margin-bottom: 12rpx;">
-					<label class="words-label"style="margin-top: 20rpx;">+86</label>
-					<input v-model="telephone" class="input" style="margin-left: 35rpx;" type="text" placeholder="手机号" value="" placeholder-class="graywords" />
-					<view class="forgetPwd" style="background-color: #FFFFFF; color: #ffffff; text-align: center;"></view>
-				</view>
-				<view class="form-item">
-					<label class="words-label"style="margin-top: 12rpx;">code</label>
-					<input v-model="code" class="input" type="text" placeholder="请输入验证码" value="" placeholder-class="graywords"/>
-					<view :class="codeTime>0?'forgetPwd1':'forgetPwd'" style="color: #ffffff; text-align: center;" @click="getCode">{{codeTime>0?codeTime+'s':'获取验证码'}}</view>
+				<view class="third-words">第三方手机号登录</view>
+
+				<view class="single-line">
+					<view class="line"></view>
 				</view>
 			</view>
-		</template>
 
-		<view class="buttonWrapper">
-			<button type="primary" :disabled="disabled" :class="disabled?'disabled-button':'loginButton'" @click="submit">登录</button>
+			<view class="third-icos-wrapper">
+				<!-- 5+app 用qq/微信/微博 登录 小程序用微信小程序登录 h5不支持 -->
+				<!-- #ifdef APP-PLUS -->
+					<image src="../../static/icos/weixin.png" data-logintype="weixin" @click="appOAuthLogin" class="third-ico"></image>
+					<image src="../../static/icos/QQ.png" data-logintype="qq" @click="appOAuthLogin" class="third-ico" style="margin-left: 80upx;"></image>
+					<image src="../../static/icos/weibo.png" data-logintype="sinaweibo" @click="appOAuthLogin" class="third-ico" style="margin-left: 80upx;"></image>
+				<!-- #endif -->
+				<!-- #ifdef MP-WEIXIN -->
+					<button open-type='getUserInfo' @getuserinfo="wxLogin" class="third-btn-ico">
+					</button>
+				<!-- #endif -->
+			</view>
 		</view>
-		<view class="questionWrapper">
-			<view style="font-size: 30rpx;color: #969896;" @click="changeLogin">{{status?'验证码登录':'账号密码登录'}}</view>
-			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
-			<view style="font-size: 30rpx;color: #969896;">登录遇到问题</view>
-		</view>
-		<!-- #ifndef MP-WEIXIN -->
-		<view class="socialLoginWrapper">
-			<view style="width:120rpx;height:3rpx; background-color: #dddddd"></view>
-			<view style="color: #969896;margin: 0 20rpx;">社交账号登录</view>
-			<view style="width:120rpx;height:3rpx; background-color: #dddddd"></view>
-		</view>
-		<view class="third-icos-wrapper">
-				<image src="../../static/icos/weixin.png"  class="third-ico"></image>
-				<image src="../../static/icos/QQ.png" class="third-ico" style="margin-left: 80upx;"></image>
-				<image src="../../static/icos/weibo.png" class="third-ico" style="margin-left: 80upx;"></image>
-		</view>
-		<!-- #endif -->
-		<!-- #ifdef MP-WEIXIN -->
-		<view class="socialLoginWrapper">
-			<view style="width:120rpx;height:3rpx; background-color: #dddddd"></view>
-			<view style="color: #969896;margin: 0 20rpx;">微信授权登录</view>
-			<view style="width:120rpx;height:3rpx; background-color: #dddddd"></view>
-		</view>
-		<view class="third-icos-wrapper">
-				<image src="../../static/icos/weixin.png"  class="third-ico"></image>
-		</view>
-		<!-- #endif -->
-
+	<!-- #endif -->
 	</view>
 </template>
 
 <script>
-	// import UniStatusBar from"../../components/uni-ui/uni-status-bar/uni-status-bar.vue"
-	export default {
-		components:{
-			// UniStatusBar
-		},
-		data() {
-			return {
+	import common from "../../common/common.js"
+	var serverUrl = common.serverUrl
+	export default{
+		data(){
+			return{
+				// userId:"",
+				// password:""
 				status:true,
 				username:'',
 				password:'',
-				telephone:'15600000000',
+				telephone:'',
 				code:'',
 				codeTime:0
-			}
+			};
 		},
-		methods: {
-			submit(){
-				// 表单验证、
-				if(!this.validate()) return
-			},
-			validate(){
-				var mPattern =/^1[34578]\d{9}$/
-				if(!mPattern.test(this.telephone)){
-					uni.showToast({
-						title:'手机号格式错误'
-					})
-					return false
-				}
-			},
-			getCode(){
-				if(this.codeTime>0){
-					return
-				}
-				this.codeTime=30
-				let timer = setInterval(()=>{
-					if(this.codeTime>=1){
-					this.codeTime--
-					}else{
-						this.codeTime=0
-						clearInterval(timer)
+		methods:{
+			appOAuthLogin(e){
+				var logintype =e.currentTarget.dataset.logintype
+				uni.login({
+					provider:logintype,
+					success: (loginRes) => {
+						// 授权登录成功以后 获取用户的信息
+						uni.getUserInfo({
+							provider:logintype,
+							success: (info) => {
+								// console.log(JSON.stringify(info))
+								var userInfo = info.userInfo
+								var faceIcon = ""
+								var nickName=""
+								var thirdPartyId=""
+								if(logintype=="weixin"){
+									faceIcon = userInfo.avatarUrl
+									nickName=userInfo.nickName
+									thirdPartyId=userInfo.openId
+								}else if(logintype=="qq"){
+									 faceIcon = userInfo.figureurl_qq_2
+									 nickName=userInfo.nickname
+									 thirdPartyId=userInfo.openid
+								}else if(logintype=="sinaweibo"){
+									 faceIcon = userInfo.avatar_large
+									 nickName=userInfo.nickName
+									 thirdPartyId=userInfo.id
+								}
+								uni.request({
+									url:serverUrl+'/users/thirdPartyLogin/'+logintype,
+									data:{
+										"faceIcon":faceIcon,
+										"nickName": nickName,
+										"thirdPartyId": thirdPartyId
+									},
+									method:"POST",
+									success: (res) => {
+										if(res.data.code==0){
+										var userInfo ={}
+											userInfo=res.data.data
+											console.log(res.data.data)
+											// 缓存的API  保存用户信息到全局的缓存中
+											uni.setStorageSync("globalUser",userInfo)
+											uni.switchTab({
+												url:"../me/me"
+											})
+											uni.showToast({
+												title:res.data.msg,
+												duration:2000,
+												image:"../../static/icos/xixi.png"
+											})
+										}else if(res.data.code==466){
+											uni.showToast({
+												title:res.data.msg,
+												duration:2000,
+												image:"../../static/icos/error1.jpg"
+											})
+										}
+									}
+
+								})
+							}
+						})
 					}
-				},1000)
+				})
+				var appOAuthLogin
+			}
+			,
+			//实现在微信小程序的微信登录
+			wxLogin(e){
+					// 通过微信开放能力 获得微信用户的基本信息
+					var userInfo = e.detail.userInfo
+					console.log(userInfo)
+					console.log(userInfo.avatarUrl)
+					//实现微信登录
+					uni.login({
+						provider:"weixin",
+						success: (loginResult) => {
+						// 获得微信登录的code:授权码
+						var code = loginResult.code
+						uni.request({
+							url:serverUrl+'/users/mpLogin/'+code,
+							data:{
+								"avatarUrl":userInfo.avatarUrl,
+								"city": userInfo.city,
+								"country": userInfo.country,
+								"gender": userInfo.gender,
+								"language": userInfo.country,
+								"nickName": userInfo.nickName,
+								"province": userInfo.province
+							},
+							method:"POST",
+							success: (res) => {
+								if(res.data.code==0){
+								var userInfo ={}
+									userInfo=res.data.data
+									console.log(res.data.data)
+									// 缓存的API  保存用户信息到全局的缓存中
+									uni.setStorageSync("globalUser",userInfo)
+									uni.navigateBack({delta:1})
+									uni.showToast({
+										title:res.data.msg,
+										duration:2000,
+										image:"../../static/icos/xixi.png"
+									})
+								}else if(res.data.code==466){
+									uni.showToast({
+										title:res.data.msg,
+										duration:2000,
+										image:"../../static/icos/error1.jpg"
+									})
+								}
+							}
+						})
+						}
+					})
+			},
+			formSubmit(e){
+				var userId = e.detail.value.userId
+				var password = e.detail.value.password
+				uni.request({
+					url:serverUrl+'/users/registerOrLogin',
+					data:{
+						"userId":userId,
+						"password":password
+					},
+					method:"POST",
+					success: (res) => {
+						if(res.data.code==0){
+							var userInfo ={}
+							userInfo=res.data.data
+							// console.log(res.data)
+							// 缓存的API  保存用户信息到全局的缓存中
+							uni.setStorageSync("globalUser",userInfo)
+							uni.switchTab({
+								url:"../me/me"
+							})
+						}else if(res.data.code==466){
+							uni.showToast({
+								title:res.data.msg,
+								duration:2000,
+								image:"../../static/icos/error1.jpg"
+							})
+						}
+
+					}
+				})
 			},
 			initForm(){
 				this.username='',
@@ -136,124 +225,11 @@
 				this.status=!this.status
 			}
 		},
-		computed:{
-			disabled(){
-				if((this.username===''||this.password==='')&&(this.telephone===''||this.code==='')){
-					return true
-				}
-				return false
-			}
-		}
+
+
 	}
 </script>
 
 <style>
-	.face-wrapper {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		margin-top: 30rpx;
-		margin-bottom: 65rpx;
-	}
-
-	.face {
-		width: 160upx;
-		height: 160upx;
-	}
-	.loginFormWrapper{
-		padding: 20rpx;
-	}
-	.form-item{
-		display: flex;
-		border-bottom: solid 1px #DBDBDA;
-		padding: 20rpx;
-	}
-	.words-label{
-		font-size: 18.75px;
-		color: #808080;
-	}
-	.input{
-		width: 400rpx;
-		height: auto;
-		margin-left: 20rpx;
-		margin-top: 10rpx;
-	}
-	.graywords {
-		color: #e5eae2;
-	}
-	.forgetPwd{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 140rpx;
-		height: 70rpx;
-		padding: 5rpx;
-		margin-top: 9rpx;
-		margin-left: auto;
-		background-color: #FFD655;
-	}
-	.forgetPwd1{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 140rpx;
-		height: 70rpx;
-		padding: 5rpx;
-		margin-top: 9rpx;
-		margin-left: auto;
-		background-color: #f0ec79;
-	}
-	.text-login{
-		padding-top:65rpx;
-		padding-bottom: 70rpx;
-		font-size: 55rpx;
-		text-align: center;
-	}
-	.buttonWrapper{
-		padding:20rpx 40rpx
-	}
-	.loginButton{
-		border-radius: 50rpx;
-		border: 0;
-		font-size: 40rpx;
-		color: #ffffff;
-		background-color: #FFD655;
-	}
-	.disabled-button{
-		border-radius: 50rpx;
-		border: 0;
-		font-size: 40rpx;
-		color: #ffffff;
-		background-color: #aaaaff;
-	}
-	.questionWrapper{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-top: 10rpx;
-		padding-bottom: 30rpx;
-	}
-	.socialLoginWrapper{
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
-	.third-icos-wrapper {
-		margin-top: 30upx;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	}
-	.third-ico {
-		width: 70upx;
-		height: 70upx;
-	}
-	.myIcon{
-		width: 100rpx;
-		height: 100rpx;
-		font-size: 50rpx;
-		/* padding: 20rpx; */
-		left: 0;
-	}
+	@import url("login.css");
 </style>

@@ -15,6 +15,9 @@
     import HMmessages from "../../../components/HM-messages/HMmessages";
 	export default {
 		name:"MyTextArea",
+		props:{
+			editText:String
+		},
 	    data() {
 	        return {
                 content:""

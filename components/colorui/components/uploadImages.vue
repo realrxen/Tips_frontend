@@ -7,13 +7,13 @@
         </view>
         <view class="cu-form-group bg-white">
             <view class="grid col-3 grid-square flex-sub">
-                <view class="bg-img" v-for="(item,index) in imgList" :key="index" @tap="ViewImage" :data-url="imgList[index]">
-                    <image :src="imgList[index]" mode="aspectFill" class="myImages"></image>
+                <view class="bg-img" v-for="(img,index) in imgUrls" :key="index" @tap="ViewImage" :data-url="imgList[index]">
+                    <image :src="img.imgUrl" mode="aspectFill" class="myImages"></image>
                     <view class="cu-tag bg-red" @tap.stop="DelImg" :data-index="index">
                         <text class='cuIcon-close'></text>
                     </view>
                 </view>
-                <view class="solids" @tap="ChooseImage" v-if="imgList.length<limitLength">
+                <view class="solids" @tap="ChooseImage" v-if="imgUrls.length<limitLength">
                     <text class='cuIcon-add' style="border:#3c3c3c"></text>
                 </view>
             </view>
@@ -27,11 +27,13 @@
             isPost:{
                   type: Boolean,
                   default:true
-                }
+                },
+            imgUrls:Array
         },
         data() {
             return {
                 imgList: [],
+                selectedImgList:[],
                 warningText:this.isPost?"点击预览图片":"选择封面"
 
             };
@@ -44,11 +46,11 @@
         methods: {
             ChooseImage() {
                 uni.chooseImage({
-                    count: this.isPost?9:1,
+                    count: this.isPost?(9-this.imgUrls.length):1,
                     sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
                     sourceType: ['album'], //从相册选择
                     success: (res) => {
-                        if (this.imgList.length !== 0) {
+                        if (this.imgUrls.length !== 0) {
                             this.imgList = this.imgList.concat(res.tempFilePaths);
                             this.$emit('getImgList',this.imgList)
                         } else {

@@ -16,6 +16,9 @@
 <script>
     export default {
         name: "tags",
+        props:{
+            hasSelectTagList:Array
+        },
         data(){
             return{
                 tags: [

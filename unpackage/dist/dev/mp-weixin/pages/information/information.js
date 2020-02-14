@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _methods;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/information/components/UserPost */ "pages/information/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost.vue */ 218));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _methods;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/information/components/UserPost */ "pages/information/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost.vue */ 220));};var _default =
 
 
 

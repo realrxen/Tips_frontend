@@ -1,152 +1,178 @@
+.body {
+    border-top: solid 1px #DBDBDA;
+    padding: 0 40rpx;
+}
 
+/* 头像 start */
 .face-wrapper {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	margin-top: 30rpx;
-	margin-bottom: 65rpx;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    margin-top: 120rpx;
+    margin-bottom: 120rpx;
 }
 .face {
-	width: 160rpx;
-	height: 160rpx;
+    width: 160rpx;
+    height: 160rpx;
 }
-.loginFormWrapper{
-	padding: 20rpx;
+
+/* 头像 end */
+
+/* 注册登录 start */
+.info-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    border-bottom: solid 1px #DBDBDA;
+
+    padding-bottom: 20rpx;
 }
-.form-item{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	border-bottom: solid 1px #DBDBDA;
-	padding: 20rpx;
+.words-lbl {
+    color: #808080;
 }
-.words-label{
-	font-size: 18.75px;
-	color: #808080;
-}
-.input{
-	width: 400rpx;
-	height: auto;
-	margin-left: 20rpx;
-	margin-top: 10rpx;
+.input {
+    width: 500rpx;
+    margin-left: 20rpx;
 }
 .graywords {
-	color: #e5eae2;
+    color: #808080;
 }
-.forgetPwd{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	width: 140rpx;
-	height: 70rpx;
-	padding: 5rpx;
-	margin-top: 9rpx;
-	margin-left: auto;
-	background-color: #FFD655;
+
+/* 注册登录 end */
+
+/*密码登录start*/
+.password-login-Wrapper{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    padding-top: 10rpx;
+    padding-bottom: 30rpx;}
+
+/*密码登录end*/
+
+/* 第三方登录 start */
+.third-wrapper {
+    width: 100%;
+    /* 固定底部 */
+    /* bottom: 0;
+    position: fixed; */
+
+    margin-top: 60rpx;
 }
-.forgetPwd1{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	width: 140rpx;
-	height: 70rpx;
-	padding: 5rpx;
-	margin-top: 9rpx;
-	margin-left: auto;
-	background-color: #f0ec79;
+.third-line {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center
 }
-.text-login{
-	padding-top:65rpx;
-	padding-bottom: 70rpx;
-	font-size: 55rpx;
-	text-align: center;
+.third-words {
+    color: #A9A9A9;
+    font-size: 13px;
+
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
 }
-.buttonWrapper{
-	padding:20rpx 40rpx
-}
-.loginButton{
-	border-radius: 50rpx;
-	border: 0;
-	font-size: 40rpx;
-	color: #ffffff;
-	background-color: #FFD655;
-}
-.disabled-button{
-	border-radius: 50rpx;
-	border: 0;
-	font-size: 40rpx;
-	color: #ffffff;
-	background-color: #aaaaff;
-}
-.questionWrapper{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	padding-top: 10rpx;
-	padding-bottom: 30rpx;
-}
-.socialLoginWrapper{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+.single-line {
+    padding: 15rpx 20rpx;
+    width: 25%;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
 }
 .third-icos-wrapper {
-	margin-top: 30rpx;
+    margin-top: 30rpx;
+
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center
+}
+.third-ico {
+    width: 60rpx;
+    height: 60rpx;
+}
+.third-btn-ico {
+    background-image:url(http://122.152.205.72:88/group1/M00/00/05/CpoxxFxFO-yAOjTaAAATCIZEzRU503.png);
+    width: 60rpx;
+    height: 60rpx;
+    background-color: white;
+    background-size: 60rpx 60rpx;
+    background-repeat:no-repeat;
+    border:none;
+    padding: 0;
+}
+button::after{
+    border: none;
+}
+.registerBtnWrapper{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: row;
-	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.third-ico {
-	width: 70rpx;
-	height: 70rpx;
+.registerBtn {
+    width: 500rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    background-color: #FFD655;
+    border-radius: 16rpx;
+    color: #FFFEFF;
+    font-size: 24px;
+    font-weight: bold;
 }
-.myIcon{
-	width: 100rpx;
-	height: 100rpx;
-	font-size: 50rpx;
-	/* padding: 20rpx; */
-	left: 0;
-}
+
+/* 第三方登录 end */
 

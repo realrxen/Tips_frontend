@@ -37,7 +37,9 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 	border-bottom: solid 1px #DBDBDA;
 
 	padding-bottom: 20rpx;
@@ -47,10 +49,10 @@
 }
 .input {
 	width: 500rpx;
-	margin-left: 40rpx;
+	margin-left: 20rpx;
 }
 .graywords {
-	color: #EAEAEA;
+	color: #808080;
 }
 
 /* 注册登录 end */
@@ -79,6 +81,30 @@
 	position: fixed; */
 
 	margin-top: 60rpx;
+}
+
+/* 新登录/注册按钮 */
+.registerBtnWrapper{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.registerBtn {
+	width: 500rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	text-align: center;
+	background-color: #FFD655;
+	border-radius: 16rpx;
+	color: #FFFEFF;
+	font-size: 24px;
+	font-weight: bold;
 }
 .third-line {
 	display: -webkit-box;

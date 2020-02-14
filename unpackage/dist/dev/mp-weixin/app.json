@@ -12,7 +12,8 @@
     "pages/souvenir/souvenir",
     "pages/registLogin/login",
     "pages/registLogin/teleLogin",
-    "pages/post/PostDetail"
+    "pages/post/PostDetail",
+    "pages/send/PostEdit"
   ],
   "subPackages": [],
   "window": {
@@ -27,5 +28,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap92.json"
+  "sitemapLocation": "sitemap65.json"
 }

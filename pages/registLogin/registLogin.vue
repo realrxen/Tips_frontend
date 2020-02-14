@@ -1,6 +1,5 @@
 <template>
 	<view class="body">
-		<form @submit="formSubmit">
 
 			<view class="face-wrapper">
 				<image src="../../static/icos/default-face.png" class="face"></image>
@@ -8,7 +7,7 @@
 
 			<view class="info-wrapper">
 				<label class="words-lbl">账号</label>
-				<input type="text" value="" name="userId" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" class="input" placeholder-class="graywords"/>
+				<!-- <input type="text" value="" name="userId" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" class="input" placeholder-class="graywords"/> -->
 				<template v-if="status">
 					<input v-model="username" class="input" type="text" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" value="" placeholder-class="graywords" />
 				</template>
@@ -20,12 +19,18 @@
 				<label class="words-lbl">密码</label>
 				<input type="text" value="" name="password" password="true" class="input" placeholder="请输入密码" placeholder-class="graywords"                                  />
 			</view>
-			<button type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">登录</button>
-		</form>
+<!--			<button type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">登录</button>-->
+			<view class="registerBtnWrapper">
+				<view class="registerBtn" type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">注册</view>
+			</view>
 		<view class="password-login-Wrapper">
 			<view style="font-size: 30rpx;color: #969896;" @click="changeLogin">{{status?'验证码登录':'账号密码登录'}}</view>
 			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
 			<view style="font-size: 30rpx;color: #969896;">忘记密码</view>
+			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
+			<navigator url="./login">
+			<view style="font-size: 30rpx;color: #969896;">注册</view>
+			</navigator>
 		</view>
 		<!-- 第三方登录H5不支持，所以隐藏掉 -->
 	<!-- #ifndef H5 -->
@@ -175,9 +180,7 @@
 									console.log(res.data.data)
 									// 缓存的API  保存用户信息到全局的缓存中
 									uni.setStorageSync("globalUser",userInfo)
-									uni.switchTab({
-										url:"../me/me"
-									})
+									uni.navigateBack({delta:1})
 									uni.showToast({
 										title:res.data.msg,
 										duration:2000,
