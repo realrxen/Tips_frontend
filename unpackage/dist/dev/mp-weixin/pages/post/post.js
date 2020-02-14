@@ -398,45 +398,56 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
 
     deletePost: function deletePost(data) {var _this3 = this;
       var postId = data;
-      uni.request({
-        header: {
-          "Authorization": this.token,
-          "type": this.type },
+      uni.showModal({
+        title: 'Hola',
+        content: '亲，真的要删除这条动态吗？',
+        cancelText: '留下它',
+        confirmText: '狠心删除',
+        success: function success(resp) {
+          if (resp.confirm) {
+            uni.request({
+              header: {
+                "Authorization": _this3.token,
+                "type": _this3.type },
 
-        url: serverUrl + '/posts/' + postId,
-        method: 'DELETE',
-        success: function success(res) {
-          if (res.data.code === 10007) {
-            uni.showToast({ title: res.data.msg, duration: 1500 });
-            if (_this3.tabIndex === 1) {
-              var currentDataList = _this3.dataList[_this3.tabIndex].posts;
-              currentDataList.forEach(function (item, index) {
-                if (item.postId === postId) {
-                  currentDataList.splice(index, 1);
+              url: serverUrl + '/posts/' + postId,
+              method: 'DELETE',
+              success: function success(res) {
+                if (res.data.code === 10007) {
+                  uni.showToast({ title: res.data.msg, duration: 1500 });
+                  if (_this3.tabIndex === 1) {
+                    var currentDataList = _this3.dataList[_this3.tabIndex].posts;
+                    currentDataList.forEach(function (item, index) {
+                      if (item.postId === postId) {
+                        currentDataList.splice(index, 1);
+                      }
+                    });
+                    var otherDataList = _this3.dataList[_this3.tabIndex - 1].posts;
+                    otherDataList.forEach(function (item, index) {
+                      if (item.postId === postId) {
+                        otherDataList.splice(index, 1);
+                      }
+                    });
+                  }if (_this3.tabIndex === 0) {
+                    var currentDataList = _this3.dataList[_this3.tabIndex].posts;
+                    currentDataList.forEach(function (item, index) {
+                      if (item.postId === postId) {
+                        currentDataList.splice(index, 1);
+                      }
+                    });
+                    var otherDataList = _this3.dataList[_this3.tabIndex + 1].posts;
+                    otherDataList.forEach(function (item, index) {
+                      if (item.postId === postId) {
+                        otherDataList.splice(index, 1);
+                      }
+                    });
+                  }
                 }
-              });
-              var otherDataList = _this3.dataList[_this3.tabIndex - 1].posts;
-              otherDataList.forEach(function (item, index) {
-                if (item.postId === postId) {
-                  otherDataList.splice(index, 1);
-                }
-              });
-            }if (_this3.tabIndex === 0) {
-              var currentDataList = _this3.dataList[_this3.tabIndex].posts;
-              currentDataList.forEach(function (item, index) {
-                if (item.postId === postId) {
-                  currentDataList.splice(index, 1);
-                }
-              });
-              var otherDataList = _this3.dataList[_this3.tabIndex + 1].posts;
-              otherDataList.forEach(function (item, index) {
-                if (item.postId === postId) {
-                  otherDataList.splice(index, 1);
-                }
-              });
-            }
+              } });
+
           }
         } });
+
 
 
     },

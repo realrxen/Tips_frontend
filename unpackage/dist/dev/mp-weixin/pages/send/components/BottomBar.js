@@ -193,7 +193,10 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
                       title: "发布成功!",
                       duration: 2000 });
 
-                    uni.navigateBack({ delta: 1 });
+                    // uni.navigateBack({delta:1})
+                    uni.redirectTo({
+                      url: '../post/post' });
+
                   } });
 
               }} else {
