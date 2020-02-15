@@ -3,28 +3,27 @@
 </template>
 
 <script>
-    export default {
-        name: "blank"
-    }
+    getOtpCode(){
+        console.log(this.telephone)
+        uni.request({
+            url:serverUrl+'/users/otp/'+this.telephone,
+            method:'GET',
+            success: (res) => {
+                if(res.data.code===0){
+                    if(this.codeTime>0){return}
+                    this.codeTime=30
+                    let timer = setInterval(()=>{
+                        if(this.codeTime>=1){
+                            this.codeTime--
+                        }else{
+                            this.codeTime=0
+                            clearInterval(timer)
+                        }
+                    },1000)
+                }
+            }
+        })
 
-    if(imgs.length>0){
-        for (let i = 0; i < imgs.length; i++) {
-            uni.uploadFile({
-                header:{
-                    "Authorization":this.token,
-                    "type":this.type
-                },
-                url:serverUrl+'/oss/insert?parentId='+currentPostId,
-                filePath:imgs[i],
-                name:"file",
-                method:'POST',
-                success: (res) => {
-
-                },
-            })
-        }}else{
-        uni.showToast({title:"发布成功!",duration:1200})
-        uni.navigateBack({delta:1})
     }
 </script>
 

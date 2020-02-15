@@ -100,6 +100,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.HMmessages = _vm.$refs.HMmessages
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -134,6 +139,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -268,12 +294,201 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var _default = { data: function data() {return { // userId:"",
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 177));};var _default = { components: { HMmessages: HMmessages }, data: function data() {return { // userId:"",
       // password:""
-      status: true, username: '', password: '', telephone: '', code: '', codeTime: 0 };}, methods: { appOAuthLogin: function appOAuthLogin(e) {var logintype = e.currentTarget.dataset.logintype;uni.login({ provider: logintype, success: function success(loginRes) {// 授权登录成功以后 获取用户的信息
-          uni.getUserInfo({ provider: logintype, success: function success(info) {// console.log(JSON.stringify(info))
-              var userInfo = info.userInfo;var faceIcon = "";var nickName = "";var thirdPartyId = "";if (logintype == "weixin") {faceIcon = userInfo.avatarUrl;nickName = userInfo.nickName;thirdPartyId = userInfo.openId;} else if (logintype == "qq") {faceIcon = userInfo.figureurl_qq_2;nickName = userInfo.nickname;thirdPartyId = userInfo.openid;} else if (logintype == "sinaweibo") {faceIcon = userInfo.avatar_large;nickName = userInfo.nickName;thirdPartyId = userInfo.id;}uni.request({ url: serverUrl + '/users/thirdPartyLogin/' + logintype, data: { "faceIcon": faceIcon, "nickName": nickName, "thirdPartyId": thirdPartyId }, method: "POST", success: function success(res) {if (res.data.code == 0) {var userInfo = {};userInfo = res.data.data;console.log(res.data.data); // 缓存的API  保存用户信息到全局的缓存中
-                    uni.setStorageSync("globalUser", userInfo);uni.switchTab({ url: "../me/me" });uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/xixi.png" });} else if (res.data.code == 466) {uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/error1.jpg" });}
+      status: true, account: "", password: "", telephone: "", otpCode: "", codeTime: 0, code: "", checked: true };}, created: function created() {var account = uni.getStorageSync("account");if (account !== null && account !== "" && account !== undefined) {this.account = account;}var password = uni.getStorageSync("pwd");if (password !== null && password !== "" && password !== undefined) {this.password = password;}}, methods: { rememberMe: function rememberMe() {this.checked = !this.checked;}, submitAp: function submitAp() {var _this = this;if (this.account === "") {this.warning("用户名/手机号不能为空哟");return;}if (this.password === "") {this.warning("密码不能为空哟");return;}if (this.validate2()) {uni.request({ url: serverUrl + '/users/tpLogin', data: { "telephone": this.account, "password": this.password }, method: "POST", success: function success(res) {// debugger
+            if (res.data.code === 0) {var userInfo = {};userInfo = res.data.data;console.log(res.data.data); // 缓存的API  保存用户信息到全局的缓存中
+              uni.setStorageSync("globalUser", userInfo);if (_this.checked) {uni.setStorageSync('account', _this.account);uni.setStorageSync('pwd', _this.password);}uni.navigateBack({ delta: 1 });uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/xixi.png" });} else if (res.data.code === 466) {uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/error1.jpg" });}} });} else {uni.request({ url: serverUrl + '/users/upLogin', data: { "username": this.account, "password": this.password }, method: "POST", success: function success(res) {// debugger
+            if (res.data.code === 0) {var userInfo = {};userInfo = res.data.data;console.log(res.data.data); // 缓存的API  保存用户信息到全局的缓存中
+              uni.setStorageSync("globalUser", userInfo);
+              if (_this.checked) {
+                uni.setStorageSync('account', _this.account);
+                uni.setStorageSync('pwd', _this.password);
+              }
+              uni.navigateBack({ delta: 1 });
+              uni.showToast({
+                title: res.data.msg,
+                duration: 2000,
+                image: "../../static/icos/xixi.png" });
+
+            } else if (res.data.code === 466) {
+              uni.showToast({
+                title: res.data.msg,
+                duration: 2000,
+                image: "../../static/icos/error1.jpg" });
+
+            }
+          } });
+
+      }
+    },
+    // submitTc() {
+    // 	if (this.telephone === "") {
+    // 		this.warning("手机号不能为空哟")
+    // 		return
+    // 	}
+    // 	if (this.otpCode === "") {
+    // 		this.warning("验证码不能为空哟")
+    // 		return
+    // 	}
+    // 	if (this.validate()) {
+    // 		uni.request({
+    // 			url:serverUrl+'/users/otpLogin',
+    // 			data:{
+    // 				"telephone":this.telephone,
+    // 				"validCode":this.otpCode,
+    // 			},
+    // 			method:"POST",
+    // 			success: (res) => {
+    // 				// debugger
+    // 				if(res.data.code===0){
+    // 					this.successHandler()
+    // 				}else if(res.data.code===466){
+    // 					uni.showToast({
+    // 						title:res.data.msg,
+    // 						duration:2000,
+    // 						image:"../../static/icos/error1.jpg"
+    // 					})
+    // 				}
+    // 			}
+    // 		})
+    // 	}
+    // },
+    successHandler: function successHandler() {
+      var userInfo = {};
+      userInfo = res.data.data;
+      console.log(res.data.data);
+      // 缓存的API  保存用户信息到全局的缓存中
+      uni.setStorageSync("globalUser", userInfo);
+      uni.navigateBack({ delta: 1 });
+      uni.showToast({
+        title: res.data.msg,
+        duration: 2000,
+        image: "../../static/icos/xixi.png" });
+
+    },
+    // getOtpCode(){
+    // 	var telephone = this.telephone
+    // 	uni.login({
+    // 		provider: 'weixin',
+    // 		success: function (loginRes) {
+    // 			var code = loginRes.code
+    // 			if (telephone === "") {
+    // 				this.warning("手机号不能为空哟")
+    // 				return
+    // 			}
+    // 				uni.request({
+    // 					url:serverUrl+'/users/otp/'+telephone+'/'+code,
+    // 					method:'GET',
+    // 					success: (res) => {
+    // 						if(res.data.code===0){
+    // 							uni.showToast({
+    // 								title:res.data.data,
+    // 								mask:true,
+    // 								duration:2000
+    // 							})
+    // 							// if(this.codeTime>0){return}
+    // 							// this.codeTime=30
+    // 							// let timer = setInterval(()=>{
+    // 							// 	if(this.codeTime>=1){
+    // 							// 		this.codeTime--
+    // 							// 	}else{
+    // 							// 		this.codeTime=0
+    // 							// 		clearInterval(timer)
+    // 							// 	}
+    // 							// },1000)
+    // 						}
+    // 						if (res.data.code === 10009) {
+    // 							uni.showToast({
+    // 								title:res.data.msg,
+    // 								mask:true,
+    // 								duration:2000
+    // 							})
+    // 						}
+    // 					}
+    // 				});
+    // 		}
+    // 	});
+    //
+    // 		},
+    appOAuthLogin: function appOAuthLogin(e) {
+      var logintype = e.currentTarget.dataset.logintype;
+      uni.login({
+        provider: logintype,
+        success: function success(loginRes) {
+          // 授权登录成功以后 获取用户的信息
+          uni.getUserInfo({
+            provider: logintype,
+            success: function success(info) {
+              // console.log(JSON.stringify(info))
+              var userInfo = info.userInfo;
+              var faceIcon = "";
+              var nickName = "";
+              var thirdPartyId = "";
+              if (logintype == "weixin") {
+                faceIcon = userInfo.avatarUrl;
+                nickName = userInfo.nickName;
+                thirdPartyId = userInfo.openId;
+              } else if (logintype == "qq") {
+                faceIcon = userInfo.figureurl_qq_2;
+                nickName = userInfo.nickname;
+                thirdPartyId = userInfo.openid;
+              } else if (logintype == "sinaweibo") {
+                faceIcon = userInfo.avatar_large;
+                nickName = userInfo.nickName;
+                thirdPartyId = userInfo.id;
+              }
+              uni.request({
+                url: serverUrl + '/users/thirdPartyLogin/' + logintype,
+                data: {
+                  "faceIcon": faceIcon,
+                  "nickName": nickName,
+                  "thirdPartyId": thirdPartyId },
+
+                method: "POST",
+                success: function success(res) {
+                  if (res.data.code == 0) {
+                    var userInfo = {};
+                    userInfo = res.data.data;
+                    console.log(res.data.data);
+                    // 缓存的API  保存用户信息到全局的缓存中
+                    uni.setStorageSync("globalUser", userInfo);
+                    uni.switchTab({
+                      url: "../me/me" });
+
+                    uni.showToast({
+                      title: res.data.msg,
+                      duration: 2000,
+                      image: "../../static/icos/xixi.png" });
+
+                  } else if (res.data.code == 466) {
+                    uni.showToast({
+                      title: res.data.msg,
+                      duration: 2000,
+                      image: "../../static/icos/error1.jpg" });
+
+                  }
                 } });
 
 
@@ -309,7 +524,7 @@ var serverUrl = _common.default.serverUrl;var _default = { data: function data()
 
             method: "POST",
             success: function success(res) {
-              if (res.data.code == 0) {
+              if (res.data.code === 0) {
                 var userInfo = {};
                 userInfo = res.data.data;
                 console.log(res.data.data);
@@ -365,14 +580,35 @@ var serverUrl = _common.default.serverUrl;var _default = { data: function data()
 
     },
     initForm: function initForm() {
-      this.username = '',
-      this.password = '',
-      this.telephone = '',
-      this.code = '';
+      this.username = "",
+      this.password = "",
+      this.telephone = "",
+      this.otpCode = "";
     },
     changeLogin: function changeLogin() {
       this.initForm();
       this.status = !this.status;
+    },
+    validate: function validate() {
+      var mPattern = /^1[34578]\d{9}$/;
+      if (!mPattern.test(this.telephone)) {
+        this.warning("手机号格式错误");
+        return false;
+      } else {
+        return true;
+      }
+    },
+    validate2: function validate2() {
+      var mPattern = /^1[34578]\d{9}$/;
+      if (!mPattern.test(this.account)) {
+        // this.warning("手机号格式错误")
+        return false;
+      } else {
+        return true;
+      }
+    },
+    warning: function warning(msg) {
+      this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

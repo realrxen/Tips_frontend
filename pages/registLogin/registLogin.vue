@@ -6,31 +6,51 @@
 			</view>
 
 			<view class="info-wrapper">
-				<label class="words-lbl">账号</label>
 				<!-- <input type="text" value="" name="userId" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" class="input" placeholder-class="graywords"/> -->
 				<template v-if="status">
-					<input v-model="username" class="input" type="text" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" value="" placeholder-class="graywords" />
+					<label class="words-lbl">账号</label>
+					<input v-model="account" class="input" type="text" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" value="" placeholder-class="graywords" />
 				</template>
 				<template v-else>
+					<label class="words-lbl" style="margin-left: 17rpx;">手机号</label>
 					<input v-model="telephone" class="input" type="text" :placeholder="status?'请输入用户名/手机号':'请输入手机号'" value="" placeholder-class="graywords" />
 				</template>
 			</view>
-			<view class="info-wrapper" style="margin-top: 40upx;">
-				<label class="words-lbl">密码</label>
-				<input type="text" value="" name="password" password="true" class="input" placeholder="请输入密码" placeholder-class="graywords"                                  />
-			</view>
-<!--			<button type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">登录</button>-->
-			<view class="registerBtnWrapper">
-				<view class="registerBtn" type="primary" form-type="submit" style="margin-top: 60upx; width: 90%;">注册</view>
-			</view>
+
+
+				<template v-if="status">
+					<view class="info-wrapper" style="margin-top: 40upx;">
+						<label class="words-lbl">密码</label>
+						<input type="text" v-model="password" name="password" password="true" class="input" placeholder="请输入密码" placeholder-class="graywords"/>
+					</view>
+					<view class="cu-form-group rememberMe">
+<!--						<checkbox class='round' :checked="true"></checkbox>-->
+						<view :class="checked?'cuIcon-favorfill':'cuIcon-favor'" @click="rememberMe" class="myCheckbox" ></view>
+						<view>记住密码</view>
+					</view>
+					<view class="registerBtnWrapper">
+						<view class="registerBtn  animated" hover-class="bounceIn" @click="submitAp" style="margin-top: 60upx;margin-bottom: 5rpx; width: 90%;">登录</view>
+					</view>
+				</template>
+				<template v-else>
+					<view class="info-wrapper" style="margin-top: 25upx;">
+						<label class="words-lbl">验证码</label>
+						<input type="text" v-model="otpCode" name="password" class="input-otpCode" placeholder="请输入验证码" placeholder-class="graywords"/>
+						<view class="animated" hover-class="RubberBand" :class="codeTime>0?'getOtpCodeBtnUn':'getOtpCodeBtn'" @click="getOtpCode">{{codeTime>0?codeTime+'s':'获取验证码'}}</view>
+					</view>
+					<view class="registerBtnWrapper">
+						<view class="registerBtn animated" hover-class="bounceIn" @click="submitTc" style="margin-top: 60upx;margin-bottom: 5rpx; width: 90%;">登录</view>
+					</view>
+				</template>
+
 		<view class="password-login-Wrapper">
 			<view style="font-size: 30rpx;color: #969896;" @click="changeLogin">{{status?'验证码登录':'账号密码登录'}}</view>
 			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
-			<view style="font-size: 30rpx;color: #969896;">忘记密码</view>
-			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
+			<view style="font-size: 30rpx;color: #969896;margin-right: 20rpx;">忘记密码</view>
+			<!-- <text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
 			<navigator url="./login">
 			<view style="font-size: 30rpx;color: #969896;">注册</view>
-			</navigator>
+			</navigator> -->
 		</view>
 		<!-- 第三方登录H5不支持，所以隐藏掉 -->
 	<!-- #ifndef H5 -->
@@ -61,6 +81,7 @@
 				<!-- #endif -->
 			</view>
 		</view>
+		<HMmessages ref="HMmessages" @complete="HMmessages = $refs.HMmessages" @clickMessage="clickMessage"></HMmessages>
 	<!-- #endif -->
 	</view>
 </template>
@@ -68,20 +89,209 @@
 <script>
 	import common from "../../common/common.js"
 	var serverUrl = common.serverUrl
+	import HMmessages from "../../components/HM-messages/HMmessages";
 	export default{
+		components:{
+			HMmessages
+		},
 		data(){
 			return{
 				// userId:"",
 				// password:""
 				status:true,
-				username:'',
-				password:'',
-				telephone:'',
-				code:'',
-				codeTime:0
+				account:"",
+				password:"",
+				telephone:"",
+				otpCode:"",
+				codeTime:0,
+				code:"",
+				checked:true
 			};
 		},
+		created(){
+			var account = uni.getStorageSync("account")
+			if(account!==null&&account!==""&&account!==undefined){
+				this.account=account
+			}
+			var password = uni.getStorageSync("pwd")
+			if(password!==null&&password!==""&&password!==undefined){
+				this.password=password
+			}
+		},
 		methods:{
+			rememberMe(){
+				this.checked=!this.checked
+			},
+			submitAp() {
+				if (this.account === "") {
+					this.warning("用户名/手机号不能为空哟")
+					return
+				}
+				if (this.password === "") {
+					this.warning("密码不能为空哟")
+					return
+				}
+				if (this.validate2()) {
+					uni.request({
+						url:serverUrl+'/users/tpLogin',
+						data:{
+							"telephone":this.account,
+							"password":this.password,
+						},
+						method:"POST",
+						success: (res) => {
+							// debugger
+							if(res.data.code===0){
+								var userInfo ={}
+								userInfo=res.data.data
+								console.log(res.data.data)
+								// 缓存的API  保存用户信息到全局的缓存中
+								uni.setStorageSync("globalUser",userInfo)
+								if (this.checked) {
+									uni.setStorageSync('account',this.account)
+									uni.setStorageSync('pwd',this.password)
+								}
+								uni.navigateBack({delta:1});
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/xixi.png"
+								})
+							}else if(res.data.code===466){
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/error1.jpg"
+								})
+							}
+						}
+					})
+				}else {
+					uni.request({
+						url:serverUrl+'/users/upLogin',
+						data:{
+							"username":this.account,
+							"password":this.password,
+						},
+						method:"POST",
+						success: (res) => {
+							// debugger
+							if(res.data.code===0){
+								var userInfo ={}
+								userInfo=res.data.data
+								console.log(res.data.data)
+								// 缓存的API  保存用户信息到全局的缓存中
+								uni.setStorageSync("globalUser",userInfo)
+								if (this.checked) {
+									uni.setStorageSync('account',this.account)
+									uni.setStorageSync('pwd',this.password)
+								}
+								uni.navigateBack({delta:1})
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/xixi.png"
+								})
+							}else if(res.data.code===466){
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/error1.jpg"
+								})
+							}
+						}
+					})
+				}
+			},
+			// submitTc() {
+			// 	if (this.telephone === "") {
+			// 		this.warning("手机号不能为空哟")
+			// 		return
+			// 	}
+			// 	if (this.otpCode === "") {
+			// 		this.warning("验证码不能为空哟")
+			// 		return
+			// 	}
+			// 	if (this.validate()) {
+			// 		uni.request({
+			// 			url:serverUrl+'/users/otpLogin',
+			// 			data:{
+			// 				"telephone":this.telephone,
+			// 				"validCode":this.otpCode,
+			// 			},
+			// 			method:"POST",
+			// 			success: (res) => {
+			// 				// debugger
+			// 				if(res.data.code===0){
+			// 					this.successHandler()
+			// 				}else if(res.data.code===466){
+			// 					uni.showToast({
+			// 						title:res.data.msg,
+			// 						duration:2000,
+			// 						image:"../../static/icos/error1.jpg"
+			// 					})
+			// 				}
+			// 			}
+			// 		})
+			// 	}
+			// },
+			successHandler(){
+				var userInfo ={}
+				userInfo=res.data.data
+				console.log(res.data.data)
+				// 缓存的API  保存用户信息到全局的缓存中
+				uni.setStorageSync("globalUser",userInfo)
+				uni.navigateBack({delta:1})
+				uni.showToast({
+					title:res.data.msg,
+					duration:2000,
+					image:"../../static/icos/xixi.png"
+				})
+			},
+			// getOtpCode(){
+			// 	var telephone = this.telephone
+			// 	uni.login({
+			// 		provider: 'weixin',
+			// 		success: function (loginRes) {
+			// 			var code = loginRes.code
+			// 			if (telephone === "") {
+			// 				this.warning("手机号不能为空哟")
+			// 				return
+			// 			}
+			// 				uni.request({
+			// 					url:serverUrl+'/users/otp/'+telephone+'/'+code,
+			// 					method:'GET',
+			// 					success: (res) => {
+			// 						if(res.data.code===0){
+			// 							uni.showToast({
+			// 								title:res.data.data,
+			// 								mask:true,
+			// 								duration:2000
+			// 							})
+			// 							// if(this.codeTime>0){return}
+			// 							// this.codeTime=30
+			// 							// let timer = setInterval(()=>{
+			// 							// 	if(this.codeTime>=1){
+			// 							// 		this.codeTime--
+			// 							// 	}else{
+			// 							// 		this.codeTime=0
+			// 							// 		clearInterval(timer)
+			// 							// 	}
+			// 							// },1000)
+			// 						}
+			// 						if (res.data.code === 10009) {
+			// 							uni.showToast({
+			// 								title:res.data.msg,
+			// 								mask:true,
+			// 								duration:2000
+			// 							})
+			// 						}
+			// 					}
+			// 				});
+			// 		}
+			// 	});
+			//
+			// 		},
 			appOAuthLogin(e){
 				var logintype =e.currentTarget.dataset.logintype
 				uni.login({
@@ -174,7 +384,7 @@
 							},
 							method:"POST",
 							success: (res) => {
-								if(res.data.code==0){
+								if(res.data.code===0){
 								var userInfo ={}
 									userInfo=res.data.data
 									console.log(res.data.data)
@@ -230,14 +440,35 @@
 				})
 			},
 			initForm(){
-				this.username='',
-				this.password='',
-				this.telephone='',
-				this.code=''
+				this.username="",
+				this.password="",
+				this.telephone="",
+				this.otpCode=""
 			},
 			changeLogin(){
 				this.initForm()
 				this.status=!this.status
+			},
+			validate(){
+				var mPattern =/^1[34578]\d{9}$/
+				if(!mPattern.test(this.telephone)){
+					this.warning("手机号格式错误")
+					return false
+				}else{
+					return true
+				}
+			},
+			validate2(){
+				var mPattern =/^1[34578]\d{9}$/
+				if(!mPattern.test(this.account)){
+					// this.warning("手机号格式错误")
+					return false
+				}else{
+					return true
+				}
+			},
+			warning(msg) {
+				this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})
 			}
 		},
 

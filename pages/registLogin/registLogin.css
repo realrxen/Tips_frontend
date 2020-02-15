@@ -25,7 +25,6 @@
 	justify-content: center;
 	align-items: center;
 	border-bottom: solid 1px #DBDBDA;
-
 	padding-bottom: 20upx;
 }
 
@@ -36,6 +35,37 @@
 .input {
 	width: 500upx;
 	margin-left: 20upx;
+}
+
+.input-otpCode {
+	width: 300upx;
+	margin-left: 20upx;
+}
+
+.getOtpCodeBtn{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 180rpx;
+	height: 70rpx;
+	padding: 5rpx;
+	background-color: #FFD655;
+	color: #ffffff;
+	text-align: center;
+	border-radius: 20rpx;
+}
+
+.getOtpCodeBtnUn{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 180rpx;
+	height: 70rpx;
+	padding: 5rpx;
+	background-color: #F2F2F2;
+	color: #000000;
+	text-align: center;
+	border-radius: 20rpx;
 }
 
 .graywords {
@@ -61,6 +91,21 @@
 	margin-top: 60upx;
 
 }
+/*
+记住密码
+*/
+.rememberMe{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 20rpx;
+}
+.myCheckbox{
+	margin-right: 10rpx;
+	color: #ffd655;
+	font-size: 20px;
+}
+
 /* 新登录/注册按钮 */
 .registerBtnWrapper{
 	display: flex;
