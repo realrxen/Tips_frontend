@@ -453,7 +453,6 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
     },
 
     // 点击关注
-
     follow: function follow(e) {var _this4 = this;
       var idolId = e;
       uni.request({
@@ -494,6 +493,47 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
 
 
     },
+    //点赞start
+    likeHateUpDown: function likeHateUpDown(posts, e) {
+      var post = posts[e.index];
+      if (post.love.type === "") {
+        uni.request({
+          header: {
+            "Authorization": this.token,
+            "type": this.type },
+
+          url: serverUrl + '/loves/3?apiRootId=' + post.postId + '&userId=' + this.userId,
+          method: 'POST',
+          success: function success(res) {
+            if (res.data.code === 0) {
+              posts[e.index].love[e.type + 'Count'] += 1;
+              posts[e.index].love.type = e.type;
+            }
+          },
+          fail: function fail() {
+
+          },
+          complete: function complete() {
+
+          } });
+
+
+        return;
+      } else if (post.love.type === e.type) {
+        posts[e.index].love[post.love.type + 'Count']--;
+        posts[e.index].love.type = "";
+      } else if (post.love.type !== e.type) {
+        posts[e.index].love[post.love.type + 'Count']--;
+        posts[e.index].love.type = e.type;
+        posts[e.index].love[e.type + 'Count'] += 1;
+      }
+    },
+
+    love: function love(e) {
+      var posts = this.dataList[this.tabIndex].posts;
+      this.likeHateUpDown(posts, e);
+    },
+    //点赞end
     tabChanged: function tabChanged(data) {
       this.tabIndex = data;
     },

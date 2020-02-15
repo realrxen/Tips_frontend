@@ -36,8 +36,8 @@
 
 			return {
 				dataList2:[
-						{	id:0,
-							posts:[
+					{	id:0,
+						posts:[
 							{
 								username:"Seeumt",
 								faceIcon:'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
@@ -45,8 +45,8 @@
 								isFollow:false,
 								title:'Love',
 								imgUrls:["http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg"],
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+									"http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg"],
 								love:{
 									type:'like',
 									likeCount:6000,
@@ -101,8 +101,8 @@
 								collectCount:7000,
 							}
 						]},
-					    {	id:1,
-					    	posts:[
+					{	id:1,
+						posts:[
 							{
 								username:"Tips",
 								faceIcon:'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
@@ -110,8 +110,8 @@
 								isFollow:false,
 								title:'Love',
 								imgUrls:["https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg"],
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg"],
 								love:{
 									type:'like',
 									likeCount:6000,
@@ -142,10 +142,10 @@
 								isFollow:true,
 								title:'Love',
 								imgUrls:["https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
-								"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg"],
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+									"https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg"],
 								love:{
 									type:'hate',
 									likeCount:0,
@@ -311,7 +311,6 @@
 			},
 
 			// 点击关注
-
 			follow(e){
 				var idolId=e;
 				uni.request({
@@ -352,6 +351,47 @@
 				})
 
 			},
+			//点赞start
+			likeHateUpDown(posts,e){
+				let post = posts[e.index]
+				if(post.love.type===""){
+					uni.request({
+						header:{
+							"Authorization":this.token,
+							"type":this.type
+						},
+						url:serverUrl+'/loves/3?apiRootId='+post.postId+'&userId='+this.userId,
+						method:'POST',
+						success: (res) => {
+							if(res.data.code===0){
+								posts[e.index].love[e.type+'Count']+=1
+								posts[e.index].love.type=e.type
+							}
+						},
+						fail: () => {
+					
+						},
+						complete: () => {
+					
+						}
+					});
+					
+					return
+				}else if(post.love.type===e.type){
+					posts[e.index].love[post.love.type+'Count']--
+					posts[e.index].love.type=""
+				}else if(post.love.type!==e.type){
+					posts[e.index].love[post.love.type+'Count']--
+					posts[e.index].love.type=e.type
+					posts[e.index].love[e.type+'Count']+=1
+				}
+			}
+			,
+			love(e){
+				var posts=this.dataList[this.tabIndex].posts
+				this.likeHateUpDown(posts,e)
+			},
+			//点赞end
 			tabChanged(data){
 				this.tabIndex=data
 			},

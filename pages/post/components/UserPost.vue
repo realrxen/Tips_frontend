@@ -3,7 +3,7 @@
 		<view class="page page-fill User-Post">
 		<view class="article">
 			<!-- 头像昵称 -->
-			<view class="userWrapper"  @click="goToPostDetail" :data-postId="post.postId">
+			<view class="userWrapper" :data-postId="post.postId">
 				<view class="userInfoWrapper">
 					<image :src="post.faceIcon" class="faceIcon" lazy-load></image>
 					<view class="userDetailWrapper">
