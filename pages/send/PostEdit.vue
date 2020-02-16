@@ -2,10 +2,10 @@
 	<view class="send page-fill page">
 		<!-- <NavBar></NavBar> -->
 		<MyTextArea @getContent="getTextContent" :editText="post.content"></MyTextArea>
-		<Tags @getTagIds="getTagIds" :hasSelectTagList="hasSelectTagList"></Tags>
-		<UploadImages :isPost="isPost" @getImgList="getImgList" :imgUrls="imgUrls"></UploadImages>
+		<Tags @getTagIds="getTagIds" :hasSelectTags="hasSelectTags"></Tags>
+		<UploadImages :edit="edit" @editImgsChange="editImgsChange" :isPost="isPost" @getImgList="getImgList" :imgs="hasPostImgs"></UploadImages>
 		<HMmessages></HMmessages>
-		<BottomBar :Post="postForm" @click="send"></BottomBar>
+		<BottomBar :edit="edit" :Post="postForm" @click="send"></BottomBar>
 
 	</view>
 </template>
@@ -15,7 +15,9 @@
 	import Tags from "../../components/colorui/components/tags";
 	import UploadImages from "../../components/colorui/components/uploadImages";
 	import HMmessages from "../../components/HM-messages/HMmessages";
-	import BottomBar from "./components/BottomBar.vue"
+	import BottomBar from "./components/BottomBar.vue";
+	import common from "../../common/common.js";
+	var serverUrl = common.serverUrl;
 	export default {
 		// props:{
 		// 	list:Array,
@@ -31,11 +33,12 @@
 		},
 		data() {
 			return {
+				edit:true,
 				postId:"",
 				isCard: false,
 				isPost:true,
 				showback:false,
-				hasSelectTagList:[],
+				hasSelectTags:[],
 				hasPostImgs:[],
 				imageList:[],
 				postForm:{
@@ -65,7 +68,7 @@
 						if(res.confirm){
 							this.saveDraft()
 						}else{
-							 uni.removeStorageSync("postDraft ")
+							 uni.removeStorageSync("postDraft")
 						}
 						uni.navigateBack({
 							delta:1
@@ -79,25 +82,39 @@
 		},
 		onLoad(paramsObj) {
 			var userInfo = uni.getStorageSync("globalUser")
-			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
-				this.userInfo=userInfo
-				this.token="Bearer "+this.userInfo.token
-				this.type=this.userInfo.tokenType
-				this.userId=this.userInfo.userId
-			}else{
-				this.isFollow=false
+			if (userInfo != null && userInfo != "" && userInfo != undefined) {
+				this.userInfo = userInfo
+				this.token = "Bearer " + this.userInfo.token
+				this.type = this.userInfo.tokenType
+				this.userId = this.userInfo.userId
+			} else {
+				this.isFollow = false
 			}
 			this.postId = paramsObj.postId
-			/* 返回PostDTO */
+			/* 返回 Post的图片 */
 			uni.request({
-				url:serverUrl+'/posts/'+this.postId,
+				url: serverUrl + '/oss/imgs/' + this.postId,
+				method: 'GET',
+				success: (res) => {
+					if (res.data.code === 0) {
+						this.hasPostImgs = res.data.data.imgs
+					}
+				},
+				fail: () => {
+
+				},
+				complete: () => {
+
+				}
+			});
+			/*返回Post的已选标签*/
+			uni.request({
+				url:serverUrl+'/mt/'+this.postId,
 				method:'GET',
 				success: (res) => {
 					if(res.data.code===0){
-						var post =res.data.data
-						this.post= post
+						this.hasSelectTags=res.data.data
 					}
-
 				},
 				fail: () => {
 
@@ -118,6 +135,18 @@
 		// 	this.imageList = this.list
 		// },
 		methods: {
+			editImgsChange(data) {
+				this.hasPostImgs = data;
+				var newImgs = [];
+
+				this.hasPostImgs.forEach((img,index)=>{
+					if (img.imgId === "") {
+						newImgs.push(img.imgUrl)
+					}
+				})
+				this.postForm.imgUrls = newImgs;
+				console.log(this.postForm)
+			},
 			/*获取图片数组*/
 			getImgList(data) {
 				this.postForm.imgUrls = data;
@@ -157,7 +186,6 @@
 			},
 
 			changeImage(e) {
-				console.log(e)
 				this.imageList = e
 			},
 

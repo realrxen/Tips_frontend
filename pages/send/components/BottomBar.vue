@@ -17,7 +17,11 @@
 	export default{
 		name:"BottomBar",
 		props:{
-			Post:Object
+			Post:Object,
+			edit:{
+				type: Boolean,
+				default: false
+			}
 		},
 		data(){
 			return{
@@ -40,56 +44,60 @@
 
 		methods:{
 			send() {
-				uni.request({
-					header:{
-						"Authorization":this.token,
-						"type":this.type
-					},
-					url:serverUrl+'/posts/',
-					data:{
-						 "userId":this.Post.userId,
-						 "content":this.Post.content,
-						 "type":this.Post.type,
-						 "tagIds":this.Post.tagIds,
-						 "location":this.Post.location,
-						},
-					method:'POST',
-					success: (res) => {
-						if(res.data.code===0){
-						var currentPostId=res.data.data
-						var imgs=this.Post.imgUrls
-						if(imgs.length>0){
-						        for (let i = 0; i < imgs.length; i++) {
-						            uni.uploadFile({
-						                header:{
-						                    "Authorization":this.token,
-						                    "type":this.type
-						                },
-						                url:serverUrl+'/oss/insert?parentId='+currentPostId,
-						                filePath:imgs[i],
-						                name:"file",
-						                method:'POST',
-						                success: (response) => {
+				if (this.edit) {
 
-						                    uni.showToast({
-						                    	title:"发布成功!",
-						                    	duration:2000,
-						                    })
-											// uni.navigateBack({delta:1})
-											uni.redirectTo({
-												url:'../post/post'
-											})
-						                },
-						            })
-						        }}else{
-						        uni.showToast({title:"发布成功!",duration:1200})
-						        uni.navigateBack({delta:1})
-						    }
-						// 
-					}
-				},
-				
-			})
+				} else {
+					uni.request({
+						header:{
+							"Authorization":this.token,
+							"type":this.type
+						},
+						url:serverUrl+'/posts/',
+						data:{
+							"userId":this.Post.userId,
+							"content":this.Post.content,
+							"type":this.Post.type,
+							"tagIds":this.Post.tagIds,
+							"location":this.Post.location,
+						},
+						method:'POST',
+						success: (res) => {
+							if(res.data.code===0){
+								var currentPostId=res.data.data
+								var imgs=this.Post.imgUrls
+								if(imgs.length>0){
+									for (let i = 0; i < imgs.length; i++) {
+										uni.uploadFile({
+											header:{
+												"Authorization":this.token,
+												"type":this.type
+											},
+											url:serverUrl+'/oss/insert?parentId='+currentPostId,
+											filePath:imgs[i],
+											name:"file",
+											method:'POST',
+											success: (response) => {
+
+												uni.showToast({
+													title:"发布成功!",
+													duration:2000,
+												})
+												// uni.navigateBack({delta:1})
+												uni.redirectTo({
+													url:'../post/post'
+												})
+											},
+										})
+									}}else{
+									uni.showToast({title:"发布成功!",duration:1200})
+									uni.navigateBack({delta:1})
+								}
+								//
+							}
+						},
+
+					});
+				}
 		}
 		}
 

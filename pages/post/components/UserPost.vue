@@ -66,7 +66,7 @@
 				</view>
 			</view>
 			<view class="operationWrapper" v-if="currentUserId==post.userId&&currentUserId!=''">
-				<view class="operationText">编辑</view>
+				<view class="operationText" @tap="edit" :data-postId="post.postId">编辑</view>
 				<view class="operationText" @tap="deletePost" :data-postId="post.postId">删除</view>
 			</view>
 		</view>
@@ -106,6 +106,12 @@
 				}
 			},
 		methods:{
+			edit(e){
+				var postId = e.currentTarget.dataset.postid
+				uni.navigateTo({
+					url:'../send/PostEdit?postId='+postId
+				})
+			},
 			deletePost(e){
 				var postId = e.currentTarget.dataset.postid
 				this.$emit("deletePost",postId)

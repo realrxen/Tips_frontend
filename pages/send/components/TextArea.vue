@@ -29,7 +29,7 @@
 	    methods: {
             textareaBInput(e) {
                 this.content = e.detail.value
-                this.$emit('getContent',this.content)
+                this.$emit('editContentChange',this.content)
             },
             warning(msg) {
                 this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})

@@ -135,7 +135,7 @@ var _default =
 {
   name: "tags",
   props: {
-    hasSelectTagList: Array },
+    hasSelectTags: Array },
 
   data: function data() {
     return {

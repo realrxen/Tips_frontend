@@ -17,7 +17,7 @@
     export default {
         name: "tags",
         props:{
-            hasSelectTagList:Array
+            hasSelectTags:Array
         },
         data(){
             return{

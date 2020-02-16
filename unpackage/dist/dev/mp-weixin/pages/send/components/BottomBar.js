@@ -143,7 +143,11 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/com
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", props: { Post: Object }, data: function data() {return { userId: "", userInfo: {}, token: '', type: '' };
+var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", props: { Post: Object, edit: { type: Boolean, default: false } }, data: function data() {return { userId: "",
+      userInfo: {},
+      token: '',
+      type: '' };
+
   },
   //TODO 子组件不可以用onLoad(),但可用created()函数
   created: function created() {
@@ -158,56 +162,60 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
 
   methods: {
     send: function send() {var _this = this;
-      uni.request({
-        header: {
-          "Authorization": this.token,
-          "type": this.type },
+      if (this.edit) {
 
-        url: serverUrl + '/posts/',
-        data: {
-          "userId": this.Post.userId,
-          "content": this.Post.content,
-          "type": this.Post.type,
-          "tagIds": this.Post.tagIds,
-          "location": this.Post.location },
+      } else {
+        uni.request({
+          header: {
+            "Authorization": this.token,
+            "type": this.type },
 
-        method: 'POST',
-        success: function success(res) {
-          if (res.data.code === 0) {
-            var currentPostId = res.data.data;
-            var imgs = _this.Post.imgUrls;
-            if (imgs.length > 0) {
-              for (var i = 0; i < imgs.length; i++) {
-                uni.uploadFile({
-                  header: {
-                    "Authorization": _this.token,
-                    "type": _this.type },
+          url: serverUrl + '/posts/',
+          data: {
+            "userId": this.Post.userId,
+            "content": this.Post.content,
+            "type": this.Post.type,
+            "tagIds": this.Post.tagIds,
+            "location": this.Post.location },
 
-                  url: serverUrl + '/oss/insert?parentId=' + currentPostId,
-                  filePath: imgs[i],
-                  name: "file",
-                  method: 'POST',
-                  success: function success(response) {
+          method: 'POST',
+          success: function success(res) {
+            if (res.data.code === 0) {
+              var currentPostId = res.data.data;
+              var imgs = _this.Post.imgUrls;
+              if (imgs.length > 0) {
+                for (var i = 0; i < imgs.length; i++) {
+                  uni.uploadFile({
+                    header: {
+                      "Authorization": _this.token,
+                      "type": _this.type },
 
-                    uni.showToast({
-                      title: "发布成功!",
-                      duration: 2000 });
+                    url: serverUrl + '/oss/insert?parentId=' + currentPostId,
+                    filePath: imgs[i],
+                    name: "file",
+                    method: 'POST',
+                    success: function success(response) {
 
-                    // uni.navigateBack({delta:1})
-                    uni.redirectTo({
-                      url: '../post/post' });
+                      uni.showToast({
+                        title: "发布成功!",
+                        duration: 2000 });
 
-                  } });
+                      // uni.navigateBack({delta:1})
+                      uni.redirectTo({
+                        url: '../post/post' });
 
-              }} else {
-              uni.showToast({ title: "发布成功!", duration: 1200 });
-              uni.navigateBack({ delta: 1 });
+                    } });
+
+                }} else {
+                uni.showToast({ title: "发布成功!", duration: 1200 });
+                uni.navigateBack({ delta: 1 });
+              }
+              //
             }
-            // 
-          }
-        } });
+          } });
 
 
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

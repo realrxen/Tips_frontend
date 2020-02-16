@@ -116,87 +116,160 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  props: {
-    isPost: {
-      type: Boolean,
-      default: true },
-
-    imgUrls: Array },
-
-  data: function data() {
-    return {
-      imgList: [],
-      selectedImgList: [],
-      warningText: this.isPost ? "点击预览图片" : "选择封面" };
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
-  },
-  computed: {
-    limitLength: function limitLength() {
-      return this.isPost ? 9 : 1;
-    } },
 
-  methods: {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var serverUrl = _common.default.serverUrl;var _default = { props: { isPost: { type: Boolean, default: true }, imgs: Array, edit: { type: Boolean, default: false } }, data: function data() {return { imgList: [], selectedImgList: [], warningText: this.isPost ? "点击预览图片" : "选择封面", newImgList: [] };}, computed: { limitLength: function limitLength() {if (this.edit) {return 9;} else {return this.isPost ? 9 : 1;}} }, methods: {
     ChooseImage: function ChooseImage() {var _this = this;
       uni.chooseImage({
-        count: this.isPost ? 9 - this.imgUrls.length : 1,
+        count: this.isPost ? 9 - this.imgs.length : 1,
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album'], //从相册选择
         success: function success(res) {
-          if (_this.imgUrls.length !== 0) {
-            _this.imgList = _this.imgList.concat(res.tempFilePaths);
-            _this.$emit('getImgList', _this.imgList);
+          if (_this.edit) {
+            if (_this.imgs.length !== 0) {
+              var img = { imgId: "", imgUrl: "" };
+              img.imgUrl = res.tempFilePaths[0];
+              _this.imgs.push(img);
+              _this.$emit('editImgsChange', _this.imgs);
+            } else {
+              var img = { imgId: "", imgUrl: "" };
+              img.imgUrl = res.tempFilePaths[0];
+              _this.imgs[0] = img;
+            }
           } else {
-            _this.imgList = res.tempFilePaths;
-            _this.$emit('getImgList', _this.imgList);
+            if (_this.imgList.length !== 0) {
+              _this.imgList = _this.imgList.concat(res.tempFilePaths);
+              _this.$emit('getImgList', _this.imgList);
+            } else {
+              _this.imgList = res.tempFilePaths;
+              _this.$emit('getImgList', _this.imgList);
+            }
           }
+
         } });
 
 
     },
-    ViewImage: function ViewImage(e) {
-      uni.previewImage({
-        urls: this.imgList,
-        current: e.currentTarget.dataset.url });
-
-    },
+    // ViewImage(e) {
+    //     uni.previewImage({
+    //         urls: this.imgList,
+    //         current: e.currentTarget.dataset.url
+    //     });
+    // },
     DelImg: function DelImg(e) {var _this2 = this;
-      uni.showModal({
-        title: 'Tips',
-        content: '确定要删除这张图片吗？',
-        cancelText: '再看看',
-        confirmText: '删除',
-        success: function success(res) {
-          if (res.confirm) {
-            _this2.imgList.splice(e.currentTarget.dataset.index, 1);
-            _this2.$emit('getImgList', _this2.imgList);
-          }
-        } });
+      if (this.edit) {
+        uni.showModal({
+          title: 'Tips',
+          content: '亲，老照片删除了要重新上传哟',
+          cancelText: '我想想',
+          confirmText: '删除',
+          success: function success(res) {
+            if (res.confirm) {
+              var ossId = _this2.imgs[e.currentTarget.dataset.index].imgId;
+              if (ossId !== "") {
+                uni.request({
+                  url: serverUrl + '/oss/imgs/' + ossId,
+                  method: 'DELETE',
+                  success: function success(res) {
+                    if (res.data.code === 0) {
+                      _this2.imgs.splice(e.currentTarget.dataset.index, 1);
+                      uni.showToast({ title: res.data.data, duration: 1500 });
+                    }
+
+                  },
+                  fail: function fail() {
+
+                  },
+                  complete: function complete() {
+
+                  } });
+
+              } else {
+                _this2.imgs.splice(e.currentTarget.dataset.index, 1);
+              }
+              _this2.$emit('editImgsChange', _this2.imgs);
+            }
+          } });
+
+      } else {
+        uni.showModal({
+          title: 'Tips',
+          content: '确定要删除这张图片吗？',
+          cancelText: '再看看',
+          confirmText: '删除',
+          success: function success(res) {
+            if (res.confirm) {
+              _this2.imgList.splice(e.currentTarget.dataset.index, 1);
+              _this2.$emit('getImgList', _this2.imgList);
+            }
+          } });
+
+      }
 
     },
     textareaAInput: function textareaAInput(e) {

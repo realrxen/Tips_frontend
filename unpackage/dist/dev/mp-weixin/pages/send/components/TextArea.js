@@ -147,7 +147,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   methods: {
     textareaBInput: function textareaBInput(e) {
       this.content = e.detail.value;
-      this.$emit('getContent', this.content);
+      this.$emit('editContentChange', this.content);
     },
     warning: function warning(msg) {
       this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
