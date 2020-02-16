@@ -7702,7 +7702,7 @@ var serverUrl = "http://192.168.1.7:8086";var _default =
 
 /***/ }),
 
-/***/ 259:
+/***/ 272:
 /*!****************************************!*\
   !*** D:/Uni-app/travel/common/time.js ***!
   \****************************************/
@@ -8622,7 +8622,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 344:
+/***/ 371:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -9682,7 +9682,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/souvenir/souvenir": {}, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {}, "pages/souvenir/SouvenirDetail": {}, "pages/souvenir/tabBar/cart/cart": {}, "pages/souvenir/souvenir": { "enablePullDownRefresh": true } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
 
 /***/ }),
 
@@ -9695,29 +9695,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "" };exports.default = _default;
-
-/***/ }),
-
-/***/ 95:
-/*!*********************************************!*\
-  !*** D:/Uni-app/travel/utils/interfaces.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var domain = "https://uniapp-interface.herokuapp.com/";
-var interfaces = {
-  // 获取首页数据
-  getMallData: domain + "api/profiles/mall_list",
-  // 获取分类数据
-  getCategory: domain + "api/profiles/category",
-  // 获取商品列表数据
-  getGoodsList: domain + 'api/profiles/goodslist',
-  // 商品详情信息
-  getGoods: domain + "api/profiles/goods" };
-
-module.exports = interfaces;
 
 /***/ })
 

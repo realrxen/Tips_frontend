@@ -1,6 +1,7 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "goods-header": "/pages/souvenir/goodsHeader",
-    "popup-spec": "/components/souvenir/popupSpec/popupSpec"
+    "goods-header": "/pages/souvenir/components/GoodsHeader",
+    "good-list": "/pages/souvenir/components/GoodsList"
   }
 }

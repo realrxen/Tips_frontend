@@ -9,11 +9,13 @@
     "pages/information/information",
     "pages/search/search",
     "pages/userspace/UserSpace",
-    "pages/souvenir/souvenir",
     "pages/registLogin/login",
     "pages/registLogin/teleLogin",
     "pages/post/PostDetail",
-    "pages/send/PostEdit"
+    "pages/send/PostEdit",
+    "pages/souvenir/SouvenirDetail",
+    "pages/souvenir/tabBar/cart/cart",
+    "pages/souvenir/souvenir"
   ],
   "subPackages": [],
   "window": {
@@ -28,5 +30,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap70.json"
+  "sitemapLocation": "sitemap55.json"
 }

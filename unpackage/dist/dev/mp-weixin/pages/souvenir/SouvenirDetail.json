@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "goods-header": "/pages/souvenir/components/GoodsHeader",
+    "popup-spec": "/common/popupSpec"
+  }
+}

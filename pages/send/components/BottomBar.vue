@@ -50,9 +50,7 @@
 					var imgs=this.Post.imgUrls
 					if(this.Post.content===""){
 						this.Post.content=this.editText
-						console.log()
-						debugger
-					}
+					}	
 					if(imgs.length>0){
 						for (let i = 0; i < imgs.length; i++) {
 							uni.uploadFile({

@@ -65,9 +65,6 @@
 			}
 		}
 	    ,{
-            "path" : "pages/souvenir/souvenir",
-            "style" : {}
-        },{
             "path" : "pages/registLogin/login",
             "style" : {}
         },{
@@ -79,7 +76,23 @@
         },{
             "path" : "pages/send/PostEdit",
             "style" : {}
-        }
+        },{
+            "path" : "pages/souvenir/SouvenirDetail",
+            "style" : {}
+        },
+		{
+		    "path" : "pages/souvenir/tabBar/cart/cart",
+		    "style" : {}
+		},
+		{
+		    "path" : "pages/souvenir/souvenir",
+		    "style": {
+		    	"app-plus":{
+		    		"titleNView": false //禁用原生导航栏
+		    	},
+		    	"enablePullDownRefresh":true //开启下拉页面刷新
+		    }
+		}
 
     ],
 	"globalStyle": {

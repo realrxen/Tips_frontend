@@ -43,9 +43,11 @@
 			<UniListItem @click="skip" title="审核帖子" showExtraIcon>
 				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 			</UniListItem>
-			<UniListItem @click="skip" title="积分兑换" showExtraIcon>
-				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
-			</UniListItem>
+			<navigator url="../souvenir/souvenir">
+				<UniListItem @click="skip" title="积分兑换" showExtraIcon>
+					<text slot="icon" class="iconfont icon-bingtanghulu"></text>
+				</UniListItem>
+			</navigator>
 		</view>
 		<PopUp :show="show"></PopUp>
 		<Tabbar @pop="pop"></Tabbar>

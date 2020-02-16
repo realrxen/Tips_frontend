@@ -41,6 +41,7 @@
     @import url("./common/free.css");
 	@import url("./components/colorui/main.css");
 	@import url("./components/colorui/icon.css");
+	@import "/static/iconfont/iconfont.css";
     .page{
         width: 100%;
         height: 100%;

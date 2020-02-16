@@ -144,7 +144,7 @@
 		},
 		onShow() {
 			var userInfo = uni.getStorageSync("globalUser")
-			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+			if(userInfo!=null&&userInfo!==""&&userInfo!==undefined){
 				this.userInfo=userInfo
 				this.postForm.userId=this.userInfo.userId
 			}
@@ -154,10 +154,6 @@
 		// },
 		methods: {
 			editContentChange(data) {
-				// if(data===null){
-				// 	data=this.hasPostContent
-				// }
-				debugger
 				this.postForm.content = data;
 			},
 			editImgsChange(data) {
