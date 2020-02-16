@@ -520,12 +520,48 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
 
         return;
       } else if (post.love.type === e.type) {
-        posts[e.index].love[post.love.type + 'Count']--;
-        posts[e.index].love.type = "";
+        uni.request({
+          header: {
+            "Authorization": this.token,
+            "type": this.type },
+
+          url: serverUrl + '/loves/3?apiRootId=' + post.postId + '&userId=' + this.userId,
+          method: 'POST',
+          success: function success(res) {
+            if (res.data.code === 0) {
+              posts[e.index].love[post.love.type + 'Count']--;
+              posts[e.index].love.type = "";
+            }
+          },
+          fail: function fail() {
+
+          },
+          complete: function complete() {
+
+          } });
+
       } else if (post.love.type !== e.type) {
-        posts[e.index].love[post.love.type + 'Count']--;
-        posts[e.index].love.type = e.type;
-        posts[e.index].love[e.type + 'Count'] += 1;
+        uni.request({
+          header: {
+            "Authorization": this.token,
+            "type": this.type },
+
+          url: serverUrl + '/loves/?apiRootId=' + post.postId + '&userId=' + this.userId,
+          method: 'PUT',
+          success: function success(res) {
+            if (res.data.code === 0) {
+              posts[e.index].love[post.love.type + 'Count']--;
+              posts[e.index].love.type = e.type;
+              posts[e.index].love[e.type + 'Count'] += 1;
+            }
+          },
+          fail: function fail() {
+
+          },
+          complete: function complete() {
+
+          } });
+
       }
     },
 
