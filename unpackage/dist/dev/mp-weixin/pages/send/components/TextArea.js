@@ -134,7 +134,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 {
   name: "MyTextArea",
   props: {
-    editText: String },
+    editText: String,
+    edit: {
+      type: Boolean,
+      default: false } },
+
 
   data: function data() {
     return {
@@ -144,10 +148,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   components: {
     HMmessages: HMmessages },
 
+  onLoad: function onLoad() {
+    this.$emit('editContentChange', this.editText);
+  },
   methods: {
     textareaBInput: function textareaBInput(e) {
-      this.content = e.detail.value;
-      this.$emit('editContentChange', this.content);
+      var content = e.detail.value;
+      if (this.edit) {
+        this.$emit('editContentChange', content);
+      } else {
+        this.$emit('getContent', content);
+      }
     },
     warning: function warning(msg) {
       this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });

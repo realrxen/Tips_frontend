@@ -3,8 +3,8 @@
 <!--         <textarea placeholder="把你的想法说给大家听听吧"-->
 <!--		 v-model="content"-->
 <!--		 class="textarea"/>-->
-        <view class="cu-form-group margin-top bg-white  ">
-            <textarea class="myTextArea" maxlength="-1" :disabled="modalName!=null" foucus @input="textareaBInput" placeholder="把你的想法说给大家听听吧"></textarea>
+        <view class="cu-form-group margin-top bg-white">
+            <textarea class="myTextArea" maxlength="-1" :value="editText" :disabled="false" foucus @input="textareaBInput" :placeholder="edit?'':'把你的想法说给大家听听吧'"></textarea>
         </view>
         <view class="warn-text bg-white">最多200字呦</view>
         <HMmessages></HMmessages>
@@ -16,7 +16,11 @@
 	export default {
 		name:"MyTextArea",
 		props:{
-			editText:String
+			editText:String,
+            edit:{
+                type: Boolean,
+                default: false
+            }
 		},
 	    data() {
 	        return {
@@ -26,10 +30,17 @@
         components:{
 		    HMmessages
         },
+		onLoad() {
+			this.$emit('editContentChange',this.editText)
+		},
 	    methods: {
             textareaBInput(e) {
-                this.content = e.detail.value
-                this.$emit('editContentChange',this.content)
+                var content = e.detail.value
+				if(this.edit){
+					this.$emit('editContentChange',content)
+				}else{
+                this.$emit('getContent',content)
+				}
             },
             warning(msg) {
                 this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})

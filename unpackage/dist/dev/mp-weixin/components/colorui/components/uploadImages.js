@@ -186,7 +186,7 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/com
 var serverUrl = _common.default.serverUrl;var _default = { props: { isPost: { type: Boolean, default: true }, imgs: Array, edit: { type: Boolean, default: false } }, data: function data() {return { imgList: [], selectedImgList: [], warningText: this.isPost ? "点击预览图片" : "选择封面", newImgList: [] };}, computed: { limitLength: function limitLength() {if (this.edit) {return 9;} else {return this.isPost ? 9 : 1;}} }, methods: {
     ChooseImage: function ChooseImage() {var _this = this;
       uni.chooseImage({
-        count: this.isPost ? 9 - this.imgs.length : 1,
+        count: this.isPost ? 9 : 1,
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album'], //从相册选择
         success: function success(res) {
@@ -200,6 +200,7 @@ var serverUrl = _common.default.serverUrl;var _default = { props: { isPost: { ty
               var img = { imgId: "", imgUrl: "" };
               img.imgUrl = res.tempFilePaths[0];
               _this.imgs[0] = img;
+              _this.$emit('editImgsChange', _this.imgs);
             }
           } else {
             if (_this.imgList.length !== 0) {

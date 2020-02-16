@@ -1,11 +1,11 @@
 <template class="bg-white">
 	<view class="send page-fill page">
 		<!-- <NavBar></NavBar> -->
-		<MyTextArea @getContent="getTextContent" :editText="post.content"></MyTextArea>
+		<MyTextArea @getContent="getTextContent" :edit="edit" :editText="hasPostContent" @editContentChange="editContentChange"></MyTextArea>
 		<Tags @getTagIds="getTagIds" :hasSelectTags="hasSelectTags"></Tags>
 		<UploadImages :edit="edit" @editImgsChange="editImgsChange" :isPost="isPost" @getImgList="getImgList" :imgs="hasPostImgs"></UploadImages>
 		<HMmessages></HMmessages>
-		<BottomBar :edit="edit" :Post="postForm" @click="send"></BottomBar>
+		<BottomBar :edit="edit" :Post="postForm" @click="send" :targetPostId="postId" :editText="hasPostContent"></BottomBar>
 
 	</view>
 </template>
@@ -40,6 +40,7 @@
 				showback:false,
 				hasSelectTags:[],
 				hasPostImgs:[],
+				hasPostContent: "",
 				imageList:[],
 				postForm:{
 					userId:"",
@@ -82,7 +83,7 @@
 		},
 		onLoad(paramsObj) {
 			var userInfo = uni.getStorageSync("globalUser")
-			if (userInfo != null && userInfo != "" && userInfo != undefined) {
+			if (userInfo !==null && userInfo !== "" && userInfo !== undefined) {
 				this.userInfo = userInfo
 				this.token = "Bearer " + this.userInfo.token
 				this.type = this.userInfo.tokenType
@@ -91,6 +92,23 @@
 				this.isFollow = false
 			}
 			this.postId = paramsObj.postId
+			/* 返回 Post的内容 */
+			uni.request({
+				url: serverUrl + '/posts/one?postId=' + this.postId,
+				method: 'GET',
+				success: (res) => {
+					if (res.data.code === 0) {
+						this.hasPostContent = res.data.data.content
+						console.log(res.data.data.content)
+					}
+				},
+				fail: () => {
+
+				},
+				complete: () => {
+
+				}
+			});
 			/* 返回 Post的图片 */
 			uni.request({
 				url: serverUrl + '/oss/imgs/' + this.postId,
@@ -135,6 +153,13 @@
 		// 	this.imageList = this.list
 		// },
 		methods: {
+			editContentChange(data) {
+				// if(data===null){
+				// 	data=this.hasPostContent
+				// }
+				debugger
+				this.postForm.content = data;
+			},
 			editImgsChange(data) {
 				this.hasPostImgs = data;
 				var newImgs = [];
@@ -145,7 +170,6 @@
 					}
 				})
 				this.postForm.imgUrls = newImgs;
-				console.log(this.postForm)
 			},
 			/*获取图片数组*/
 			getImgList(data) {

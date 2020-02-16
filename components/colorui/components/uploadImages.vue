@@ -68,7 +68,7 @@
         methods: {
             ChooseImage() {
                 uni.chooseImage({
-                    count: this.isPost?(9-this.imgs.length):1,
+                    count: this.isPost?9:1,
                     sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
                     sourceType: ['album'], //从相册选择
                     success: (res) => {
@@ -82,6 +82,7 @@
                                 var img = {imgId:"", imgUrl:""};
                                 img.imgUrl=res.tempFilePaths[0]
                                 this.imgs[0]=img
+								this.$emit('editImgsChange',this.imgs)
                             }
                         }else {
                             if (this.imgList.length !== 0) {

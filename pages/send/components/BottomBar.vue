@@ -7,7 +7,7 @@
 			</navigator>
 			<view class="iconfont cuIcon-album myIcon animated" hover-class="jello"></view>
 		</view>
-		<view class="bg-main send animated" hover-class="flash" style="color: #FFFFFF;" @click="send">发送</view>
+		<view class="bg-main send animated" hover-class="flash" style="color: #FFFFFF;" @click="send">{{edit?"更新":"发送"}}</view>
 	</view>
 </template>
 
@@ -17,11 +17,13 @@
 	export default{
 		name:"BottomBar",
 		props:{
+			targetPostId:String,
 			Post:Object,
 			edit:{
 				type: Boolean,
 				default: false
-			}
+			},
+			editText:String,
 		},
 		data(){
 			return{
@@ -45,7 +47,69 @@
 		methods:{
 			send() {
 				if (this.edit) {
+					var imgs=this.Post.imgUrls
+					if(this.Post.content===""){
+						this.Post.content=this.editText
+						console.log()
+						debugger
+					}
+					if(imgs.length>0){
+						for (let i = 0; i < imgs.length; i++) {
+							uni.uploadFile({
+								header:{
+									"Authorization":this.token,
+									"type":this.type
+								},
+								url:serverUrl+'/oss/insert?parentId='+this.targetPostId,
+								filePath:imgs[i],
+								name:"file",
+								method:'POST',
+								success: (re) => {
+									console.log("???")
+									var mydata = JSON.parse(re.data)
+									if(mydata.code===0){
+										uni.request({
+											url:serverUrl+'/posts/one?postId='+this.targetPostId+'&content='+this.Post.content,
+											method:'PUT',
+											success: (resp) => {
+												console.log(resp.data.code)
+												if(resp.data.code===0){
+													uni.showToast({
+														title:"更新成功!",
+														duration:2000,
+													})
+													uni.redirectTo({
+														url:'../post/post'
+													})
+												}
+											}
+										})
+									}
 
+								},
+							})
+						}}else{
+							uni.request({
+								url:serverUrl+'/posts/one?postId='+this.targetPostId+'&content='+this.Post.content,
+								method:'PUT',
+								success: (resp) => {
+									if(resp.data.code===0){
+										uni.showToast({
+											title:"更新成功!",
+											duration:2000,
+										})
+										// uni.navigateBack({delta:1})
+										uni.redirectTo({
+											url:'../post/post'
+										})
+									}
+								}
+							})
+						uni.showToast({title:"更新成功!",duration:1200})
+						uni.redirectTo({
+							url:'../post/post'
+						})
+					}
 				} else {
 					uni.request({
 						header:{

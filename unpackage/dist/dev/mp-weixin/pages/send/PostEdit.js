@@ -175,6 +175,7 @@ var serverUrl = _common.default.serverUrl;var _default =
       showback: false,
       hasSelectTags: [],
       hasPostImgs: [],
+      hasPostContent: "",
       imageList: [],
       postForm: {
         userId: "",
@@ -217,7 +218,7 @@ var serverUrl = _common.default.serverUrl;var _default =
   },
   onLoad: function onLoad(paramsObj) {var _this2 = this;
     var userInfo = uni.getStorageSync("globalUser");
-    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
       this.userInfo = userInfo;
       this.token = "Bearer " + this.userInfo.token;
       this.type = this.userInfo.tokenType;
@@ -226,6 +227,23 @@ var serverUrl = _common.default.serverUrl;var _default =
       this.isFollow = false;
     }
     this.postId = paramsObj.postId;
+    /* 返回 Post的内容 */
+    uni.request({
+      url: serverUrl + '/posts/one?postId=' + this.postId,
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this2.hasPostContent = res.data.data.content;
+          console.log(res.data.data.content);
+        }
+      },
+      fail: function fail() {
+
+      },
+      complete: function complete() {
+
+      } });
+
     /* 返回 Post的图片 */
     uni.request({
       url: serverUrl + '/oss/imgs/' + this.postId,
@@ -270,6 +288,13 @@ var serverUrl = _common.default.serverUrl;var _default =
   // 	this.imageList = this.list
   // },
   methods: {
+    editContentChange: function editContentChange(data) {
+      // if(data===null){
+      // 	data=this.hasPostContent
+      // }
+      debugger;
+      this.postForm.content = data;
+    },
     editImgsChange: function editImgsChange(data) {
       this.hasPostImgs = data;
       var newImgs = [];
@@ -280,7 +305,6 @@ var serverUrl = _common.default.serverUrl;var _default =
         }
       });
       this.postForm.imgUrls = newImgs;
-      console.log(this.postForm);
     },
     /*获取图片数组*/
     getImgList: function getImgList(data) {

@@ -143,7 +143,9 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/com
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", props: { Post: Object, edit: { type: Boolean, default: false } }, data: function data() {return { userId: "",
+var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", props: { targetPostId: String, Post: Object, edit: { type: Boolean, default: false }, editText: String }, data: function data() {
+    return {
+      userId: "",
       userInfo: {},
       token: '',
       type: '' };
@@ -163,7 +165,69 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
   methods: {
     send: function send() {var _this = this;
       if (this.edit) {
+        var imgs = this.Post.imgUrls;
+        if (this.Post.content === "") {
+          this.Post.content = this.editText;
+          console.log();
+          debugger;
+        }
+        if (imgs.length > 0) {
+          for (var i = 0; i < imgs.length; i++) {
+            uni.uploadFile({
+              header: {
+                "Authorization": this.token,
+                "type": this.type },
 
+              url: serverUrl + '/oss/insert?parentId=' + this.targetPostId,
+              filePath: imgs[i],
+              name: "file",
+              method: 'POST',
+              success: function success(re) {
+                console.log("???");
+                var mydata = JSON.parse(re.data);
+                if (mydata.code === 0) {
+                  uni.request({
+                    url: serverUrl + '/posts/one?postId=' + _this.targetPostId + '&content=' + _this.Post.content,
+                    method: 'PUT',
+                    success: function success(resp) {
+                      console.log(resp.data.code);
+                      if (resp.data.code === 0) {
+                        uni.showToast({
+                          title: "更新成功!",
+                          duration: 2000 });
+
+                        uni.redirectTo({
+                          url: '../post/post' });
+
+                      }
+                    } });
+
+                }
+
+              } });
+
+          }} else {
+          uni.request({
+            url: serverUrl + '/posts/one?postId=' + this.targetPostId + '&content=' + this.Post.content,
+            method: 'PUT',
+            success: function success(resp) {
+              if (resp.data.code === 0) {
+                uni.showToast({
+                  title: "更新成功!",
+                  duration: 2000 });
+
+                // uni.navigateBack({delta:1})
+                uni.redirectTo({
+                  url: '../post/post' });
+
+              }
+            } });
+
+          uni.showToast({ title: "更新成功!", duration: 1200 });
+          uni.redirectTo({
+            url: '../post/post' });
+
+        }
       } else {
         uni.request({
           header: {
@@ -184,14 +248,14 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
               var currentPostId = res.data.data;
               var imgs = _this.Post.imgUrls;
               if (imgs.length > 0) {
-                for (var i = 0; i < imgs.length; i++) {
+                for (var _i = 0; _i < imgs.length; _i++) {
                   uni.uploadFile({
                     header: {
                       "Authorization": _this.token,
                       "type": _this.type },
 
                     url: serverUrl + '/oss/insert?parentId=' + currentPostId,
-                    filePath: imgs[i],
+                    filePath: imgs[_i],
                     name: "file",
                     method: 'POST',
                     success: function success(response) {
