@@ -20,14 +20,14 @@
 				
 				// // 注册change事件
 				// this.$emit("change");
-				
+				// var count = this.goodsInfo.number-1
 				this.$emit("sub");
 			},
 			add(){
 				// this.goodsInfo.number++;
 				// // 注册change事件
 				// this.$emit("change");
-				
+				// var count = this.goodsInfo.number+1
 				this.$emit("add");
 			}
 		},

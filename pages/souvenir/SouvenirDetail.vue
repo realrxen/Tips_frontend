@@ -93,7 +93,7 @@
 				</view>
 			</view>
 			<view class="btn">
-				<view @tap="joinCart" class="joinCart">加入购物车</view>
+				<view @tap="joinCart2" class="joinCart">加入购物车</view>
 				<view @tap="handleBuy" class="buy">立即购买</view>
 			</view>
 		</view>
@@ -107,7 +107,6 @@
 	import Star from "../../components/sx-rate/index";
 	import common from '../../common/common.js'
 	var serverUrl = common.serverUrl
-
 	export default {
 		components: {
 			goodsHeader,
@@ -260,10 +259,8 @@
 				})
 			},
 			joinCart(){
-				console.log(this.goodsInfo);
 
 				// 存储到本地存储里
-
 				// 1.先去本地存储中取
 				uni.getStorage({
 					key:"goodsList",
@@ -273,10 +270,13 @@
 						// 查找商品是否存在
 						let isExist = false;
 
-						goodsList.forEach(goods => {
-							if(goods.goods_id == this.goodsInfo.goods_id){
+						goodsList.forEach((goods,index) => {
+							if(goods.goods_id === this.goodsInfo.goods_id){
 								// 如果存在 修改商品商量
-								goods.number += this.goodsInfo.number;
+								debugger
+								var count = this.goodsInfo.number+goods.number;
+								goods.number=count
+								console.log(goods.number)
 								isExist = true;
 							}
 						})
@@ -310,6 +310,20 @@
 							icon:"success",
 							title:"添加购物车成功"
 						})
+					}
+				})
+			},
+			joinCart2(){
+				uni.request({
+					url:serverUrl+'/carts/'+this.goodsInfo.goods_id+'?userId='+this.userId+'&count='+1,
+					method:'POST',
+					success: (res) => {
+						if(res.data.code===0){
+							uni.showToast({
+								title:"添加购物车成功",
+								duration:1500
+							})
+						}
 					}
 				})
 			},

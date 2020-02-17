@@ -57,6 +57,8 @@
 
 <script>
 	import counter from '../../../../common/counter.vue'
+	import common from '../../../../common/common.js'
+	var serverUrl = common.serverUrl
 	export default {
 		components: {
 			counter
@@ -69,20 +71,41 @@
 				goodsList: [],
 				selectedList:[],
 				isAllSelected: false,
-				sumPrice: '0.00'
+				sumPrice: '0.00',
+				userId:"",
+				userInfo:{},
+				token:'',
+				type:'',
+				carts:{}
 			}
 		},
 		methods: {
-			add(item){
-				item.number++;
-				this.sum();
+			add(data){
+				data.number++;
+				if(data.number===1){data.number=1}
+				uni.request({
+					url:serverUrl+'/carts/'+data.goods_id+'?userId='+this.userId+'&count='+data.number,
+					method:'PUT',
+					success: (res) => {
+						if(res.data.code===0){
+							debugger
+							this.goodsList=res.data.data.cartDTOList
+						}
+					}
+				})
 			},
-			sub(item){
-				if(item.number <= 1){
-					return;
-				}
-				item.number--;
-				this.sum();
+			sub(data){
+				data.number--;
+				if(data.number===1){data.number=1}
+				uni.request({
+					url:serverUrl+'/carts/'+data.goods_id+'?userId='+this.userId+'&count='+data.number,
+					method:'PUT',
+					success: (res) => {
+						if(res.data.code===0){
+							this.goodsList=res.data.data.cartDTOList
+						}
+					}
+				})
 			},
 			handleCheckbox(item) { // 单选
 				// console.log(item);
@@ -131,23 +154,24 @@
 				this.sumPrice  = this.sumPrice.toFixed(2);
 			},
 			handleSingleDelete(item){
+				console.log(item)
 				// 更新storage
-				uni.getStorage({
-					key:"goodsList",
-					success: (res) => {
-						res.data.splice(res.data.indexOf(item),1);
-						uni.setStorageSync("goodsList",res.data);
-					}
-				})
+				// uni.getStorage({
+				// 	key:"goodsList",
+				// 	success: (res) => {
+				// 		res.data.splice(res.data.indexOf(item),1);
+				// 		uni.setStorageSync("goodsList",res.data);
+				// 	}
+				// })
 				
-				// 更新数组
-				this.goodsList.splice(this.goodsList.indexOf(item),1);
-				this.selectedList.splice(this.selectedList.indexOf(item),1);
+				// // 更新数组
+				// this.goodsList.splice(this.goodsList.indexOf(item),1);
+				// this.selectedList.splice(this.selectedList.indexOf(item),1);
 				
-				this.oldIndex = null;
-				this.theIndex = null;
+				// this.oldIndex = null;
+				// this.theIndex = null;
 				
-				this.sum();
+				// this.sum();
 			},
 			handleMulDelete(){
 				// 循环删除所有选中的商品
@@ -227,20 +251,39 @@
 			}
 		},
 		onShow() {
-			uni.getStorage({
-				key: "goodsList",
-				success: (res => {
-					// 将所有商品的选中状态都设置false
-					for (let i = 0; i < res.data.length; i++) {
-						res.data[i].selected = false;
-					}
-					this.goodsList = res.data;
+			// uni.getStorage({
+			// 	key: "goodsList",
+			// 	success: (res => {
+			// 		// 将所有商品的选中状态都设置false
+			// 		for (let i = 0; i < res.data.length; i++) {
+			// 			res.data[i].selected = false;
+			// 		}
+			// 		this.goodsList = res.data;
+			// 		console.log(this.goodsList)
 					
-					// 属性数据的初始化
-					this.selectedList = [];
-					this.isAllSelected = false;
-					this.sumPrice = '0.00';
-				})
+			// 		// 属性数据的初始化
+			// 		this.selectedList = [];
+			// 		this.isAllSelected = false;
+			// 		this.sumPrice = '0.00';
+			// 	})
+			// })
+			var userInfo = uni.getStorageSync("globalUser")
+			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+				this.userInfo=userInfo
+				this.token="Bearer "+this.userInfo.token
+				this.type=this.userInfo.tokenType
+				this.userId=this.userInfo.userId
+			}
+			
+			uni.request({
+				url:serverUrl+'/carts/'+this.userId,
+				method:'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						this.goodsList=res.data.data.cartDTOList
+						
+					}
+				}
 			})
 		},
 		onLoad() {

@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var counter = function counter() {return __webpack_require__.e(/*! import() | common/counter */ "common/counter").then(__webpack_require__.bind(null, /*! ../../../../common/counter.vue */ 352));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -192,6 +192,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var counter = function counter() {return __webpack_require__.e(/*! import() | common/counter */ "common/counter").then(__webpack_require__.bind(null, /*! ../../../../common/counter.vue */ 352));};
+var serverUrl = _common.default.serverUrl;var _default =
 {
   components: {
     counter: counter },
@@ -204,20 +206,41 @@ __webpack_require__.r(__webpack_exports__);
       goodsList: [],
       selectedList: [],
       isAllSelected: false,
-      sumPrice: '0.00' };
+      sumPrice: '0.00',
+      userId: "",
+      userInfo: {},
+      token: '',
+      type: '',
+      carts: {} };
 
   },
   methods: {
-    add: function add(item) {
-      item.number++;
-      this.sum();
+    add: function add(data) {var _this = this;
+      data.number++;
+      if (data.number === 1) {data.number = 1;}
+      uni.request({
+        url: serverUrl + '/carts/' + data.goods_id + '?userId=' + this.userId + '&count=' + data.number,
+        method: 'PUT',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            debugger;
+            _this.goodsList = res.data.data.cartDTOList;
+          }
+        } });
+
     },
-    sub: function sub(item) {
-      if (item.number <= 1) {
-        return;
-      }
-      item.number--;
-      this.sum();
+    sub: function sub(data) {var _this2 = this;
+      data.number--;
+      if (data.number === 1) {data.number = 1;}
+      uni.request({
+        url: serverUrl + '/carts/' + data.goods_id + '?userId=' + this.userId + '&count=' + data.number,
+        method: 'PUT',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            _this2.goodsList = res.data.data.cartDTOList;
+          }
+        } });
+
     },
     handleCheckbox: function handleCheckbox(item) {// 单选
       // console.log(item);
@@ -241,13 +264,13 @@ __webpack_require__.r(__webpack_exports__);
 
       this.sum();
     },
-    handleSelectedAll: function handleSelectedAll() {var _this = this; // 全选
+    handleSelectedAll: function handleSelectedAll() {var _this3 = this; // 全选
       this.isAllSelected = !this.isAllSelected;
 
       // 数据处理
       var arr = [];
       this.goodsList.forEach(function (item, i) {
-        item.selected = _this.isAllSelected;
+        item.selected = _this3.isAllSelected;
         arr.push(item);
       });
 
@@ -256,33 +279,34 @@ __webpack_require__.r(__webpack_exports__);
       // 调用合计
       this.sum();
     },
-    sum: function sum() {var _this2 = this; // 合计
+    sum: function sum() {var _this4 = this; // 合计
       this.sumPrice = 0;
       this.goodsList.forEach(function (item, i) {
         if (item.selected) {
-          _this2.sumPrice = _this2.sumPrice + item.number * item.price;
+          _this4.sumPrice = _this4.sumPrice + item.number * item.price;
         }
       });
       this.sumPrice = this.sumPrice.toFixed(2);
     },
     handleSingleDelete: function handleSingleDelete(item) {
+      console.log(item);
       // 更新storage
-      uni.getStorage({
-        key: "goodsList",
-        success: function success(res) {
-          res.data.splice(res.data.indexOf(item), 1);
-          uni.setStorageSync("goodsList", res.data);
-        } });
+      // uni.getStorage({
+      // 	key:"goodsList",
+      // 	success: (res) => {
+      // 		res.data.splice(res.data.indexOf(item),1);
+      // 		uni.setStorageSync("goodsList",res.data);
+      // 	}
+      // })
 
+      // // 更新数组
+      // this.goodsList.splice(this.goodsList.indexOf(item),1);
+      // this.selectedList.splice(this.selectedList.indexOf(item),1);
 
-      // 更新数组
-      this.goodsList.splice(this.goodsList.indexOf(item), 1);
-      this.selectedList.splice(this.selectedList.indexOf(item), 1);
+      // this.oldIndex = null;
+      // this.theIndex = null;
 
-      this.oldIndex = null;
-      this.theIndex = null;
-
-      this.sum();
+      // this.sum();
     },
     handleMulDelete: function handleMulDelete() {
       // 循环删除所有选中的商品
@@ -361,20 +385,39 @@ __webpack_require__.r(__webpack_exports__);
 
     } },
 
-  onShow: function onShow() {var _this3 = this;
-    uni.getStorage({
-      key: "goodsList",
-      success: function success(res) {
-        // 将所有商品的选中状态都设置false
-        for (var i = 0; i < res.data.length; i++) {
-          res.data[i].selected = false;
-        }
-        _this3.goodsList = res.data;
+  onShow: function onShow() {var _this5 = this;
+    // uni.getStorage({
+    // 	key: "goodsList",
+    // 	success: (res => {
+    // 		// 将所有商品的选中状态都设置false
+    // 		for (let i = 0; i < res.data.length; i++) {
+    // 			res.data[i].selected = false;
+    // 		}
+    // 		this.goodsList = res.data;
+    // 		console.log(this.goodsList)
 
-        // 属性数据的初始化
-        _this3.selectedList = [];
-        _this3.isAllSelected = false;
-        _this3.sumPrice = '0.00';
+    // 		// 属性数据的初始化
+    // 		this.selectedList = [];
+    // 		this.isAllSelected = false;
+    // 		this.sumPrice = '0.00';
+    // 	})
+    // })
+    var userInfo = uni.getStorageSync("globalUser");
+    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+      this.userInfo = userInfo;
+      this.token = "Bearer " + this.userInfo.token;
+      this.type = this.userInfo.tokenType;
+      this.userId = this.userInfo.userId;
+    }
+
+    uni.request({
+      url: serverUrl + '/carts/' + this.userId,
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this5.goodsList = res.data.data.cartDTOList;
+
+        }
       } });
 
   },

@@ -242,7 +242,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var goodsHeader = function goodsHeader() {return __webpack_require__.e(/*! import() | pages/souvenir/components/GoodsHeader */ "pages/souvenir/components/GoodsHeader").then(__webpack_require__.bind(null, /*! ./components/GoodsHeader.vue */ 338));};var popupSpec = function popupSpec() {return __webpack_require__.e(/*! import() | common/popupSpec */ "common/popupSpec").then(__webpack_require__.bind(null, /*! ../../common/popupSpec.vue */ 345));};var Star = function Star() {return Promise.all(/*! import() | components/sx-rate/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/sx-rate/index")]).then(__webpack_require__.bind(null, /*! ../../components/sx-rate/index */ 437));};
 var serverUrl = _common.default.serverUrl;var _default =
-
 {
   components: {
     goodsHeader: goodsHeader,
@@ -395,10 +394,8 @@ var serverUrl = _common.default.serverUrl;var _default =
 
     },
     joinCart: function joinCart() {var _this4 = this;
-      console.log(this.goodsInfo);
 
       // 存储到本地存储里
-
       // 1.先去本地存储中取
       uni.getStorage({
         key: "goodsList",
@@ -408,10 +405,13 @@ var serverUrl = _common.default.serverUrl;var _default =
           // 查找商品是否存在
           var isExist = false;
 
-          goodsList.forEach(function (goods) {
-            if (goods.goods_id == _this4.goodsInfo.goods_id) {
+          goodsList.forEach(function (goods, index) {
+            if (goods.goods_id === _this4.goodsInfo.goods_id) {
               // 如果存在 修改商品商量
-              goods.number += _this4.goodsInfo.number;
+              debugger;
+              var count = _this4.goodsInfo.number + goods.number;
+              goods.number = count;
+              console.log(goods.number);
               isExist = true;
             }
           });
@@ -445,6 +445,20 @@ var serverUrl = _common.default.serverUrl;var _default =
             icon: "success",
             title: "添加购物车成功" });
 
+        } });
+
+    },
+    joinCart2: function joinCart2() {
+      uni.request({
+        url: serverUrl + '/carts/' + this.goodsInfo.goods_id + '?userId=' + this.userId + '&count=' + 1,
+        method: 'POST',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            uni.showToast({
+              title: "添加购物车成功",
+              duration: 1500 });
+
+          }
         } });
 
     },
