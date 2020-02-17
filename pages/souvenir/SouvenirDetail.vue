@@ -21,7 +21,12 @@
 			<view class="price">￥{{goodsInfo.price}}</view>
 			<view class="title">{{goodsInfo.name}}</view>
 		</view>
-
+		<view class="rating">
+			<view class="rating-text">心动指数</view>
+			<view>
+				<Star :fontSize="starSize" @change="getRating" :value="stars"></Star>
+			</view>
+	    </view>
 		<!-- 选择规格 -->
 		<!-- <view class="info-box">
 			<view class="row" @tap="spaceInfo.showSpace = true">
@@ -94,23 +99,26 @@
 		</view>
 	</view>
 
-	</view>
 </template>
 
 <script>
 	import goodsHeader from './components/GoodsHeader.vue'
 	import popupSpec from '../../common/popupSpec.vue'
+	import Star from "../../components/sx-rate/index";
 	import common from '../../common/common.js'
 	var serverUrl = common.serverUrl
 
 	export default {
 		components: {
 			goodsHeader,
-			popupSpec
+			popupSpec,
+			Star
 		},
 		data() {
 				return {
 					isKeep: false, // 收藏
+					starSize:'20px',
+					stars:0,
 					goodsData: {
 						"swiperList": []
 					},
@@ -122,7 +130,6 @@
 							spec: ""
 							},
 					currentSwiper: 0, // 轮播图下标
-					isKeep:false,
 					userId:"",
 					userInfo:{},
 					token:'',
@@ -158,8 +165,8 @@
 					}
 				}
 			})
-			
-			
+
+
 			uni.request({
 				url:serverUrl+'/collects/'+this.goodsInfo.goods_id+'?userId='+this.userId,
 				method:'GET',
@@ -169,8 +176,35 @@
 					}
 				}
 			})
+			
+			uni.request({
+				url:serverUrl+'/ratings/'+this.goodsInfo.goods_id+'?userId='+this.userId,
+				method:'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						this.stars=res.data.data
+					}
+				}
+			})
 		},
 		methods: {
+			getRating(data) {
+				var rating = data 
+				console.log(rating)
+				uni.request({
+					url:serverUrl+'/ratings/'+this.goodsInfo.goods_id+'?userId='+this.userId+'&rating='+rating,
+					method:'POST',
+					success: (res) => {
+						if(res.data.code===0){
+							this.stars=res.data.data
+							uni.showToast({
+								title:res.data.msg,
+								duration:1500
+							})
+						}
+					}
+				})
+			},
 			setSelectSpec(item){
 				// 选择规格
 				this.goodsInfo.spec = item;
@@ -187,7 +221,7 @@
 				}
 				this.goodsInfo.number--;
 			},
-			
+
 			//请求详情
 			// initData() {
 			// 	this.request({
@@ -227,9 +261,9 @@
 			},
 			joinCart(){
 				console.log(this.goodsInfo);
-				
+
 				// 存储到本地存储里
-				
+
 				// 1.先去本地存储中取
 				uni.getStorage({
 					key:"goodsList",
@@ -238,7 +272,7 @@
 						let goodsList = res.data;
 						// 查找商品是否存在
 						let isExist = false;
-						
+
 						goodsList.forEach(goods => {
 							if(goods.goods_id == this.goodsInfo.goods_id){
 								// 如果存在 修改商品商量
@@ -246,20 +280,20 @@
 								isExist = true;
 							}
 						})
-						
+
 						if(!isExist){
 							goodsList.push(this.goodsInfo);
 							// 更新本地存储
 							this.setGoodsList(goodsList);
 						}
-						
-						
+
+
 					}),
 					fail: (err => { // 没有得到数据,那么就存
 						// console.log("加入失败")
 						let goodsList = [];
 						goodsList.push(this.goodsInfo);
-						
+
 						// 往本地存储中存储数据
 						this.setGoodsList(goodsList);
 					})
@@ -304,6 +338,17 @@
 		/* #endif */
 	}
 
+	.rating{
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 10upx 20upx;
+	}
+	.rating-text {
+		margin-right: 20upx;
+
+	}
+
 	.swiper-box {
 		position: relative;
 		width: 100%;
@@ -341,7 +386,7 @@
 		width: 100%;
 		padding: 20upx 4%;
 		background-color: #fff;
-		margin-bottom: 20upx;
+		margin-bottom: 10upx;
 	}
 
 	.goods-info {
@@ -520,7 +565,7 @@
 					font-weight: bold;
 					color: #FFD655;
 				}
-				
+
 			}
 		}
 

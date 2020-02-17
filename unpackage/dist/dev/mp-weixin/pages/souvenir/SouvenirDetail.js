@@ -235,17 +235,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var goodsHeader = function goodsHeader() {return __webpack_require__.e(/*! import() | pages/souvenir/components/GoodsHeader */ "pages/souvenir/components/GoodsHeader").then(__webpack_require__.bind(null, /*! ./components/GoodsHeader.vue */ 338));};var popupSpec = function popupSpec() {return __webpack_require__.e(/*! import() | common/popupSpec */ "common/popupSpec").then(__webpack_require__.bind(null, /*! ../../common/popupSpec.vue */ 345));};
+
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var goodsHeader = function goodsHeader() {return __webpack_require__.e(/*! import() | pages/souvenir/components/GoodsHeader */ "pages/souvenir/components/GoodsHeader").then(__webpack_require__.bind(null, /*! ./components/GoodsHeader.vue */ 338));};var popupSpec = function popupSpec() {return __webpack_require__.e(/*! import() | common/popupSpec */ "common/popupSpec").then(__webpack_require__.bind(null, /*! ../../common/popupSpec.vue */ 345));};var Star = function Star() {return Promise.all(/*! import() | components/sx-rate/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/sx-rate/index")]).then(__webpack_require__.bind(null, /*! ../../components/sx-rate/index */ 437));};
 var serverUrl = _common.default.serverUrl;var _default =
 
 {
   components: {
     goodsHeader: goodsHeader,
-    popupSpec: popupSpec },
+    popupSpec: popupSpec,
+    Star: Star },
 
-  data: function data() {var _ref;
-    return _ref = {
+  data: function data() {
+    return {
       isKeep: false, // 收藏
+      starSize: '20px',
+      stars: 0,
       goodsData: {
         "swiperList": [] },
 
@@ -256,12 +264,11 @@ var serverUrl = _common.default.serverUrl;var _default =
         number: 1,
         spec: "" },
 
-      currentSwiper: 0 }, _defineProperty(_ref, "isKeep",
-    false), _defineProperty(_ref, "userId",
-    ""), _defineProperty(_ref, "userInfo",
-    {}), _defineProperty(_ref, "token",
-    ''), _defineProperty(_ref, "type",
-    ''), _ref;
+      currentSwiper: 0, // 轮播图下标
+      userId: "",
+      userInfo: {},
+      token: '',
+      type: '' };
 
   },
   onShow: function onShow() {
@@ -304,8 +311,35 @@ var serverUrl = _common.default.serverUrl;var _default =
         }
       } });
 
+
+    uni.request({
+      url: serverUrl + '/ratings/' + this.goodsInfo.goods_id + '?userId=' + this.userId,
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this.stars = res.data.data;
+        }
+      } });
+
   },
   methods: {
+    getRating: function getRating(data) {var _this2 = this;
+      var rating = data;
+      console.log(rating);
+      uni.request({
+        url: serverUrl + '/ratings/' + this.goodsInfo.goods_id + '?userId=' + this.userId + '&rating=' + rating,
+        method: 'POST',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            _this2.stars = res.data.data;
+            uni.showToast({
+              title: res.data.msg,
+              duration: 1500 });
+
+          }
+        } });
+
+    },
     setSelectSpec: function setSelectSpec(item) {
       // 选择规格
       this.goodsInfo.spec = item;
@@ -345,13 +379,13 @@ var serverUrl = _common.default.serverUrl;var _default =
         url: "./ratings" });
 
     },
-    keep: function keep() {var _this2 = this;
+    keep: function keep() {var _this3 = this;
       uni.request({
         url: serverUrl + '/collects/?userId=' + this.userId + '&apiRootId=' + this.goodsInfo.goods_id,
         method: 'POST',
         success: function success(res) {
           if (res.data.code === 0) {
-            _this2.isKeep = !_this2.isKeep;
+            _this3.isKeep = !_this3.isKeep;
             uni.showToast({
               title: res.data.data,
               duration: 1500 });
@@ -360,7 +394,7 @@ var serverUrl = _common.default.serverUrl;var _default =
         } });
 
     },
-    joinCart: function joinCart() {var _this3 = this;
+    joinCart: function joinCart() {var _this4 = this;
       console.log(this.goodsInfo);
 
       // 存储到本地存储里
@@ -375,17 +409,17 @@ var serverUrl = _common.default.serverUrl;var _default =
           var isExist = false;
 
           goodsList.forEach(function (goods) {
-            if (goods.goods_id == _this3.goodsInfo.goods_id) {
+            if (goods.goods_id == _this4.goodsInfo.goods_id) {
               // 如果存在 修改商品商量
-              goods.number += _this3.goodsInfo.number;
+              goods.number += _this4.goodsInfo.number;
               isExist = true;
             }
           });
 
           if (!isExist) {
-            goodsList.push(_this3.goodsInfo);
+            goodsList.push(_this4.goodsInfo);
             // 更新本地存储
-            _this3.setGoodsList(goodsList);
+            _this4.setGoodsList(goodsList);
           }
 
 
@@ -393,10 +427,10 @@ var serverUrl = _common.default.serverUrl;var _default =
         fail: function fail(err) {// 没有得到数据,那么就存
           // console.log("加入失败")
           var goodsList = [];
-          goodsList.push(_this3.goodsInfo);
+          goodsList.push(_this4.goodsInfo);
 
           // 往本地存储中存储数据
-          _this3.setGoodsList(goodsList);
+          _this4.setGoodsList(goodsList);
         } });
 
     },
