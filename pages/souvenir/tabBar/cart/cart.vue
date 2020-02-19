@@ -154,7 +154,6 @@
 				this.sumPrice  = this.sumPrice.toFixed(2);
 			},
 			handleSingleDelete(item){
-				console.log(item)
 				// 更新storage
 				// uni.getStorage({
 				// 	key:"goodsList",

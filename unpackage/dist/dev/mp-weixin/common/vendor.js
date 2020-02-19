@@ -7695,9 +7695,10 @@ internalMixin(Vue);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const serverUrl = "http://10.3.186.123:8080"
-var serverUrl = "http://192.168.1.7:8086";var _default =
-
-{
+// const serverUrl = "http://192.168.1.7:8086"
+var serverUrl = "http://192.168.1.7:8082";
+// const serverUrl = "http://47.105.147.103:8082"
+var _default = {
   serverUrl: serverUrl };exports.default = _default;
 
 /***/ }),
@@ -8622,7 +8623,26 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 371:
+/***/ 357:
+/*!******************************************************!*\
+  !*** D:/Uni-app/travel/components/sx-rate/common.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getClientRect = getClientRect;function getClientRect(selector, component) {
+  return new Promise(function (resolve, reject) {
+    var query = component ? uni.createSelectorQuery().in(component) : uni.createSelectorQuery();
+    return query.select(selector).boundingClientRect(resolve).exec();
+  });
+
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 381:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -8773,25 +8793,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 
-
-/***/ }),
-
-/***/ 442:
-/*!******************************************************!*\
-  !*** D:/Uni-app/travel/components/sx-rate/common.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getClientRect = getClientRect;function getClientRect(selector, component) {
-  return new Promise(function (resolve, reject) {
-    var query = component ? uni.createSelectorQuery().in(component) : uni.createSelectorQuery();
-    return query.select(selector).boundingClientRect(resolve).exec();
-  });
-
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

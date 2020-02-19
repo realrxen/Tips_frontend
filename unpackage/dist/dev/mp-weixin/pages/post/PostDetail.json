@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "cut-bar": "/components/colorui/components/cutbar",
-    "comments": "/components/uni-ui/comments/comments",
+    "review": "/components/dl-review/review",
     "chat-bar": "/components/colorui/components/chatbar"
   }
 }

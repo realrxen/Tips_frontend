@@ -1,6 +1,6 @@
 {
+  "component": true,
   "usingComponents": {
     "counter": "/common/counter"
-  },
-  "component": true
+  }
 }

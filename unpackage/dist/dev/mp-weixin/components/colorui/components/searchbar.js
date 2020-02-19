@@ -132,14 +132,20 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 var _default =
 {
+
   data: function data() {
     return {};
 
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    searchMe: function searchMe(e) {
+      var value = e.detail.value;
+      this.$emit('search', value);
+    } } };exports.default = _default;
 
 /***/ }),
 

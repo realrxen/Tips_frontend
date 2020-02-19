@@ -209,7 +209,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 317));};var Comments = function Comments() {return __webpack_require__.e(/*! import() | components/uni-ui/comments/comments */ "components/uni-ui/comments/comments").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/comments/comments */ 324));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 331));};
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 317));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 324));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 331));};
 
 
 
@@ -222,7 +225,7 @@ var serverUrl = _common.default.serverUrl;var _default =
 
   components: {
     CutBar: CutBar,
-    Comments: Comments,
+    review: review,
     ChatBar: ChatBar },
 
   data: function data() {
@@ -231,11 +234,16 @@ var serverUrl = _common.default.serverUrl;var _default =
       isFollow: false,
       cutBarText: "最新评论",
       commentCount: 0,
+      // 列表详情数据
+      childData: [],
+      // 评论列表
+      reviewMsg: [],
       userId: "",
       userInfo: {},
       token: '',
       type: '',
-      post: {} };
+      post: {},
+      comments: [] };
 
 
   },
@@ -291,9 +299,48 @@ var serverUrl = _common.default.serverUrl;var _default =
 
       } });
 
+    uni.request({
+      url: serverUrl + '/comments/' + this.postId,
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this.comments = res.data.data;
+        }
+
+      },
+      fail: function fail() {
+
+      },
+      complete: function complete() {
+
+      } });
+
+    uni.request({
+      url: "http://192.168.1.7:8082/comments/?apiRootId=a",
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          console.log(res.data.data);
+          _this.reviewMsg = res.data.data.reviewMsg;
+        }
+      } });
+
   },
   methods: (_methods = {
-    follow: function follow() {var _this2 = this;
+    childReview: function childReview(data) {var _this2 = this;
+      console.log(data.cenId);
+      uni.request({
+        url: "http://192.168.1.7:8082/comments/" + data.cenId,
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            console.log(res.data.data);
+            _this2.childData = res.data.data;
+          }
+        } });
+
+    },
+    follow: function follow() {var _this3 = this;
       var idolId = this.post.userId;
       uni.request({
         header: {
@@ -309,7 +356,7 @@ var serverUrl = _common.default.serverUrl;var _default =
         success: function success(res) {
           if (res.data.code === 123) {
             uni.showToast({ title: res.data.msg, duration: 1500 });
-            _this2.isFollow = true;
+            _this3.isFollow = true;
           } else if (res.data.code === 30003) {
             uni.showToast({ title: res.data.msg, duration: 1500 });
           } else if (res.data.code === 30002) {

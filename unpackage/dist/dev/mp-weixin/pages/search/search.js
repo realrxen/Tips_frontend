@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var SearchBar = function SearchBar() {return __webpack_require__.e(/*! import() | components/colorui/components/searchbar */ "components/colorui/components/searchbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/searchbar.vue */ 246));};var SearchItem = function SearchItem() {return __webpack_require__.e(/*! import() | pages/search/components/SearchItem */ "pages/search/components/SearchItem").then(__webpack_require__.bind(null, /*! ./components/SearchItem.vue */ 253));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar */ 155));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 162));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -166,6 +166,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var SearchBar = function SearchBar() {return __webpack_require__.e(/*! import() | components/colorui/components/searchbar */ "components/colorui/components/searchbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/searchbar.vue */ 246));};var SearchItem = function SearchItem() {return __webpack_require__.e(/*! import() | pages/search/components/SearchItem */ "pages/search/components/SearchItem").then(__webpack_require__.bind(null, /*! ./components/SearchItem.vue */ 253));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar */ 155));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 162));};
+var serverUrl = _common.default.serverUrl;var _default =
 {
   components: {
     SearchItem: SearchItem,
@@ -175,7 +177,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   data: function data() {
     return {
-      show: false };
+      show: false,
+      keywords: "",
+      coverData: [] };
 
   },
   onLoad: function onLoad() {},
@@ -188,9 +192,23 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     this.show = false;
   },
   methods: {
+    search: function search(data) {var _this = this;
+      this.keywords = data;
+      console.log(this.keywords);
+      uni.request({
+        url: serverUrl + '/posts/search?keywords=' + this.keywords,
+        method: 'POST',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            _this.coverData = res.data.data;
+          }
+        } });
+
+    },
     pop: function pop(data) {
       this.show = data;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

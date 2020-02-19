@@ -67,8 +67,11 @@
 		</view>
 	</view>
 		<CutBar :text="cutBarText" :commentCount="commentCount"></CutBar>
-		<Comments></Comments>
+		<view class="content">
+			<review :reviewMsg="reviewMsg" @childReview="childReview" :childData="childData"></review>
+		</view>
 		<ChatBar></ChatBar>
+
 	</view>
 </template>
 
@@ -76,7 +79,7 @@
 <script>
 	import common from "../../common/common.js"
 	import CutBar from "../../components/colorui/components/cutbar";
-	import Comments from "../../components/uni-ui/comments/comments";
+	import review from "../../components/dl-review/review";
 	import ChatBar from "../../components/colorui/components/chatbar";
 	// import ChatBar from "../../components/user-chat/user-chat-bottom";
 	var serverUrl = common.serverUrl;
@@ -87,7 +90,7 @@
 		},
 		components:{
 			CutBar,
-			Comments,
+			review,
 			ChatBar
 		},
 		data() {
@@ -96,11 +99,16 @@
 				isFollow:false,
 				cutBarText:"最新评论",
 				commentCount: 0,
+				// 列表详情数据
+				childData: [],
+				// 评论列表
+				reviewMsg: [],
 				userId:"",
 				userInfo:{},
 				token:'',
 				type:'',
-				post:{}
+				post:{},
+				comments:[],
 				}
 
 			},
@@ -156,8 +164,47 @@
 
 					}
 				});
+				uni.request({
+					url:serverUrl+'/comments/'+this.postId,
+					method:'GET',
+					success: res => {
+						if(res.data.code===0){
+							this.comments=res.data.data
+						}
+
+					},
+					fail: () => {
+
+					},
+					complete: () => {
+
+					}
+				});
+				uni.request({
+					url:"http://192.168.1.7:8082/comments/?apiRootId=a",
+					method:'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							console.log(res.data.data)
+							this.reviewMsg=res.data.data.reviewMsg
+						}
+					}
+				})
 			},
 		methods:{
+			childReview(data) {
+				console.log(data.cenId)
+				uni.request({
+					url:"http://192.168.1.7:8082/comments/"+data.cenId,
+					method:'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							console.log(res.data.data)
+							this.childData=res.data.data
+						}
+					}
+				})
+			},
 			follow(){
 				var idolId=this.post.userId
 				uni.request({

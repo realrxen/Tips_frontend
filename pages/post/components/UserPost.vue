@@ -3,15 +3,15 @@
 		<view class="page page-fill User-Post">
 		<view class="article">
 			<!-- 头像昵称 -->
-			<view class="userWrapper" :data-postId="post.postId">
-				<view class="userInfoWrapper">
-					<image :src="post.faceIcon" class="faceIcon" lazy-load></image>
+			<view class="userWrapper" :data-postId="post.postId" @click="goToPostDetail">
+				<view class="userInfoWrapper" :data-postId="post.postId" @click="goToPostDetail">
+					<image :src="post.faceIcon" class="faceIcon" :data-postId="post.postId" lazy-load @click="goToPostDetail"></image>
 					<view class="userDetailWrapper">
-						<view class="userName">{{post.username}}</view>
-						<view class="createTime">{{post.createTime}}</view>
+						<view class="userName" :data-postId="post.postId" @click="goToPostDetail">{{post.username}}</view>
+						<view class="createTime" :data-postId="post.postId" @click="goToPostDetail">{{post.createTime}}</view>
 					</view>
 				</view>
-				<view class="follow animated" hover-class="rotateOutDownRight" @click="follow"
+				<view id="follow" class="follow animated" hover-class="rotateOutDownRight" @click.stop="follow"
 				v-if="!post.isFollow">+关注</view>
 			</view>
 			<view>
@@ -25,7 +25,7 @@
 <!--				</view>-->
 				<view class="bg-white" :class="post.imgUrls.length>0?'padding-thirty':'padding-xs'">
 					<view class="grid col-3 grid-square">
-							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
+							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls">
 					</view>
 				</view>
 			</view>
@@ -142,6 +142,8 @@
 		}
 
 	}
+
+
 
 </script>
 

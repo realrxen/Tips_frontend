@@ -20,6 +20,10 @@
 	        flex-direction: column;
 	padding: 5rpx 13rpx;
 	background-color: #FFFFFF;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width: 50%;
 }
 .coverPicture{
 	width: 350rpx;
@@ -29,6 +33,9 @@
 .title{
 	font-size: 30rpx;
 	font-weight: bold;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }
 .resultWrapper{
 	display: -webkit-box;

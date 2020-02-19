@@ -1,158 +1,60 @@
 <template>
 	<view class="wrapper">
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
+		<view class="itemWrapper"  :data-postId="item.postId" v-for="(item,index) in coverData" :key="index" @tap="goToDatail">
+			<view>
+				<image :src="item.cover" class="coverPicture"></image>
+				<view class="title">
+					{{item.content}}
 				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
+				<view class="resultWrapper">
+					<view class="userWrapper">
+						<image :src="item.faceIcon" class="faceIcon"></image>
+						<text class="nickName">{{item.username}}</text>
+					</view>
+					<view class="mediaWrapper">
+						<text class="iconfont icon-shanzi myIcon"></text>
+						<view class="thumbCount">{{item.thumbCount}}</view>
+					</view>
 				</view>
 			</view>
 		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
-		<view class="itemWrapper">
-			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>
-			<view class="title">
-				一蓑烟雨任平生
-			</view>
-			<view class="resultWrapper">
-				<view class="userWrapper">
-					<image src="../../../../../static/icos/default-face.png" class="faceIcon"></image>
-					<text class="nickName">Tips</text>
-				</view>
-				<view class="mediaWrapper">
-					<text class="iconfont icon-shanzi myIcon"></text>
-					<view class="thumbCount">6669</view>
-				</view>
-			</view>
-		</view>
+<!--		<view class="itemWrapper">-->
+<!--			<image src="../../../static/demo/44.jpg" class="coverPicture"></image>-->
+<!--			<view class="title">-->
+<!--				一蓑烟雨任平生-->
+<!--			</view>-->
+<!--			<view class="resultWrapper">-->
+<!--				<view class="userWrapper">-->
+<!--					<image src="../../../static/icos/default-face.png" class="faceIcon"></image>-->
+<!--					<text class="nickName">Tips</text>-->
+<!--				</view>-->
+<!--				<view class="mediaWrapper">-->
+<!--					<text class="iconfont icon-shanzi myIcon"></text>-->
+<!--					<view class="thumbCount">6669</view>-->
+<!--				</view>-->
+<!--			</view>-->
+<!--		</view>-->
+
 	</view>
 </template>
 
 <script>
 	export default {
+		props:{
+			coverData:Array
+		},
 		data() {
 			return {
 
 			};
+		},
+		methods:{
+			goToDatail(e){
+				var postId = e.currentTarget.dataset.postid
+				uni.navigateTo({
+					url:'../post/PostDetail?postId='+postId
+				})
+			}
 		}
 	}
 </script>
@@ -169,6 +71,10 @@
 		flex-direction: column;
 		padding: 5rpx 13rpx;
 		background-color: #FFFFFF;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+		width: 50%;
 	}
 	.coverPicture{
 		width: 350rpx;
@@ -178,6 +84,9 @@
 	.title{
 		font-size: 30rpx;
 		font-weight: bold;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
 	.resultWrapper{
 		display: flex;

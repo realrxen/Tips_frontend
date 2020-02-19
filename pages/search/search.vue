@@ -1,6 +1,6 @@
 <template>
 	<view class="page page-fill">
-		<SearchBar></SearchBar>
+		<SearchBar @search="search"></SearchBar>
 		<!-- <view class="search-block">
 			<view class="search-icon-wrapper">
 				<image src="../../static/icos/search.png" class="search-icon"></image>
@@ -12,7 +12,7 @@
 					class="search-text" focus confirm-type="search"
 					@confirm="searchMe"/>
 		</view> -->
-		<SearchItem></SearchItem>
+		<SearchItem :coverData="coverData"></SearchItem>
 <!--		<view class="movie-list page-block">-->
 <!--			<view class="movie-wrapper" v-for="post in articleList">-->
 <!--				<image :src="post.coverPicture"-->
@@ -31,6 +31,8 @@
 	import SearchItem from "./components/SearchItem.vue";
 	import Tabbar from "../../components/colorui/components/bar";
 	import PopUp from "../../components/popup/popup";
+	import common from "../../common/common.js"
+	var serverUrl = common.serverUrl
 	export default {
 		components:{
 		SearchItem,
@@ -40,7 +42,9 @@
 		},
 		data() {
 			return {
-				show:false
+				show:false,
+				keywords:"",
+				coverData:[]
 			}
 		},
 		onLoad() {},
@@ -53,9 +57,23 @@
 			this.show = false;
 		},
 		methods: {
+			search(data){
+				this.keywords=data
+				console.log(this.keywords)
+				uni.request({
+					url:serverUrl+'/posts/search?keywords='+this.keywords,
+					method:'POST',
+					success: (res) => {
+						if(res.data.code===0){
+							this.coverData=res.data.data
+						}
+					}
+				})
+			},
 			pop(data){
 				this.show = data;
 			}
+
 		}
 	}
 </script>

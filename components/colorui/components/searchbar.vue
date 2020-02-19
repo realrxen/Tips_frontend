@@ -4,7 +4,8 @@
 				<view class="cu-avatar round" style="background-image:url(http://img4.imgtn.bdimg.com/it/u=3006607636,42691152&fm=11&gp=0.jpg)"></view>
 				<view class="search-form round">
 					<text class="cuIcon-search"></text>
-					<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="游记/攻略/地点" confirm-type="search"></input>
+					<input focus :adjust-position="false" type="text" placeholder="游记/攻略/地点" confirm-type="search" value=""
+						   @confirm="searchMe">
 				</view>
 				<view class="action">
 					<text>北京</text>
@@ -16,15 +17,19 @@
 
 <script>
 	export default {
+
 		data() {
 			return {
 
 			}
 		},
 		methods: {
-
+			searchMe(e){
+				var value= e.detail.value
+				this.$emit('search',value)
+			},
 		}
-	}	
+	}
 </script>
 
 <style>
