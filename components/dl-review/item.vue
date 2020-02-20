@@ -14,12 +14,17 @@
 						<text class="followText">+ 关注</text>
 					</view>
 				</view>
-				<view class="viewMb">
+				<view class="viewMb" @click.stop="commentMe(reviewMsg)">
 					<text class="cenHostMsg3 textCenMsg">#{{reviewMsg.cenId}}</text>
 					<text class="cenHostMsg4 textCenMsg">{{reviewMsg.sendTime}}</text>
 				</view>
-				<view class="cenHostReview viewMb">
+				<view class="cenHostReview viewMb" @click.stop="commentMe(reviewMsg)">
+					<view v-if="reviewMsg.targetUserName!==undefined&&reviewMsg.targetUserId!==obj.userId">
+						回复&nbsp<text class="threeReviewVueText"
+						@click.stop="goToCenter(reviewMsg.targetUserId)">@{{reviewMsg.targetUserName}}:</text>
+					</view>
 					<text class="textSendMsg">{{reviewMsg.sendMsg}}</text>
+
 				</view>
 				<view class="iconRow">
 					<view>
@@ -34,12 +39,15 @@
 						<uniicon type="redo" size="20" color="#C0C0C0"></uniicon>
 					</view>
 				</view>
+				<!-- childData 里是没有reviewLess的 -->
 				<view class="threeReviewContent" @click="openChildReview(reviewMsg)" v-if="reviewMsg.reviewLess.length">
-					<view class="threeReviewVueText" v-for="(reKey, key) in reviewMsg.reviewLess" :key="key">
-						{{reKey.userName}}
-						<text class="defaultBlack">回复</text>
-						{{reKey.targetUserName}}
-						<text class="defaultBlack">:{{reKey.sendMsg}}</text>
+					<view class="threeReviewVueText reviewContainer" v-for="(reKey, key) in reviewMsg.reviewLess" :key="key">
+						<view class="reviewContent" style="width: 100%">
+							<view>{{reKey.userName}}</view>
+							<text class="defaultBlack">回复</text>
+							<view>{{reKey.targetUserName}}</view>
+							<text class="defaultBlack">:{{reKey.sendMsg}}</text>
+						</view>
 					</view>
 					<view class="reviewNumContent" v-if="reviewMsg.reviewNum > 3">
 						<text>共{{reviewMsg.reviewNum}}条回复</text>
@@ -58,7 +66,9 @@
 		name: 'review',
 		props: {
 			reviewMsg: [Object],
-			childData: [Array]
+			childData: [Array],
+			obj:Object
+
 		},
 		components: {
 			uniicon,
@@ -72,7 +82,21 @@
 		onLoad() {
 
 		},
+		create(){
+		},
 		methods: {
+
+			goToCenter(data){
+				var userId = data;
+				console.log(userId)
+			},
+			commentMe(obj){
+				// var userId = e.currentTarget.dataset.userid
+				this.$emit('commentMe',obj)
+				// console.log(data)
+
+
+			},
 			openChildReview(item) {
 				this.crControl = true;
 				this.$emit('childReview', item);
@@ -226,6 +250,16 @@
 		padding: 8px;
 	}
 
+	.reviewContainer{
+		display: flex;
+		flex-direction: column;
+	}
+
+	.reviewContent{
+		display: flex;
+		flex-wrap: wrap
+
+	}
 	.threeReviewVueText {
 		font-size: 14px;
 		color: #5090cd;

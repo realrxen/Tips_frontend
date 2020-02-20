@@ -63,8 +63,9 @@
 	.wrapper{
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: flex-start;
+		justify-content: space-evenly;
 		margin-top: 93rpx;
+		padding: 20rpx 20rpx 0;
 	}
 	.itemWrapper{
 		display: flex;
@@ -74,7 +75,10 @@
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
-		width: 50%;
+		width: 49%;
+		border-radius: 15rpx;
+		padding: 10rpx;
+		margin-bottom: 12rpx;
 	}
 	.coverPicture{
 		width: 350rpx;

@@ -67,11 +67,31 @@
 		</view>
 	</view>
 		<CutBar :text="cutBarText" :commentCount="commentCount"></CutBar>
-		<view class="content">
-			<review :reviewMsg="reviewMsg" @childReview="childReview" :childData="childData"></review>
+		<view class="content myComment">
+			<review :reviewMsg="reviewMsg" :childData="childData" :clickComment="clickComment"
+			@childReview="childReview" @comment="commentForChildren" ></review>
 		</view>
-		<ChatBar></ChatBar>
-
+<!--		<ChatBar></ChatBar>-->
+		<view class="box chatBar">
+			<view class="cu-bar input">
+				<view class="action">
+					<text class="cuIcon-roundadd text-grey"></text>
+				</view>
+				<input @focus="InputFocus" @blur="InputBlur"
+					   type="text" confirm-type="send"
+					   :value="content"
+					   @confirm="sendComment"
+					   @input="contentInput"
+					   :placeholder="placeHolder"
+					   placeholder-class="placeholder-c"
+					   :adjust-position="true" class="solid-bottom"
+					   :focus="isFocus" maxlength="1000" cursor-spacing="10"></input>
+				<view class="action">
+					<text class="cuIcon-emoji text-grey"></text>
+				</view>
+				<button class="cu-btn bg-main shadow-blur animated" hover-class="jello" @click="sendComment">发送</button>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -108,15 +128,22 @@
 				token:'',
 				type:'',
 				post:{},
+				clickComment:{},
 				comments:[],
+				InputBottom: 0,
+				placeHolder:"理一下ta好不好",
+				content:'',
+				parentId:"",
+				isFocus:false,
+				commentObj:{}
 				}
 
 			},
 			onLoad(paramsObj) {
 				var userInfo = uni.getStorageSync("globalUser")
 				if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
-					this.userInfo=userInfo
-					this.token="Bearer "+this.userInfo.token
+					this.userInfo=userInfo;
+					this.token="Bearer "+this.userInfo.token;
 					this.type=this.userInfo.tokenType
 					this.userId=this.userInfo.userId
 				}else{
@@ -139,11 +166,12 @@
 								url:serverUrl+'/follows/'+post.userId+'?userId='+this.userId,
 								method:'GET',
 								success: (res) => {
-									console.log(res)
 									if(res.data.code===0){
 										this.isFollow=res.data.data
-										console.log(this.isFollow)
 
+									}
+									if(this.post.userId===this.userId&&this.userId!==""){
+										this.isFollow=true
 									}
 
 								},
@@ -155,7 +183,6 @@
 								}
 							});
 						}
-
 					},
 					fail: () => {
 
@@ -164,6 +191,7 @@
 
 					}
 				});
+
 				uni.request({
 					url:serverUrl+'/comments/'+this.postId,
 					method:'GET',
@@ -181,25 +209,77 @@
 					}
 				});
 				uni.request({
-					url:"http://192.168.1.7:8082/comments/?apiRootId=a",
+					url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
 					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){
-							console.log(res.data.data)
 							this.reviewMsg=res.data.data.reviewMsg
 						}
 					}
 				})
+
+
 			},
 		methods:{
-			childReview(data) {
-				console.log(data.cenId)
+			sendComment(){
+				var comment=this.commentObj
+				if(comment.cenId!==null&&comment.cenId!==undefined){
+					var parentId=comment.cenId
+					var apiRootId=comment.apiRootId
+					if(comment.parentId==="0"){
+						apiRootId=comment.cenId
+					}
+				}else{
+					debugger
+					var apiRootId = this.post.postId
+					var parentId = "0"
+				}
+
+
 				uni.request({
-					url:"http://192.168.1.7:8082/comments/"+data.cenId,
+					url:serverUrl+'/comments/',
+					method:'POST',
+					data:{
+						"userId":this.userId,
+						"content":this.content,
+						"type":3,
+						"parentId":parentId,
+						"apiRootId":apiRootId
+					},
+					success: (res) => {
+						if(res.data.code===0){
+							this.content=""
+							this.placeHolder="理一下ta好不好"
+							uni.request({
+								url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
+								method:'GET',
+								success: (res) => {
+									if(res.data.code===0){
+										this.reviewMsg=res.data.data.reviewMsg
+									}
+								}
+							})
+						}
+					}
+
+				})
+			},
+			contentInput(e){
+				var value= e.detail.value
+				this.content=value
+			},
+			commentForChildren(data){
+				this.placeHolder='@'+data.userName
+				this.isFocus=!this.isFocus
+				this.commentObj=data
+			},
+			childReview(data) {
+				this.clickComment=data
+				uni.request({
+					url:"http://192.168.1.7:8086/comments/"+data.cenId,
 					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){
-							console.log(res.data.data)
 							this.childData=res.data.data
 						}
 					}
@@ -249,15 +329,23 @@
 				})
 
 			},
-			follow(index){
-				// 点击后触发一个事件给父组件
-				this.$emit('follow',this.post.userId)
-			},
+			// follow(index){
+			// 	// 点击后触发一个事件给父组件
+			// 	this.$emit('follow',this.post.userId)
+			// },
 			openSpace(){
 				uni.navigateTo({
 					url:"../userCenter/userCenter"
 				})
 			},
+			InputFocus(e) {
+				this.InputBottom = e.detail.height
+			},
+			InputBlur(e) {
+				this.InputBottom = 0
+			}
+
+
 
 		}
 
@@ -267,7 +355,27 @@
 
 <style>
 	@import url("./PostDetail.css");
+	.box {
+		margin: 20upx 0 0 0;
+	}
 
+	.box view.cu-bar {
+		margin-top: 40upx;
+	}
+
+	.myComment{
+		padding-bottom: 83upx;
+	}
+
+	.chatBar{
+		width: 100%;
+		bottom: 0;
+		font-size: 40upx;
+		line-height: 100upx;
+		position: fixed;
+		z-index: 999;
+		border-radius: 20rpx;
+	}
 
 
 </style>

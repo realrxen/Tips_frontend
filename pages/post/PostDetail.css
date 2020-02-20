@@ -115,6 +115,10 @@
 			justify-content: space-around;
 			margin-top: 8rpx;
 		}
+
+		.placeholder-c{
+			color: #c7c0c0;
+		}
 		.icon{
 	/* 		display: flex;
 			flex: 1;

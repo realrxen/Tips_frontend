@@ -1,15 +1,17 @@
 <template>
 	<view class="page-fill page">
 		<Nav :tabsArray="tabsArray" @tabChanged="tabChanged"></Nav>
-		<block v-for="(item,dataIndex) in dataList" :key="dataIndex">
-			<template v-if="tabIndex===item.id">
-				<block v-for="(post,index) in item.posts" :key=index>
-					<UserPost :post='post' :index='index' :currentUserId='userId'
-							  @follow='follow' @love='love' @deletePost='deletePost'></UserPost>
-					<Divider></Divider>
-				</block>
-			</template>
-		</block>
+		<view class="myPost">
+			<block v-for="(item,dataIndex) in dataList" :key="dataIndex">
+				<template v-if="tabIndex===item.id">
+					<block v-for="(post,index) in item.posts" :key=index>
+						<UserPost :post='post' :index='index' :currentUserId='userId'
+								  @follow='follow' @love='love' @deletePost='deletePost'></UserPost>
+						<Divider></Divider>
+					</block>
+				</template>
+			</block>
+		</view>
 
 		<PopUp :show="show"></PopUp>
 		<Tabbar @pop="pop"></Tabbar>
@@ -458,5 +460,7 @@
 </script>
 
 <style>
-
+	.myPost{
+		padding-bottom: 100rpx;
+	}
 </style>

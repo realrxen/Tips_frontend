@@ -138,6 +138,9 @@
 			        justify-content: space-around;
 			margin-top: 8rpx;
 }
+.placeholder-c{
+			color: #c7c0c0;
+}
 .icon{
 	/* 		display: flex;
 			flex: 1;
@@ -156,7 +159,24 @@
 .CommentTitlewrapper{
 		margin-top: 20rpx;
 }
-
+.box {
+	margin: 20rpx 0 0 0;
+}
+.box view.cu-bar {
+	margin-top: 40rpx;
+}
+.myComment{
+	padding-bottom: 83rpx;
+}
+.chatBar{
+	width: 100%;
+	bottom: 0;
+	font-size: 40rpx;
+	line-height: 100rpx;
+	position: fixed;
+	z-index: 999;
+	border-radius: 20rpx;
+}
 
 
 

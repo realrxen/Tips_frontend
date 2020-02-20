@@ -12,7 +12,9 @@
 					class="search-text" focus confirm-type="search"
 					@confirm="searchMe"/>
 		</view> -->
-		<SearchItem :coverData="coverData"></SearchItem>
+		<view class="mySearch">
+			<SearchItem :coverData="coverData"></SearchItem>
+		</view>
 <!--		<view class="movie-list page-block">-->
 <!--			<view class="movie-wrapper" v-for="post in articleList">-->
 <!--				<image :src="post.coverPicture"-->
@@ -80,4 +82,7 @@
 
 <style>
 	@import url("search.css");
+	.mySearch{
+		padding-bottom: 100rpx;
+	}
 </style>

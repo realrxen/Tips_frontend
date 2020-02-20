@@ -56,4 +56,7 @@
 .movie-wrapper{
 	padding: 20rpx;
 }
+.mySearch{
+	padding-bottom: 100rpx;
+}
 

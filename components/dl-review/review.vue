@@ -1,21 +1,21 @@
 <template>
 	<view id="id" class="content">
-		<scroll-view scroll-y="true" style="height: 100%;" v-show="!crControl" 
+		<scroll-view scroll-y="true" style="height: 100%;" v-if="!crControl"
 		@touchstart="refreshStart" @touchmove="refreshMove" @touchend="refreshEnd" @scrolltolower="loadMore">
 			<refresh ref="refresh" @isRefresh='isRefresh'></refresh>
 			<view v-for="(item, key) in reviewMsg" :key="key">
-				<item :reviewMsg="item" @childReview="childReview"></item>
+				<item :reviewMsg="item" @childReview="childReview" @commentMe="commentMe"></item>
 			</view>
 			<loadmore :status="more"></loadmore>
 		</scroll-view>
-		<view class="childReview" v-show="crControl" :animation="animationData">
+		<view class="childReview" v-if="crControl" :animation="animationData">
 			<view class="cr-title">
 				<text class="textSendMsg">评论详情</text>
 				<uniicon type="closeempty" size="30" color="#757575" @click="closeCr"></uniicon>
 			</view>
 			<scroll-view scroll-y="true" style="height: calc(100% - 50px);">
 				<view v-for="(titem, key) in childData" :key="key">
-					<item :reviewMsg="titem"></item>
+					<item :reviewMsg="titem" @commentMe="commentMe" :obj="clickComment"></item>
 				</view>
 			</scroll-view>
 		</view>
@@ -32,7 +32,8 @@
 		name: 'review',
 		props: {
 			reviewMsg: [Array],
-			childData: [Array]
+			childData: [Array],
+			clickComment: Object
 		},
 		components: {
 			uniicon,
@@ -50,7 +51,7 @@
 				// 获取节点高度
 				setHeight: '',
 				// 上拉加载
-				more: 'more',				
+				more: 'more',
 			}
 		},
 		onLoad() {
@@ -65,12 +66,16 @@
 			}).exec();
 		},
 		methods: {
+			commentMe(obj){
+				this.$emit('comment',obj)
+
+			},
 			childReview(item, key) {
 				this.crControl = true;
 				this.animation.translateY(this.setHeight).step();
 				this.animationData = this.animation.export();
 				this.$nextTick(function(){
-					
+
 					this.animation.translateY(0).step({ duration: 150 });
 					this.animationData = this.animation.export();
 				})
@@ -114,17 +119,17 @@
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.content {
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.cenHost-Content {
 		position: relative;
 		width: 100%;
 	}
-	
+
 	.cr-title {
 		width: 100%;
 		height: 50px;
@@ -137,7 +142,7 @@
 		box-sizing: border-box;
 		background-color: #FFFFFF;
 	}
-	
+
 	.childReview {
 		position: absolute;
 		margin: auto;
@@ -147,7 +152,7 @@
 		display: flex;
 		flex-direction: column;
 	}
-	
+
 	.textSendMsg {
 		font-size: 14px;
 	}
