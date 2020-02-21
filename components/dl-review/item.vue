@@ -24,6 +24,7 @@
 						@click.stop="goToCenter(reviewMsg.targetUserId)">@{{reviewMsg.targetUserName}}:</text>
 					</view>
 					<text class="textSendMsg">{{reviewMsg.sendMsg}}</text>
+					<view v-if="reviewMsg.commentPic!==''&&reviewMsg.commentPic!==undefined&&reviewMsg.commentPic!==null" class="cuIcon-pic" style="margin-left: 10upx;color: #5090cd;">查看图片</view>
 
 				</view>
 				<view class="iconRow">
@@ -44,9 +45,12 @@
 					<view class="threeReviewVueText reviewContainer" v-for="(reKey, key) in reviewMsg.reviewLess" :key="key">
 						<view class="reviewContent" style="width: 100%">
 							<view>{{reKey.userName}}</view>
-							<text class="defaultBlack">回复</text>
-							<view>{{reKey.targetUserName}}</view>
+							<template v-if="reKey.targetUserId!==obk.userId&&reKey.targetUserId!==reKey.userId">
+								<text class="defaultBlack">回复</text>
+								<view>{{reKey.targetUserName}}</view>
+							</template>
 							<text class="defaultBlack">:{{reKey.sendMsg}}</text>
+							<view v-if="reKey.commentPic!==''&&reKey.commentPic!==undefined&&reKey.commentPic!==null" class="cuIcon-pic" style="margin-left: 10upx">查看图片</view>
 						</view>
 					</view>
 					<view class="reviewNumContent" v-if="reviewMsg.reviewNum > 3">
@@ -67,7 +71,8 @@
 		props: {
 			reviewMsg: [Object],
 			childData: [Array],
-			obj:Object
+			obj:Object,
+			obk:Object
 
 		},
 		components: {
@@ -165,6 +170,7 @@
 
 	.defaultBlack {
 		color: #000000;
+		word-wrap:break-word;
 	}
 
 	.viewMb-space-between {
@@ -204,6 +210,11 @@
 		justify-content: flex-start;
 		border-bottom: 1px solid #F2F2F2;
 		margin-top: 5px;
+	}
+	/*自己加的*/
+	.cenHostReview {
+		display: flex;
+		align-items: center;
 	}
 
 	.cenHostMsgContent {

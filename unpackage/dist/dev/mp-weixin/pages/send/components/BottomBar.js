@@ -181,7 +181,6 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
               name: "file",
               method: 'POST',
               success: function success(re) {
-                console.log("???");
                 var mydata = JSON.parse(re.data);
                 if (mydata.code === 0) {
                   uni.request({

@@ -69,13 +69,14 @@
 		<CutBar :text="cutBarText" :commentCount="commentCount"></CutBar>
 		<view class="content myComment">
 			<review :reviewMsg="reviewMsg" :childData="childData" :clickComment="clickComment"
-			@childReview="childReview" @comment="commentForChildren" ></review>
+			@childReview="childReview" @comment="commentForChildren"></review>
 		</view>
 <!--		<ChatBar></ChatBar>-->
 		<view class="box chatBar">
 			<view class="cu-bar input">
 				<view class="action">
-					<text class="cuIcon-roundadd text-grey"></text>
+					<view class="cuIcon-roundadd" :class="this.commentPic.length!==0?'text-red':'text-grey'" @click="ChooseImage">
+					</view>
 				</view>
 				<input @focus="InputFocus" @blur="InputBlur"
 					   type="text" confirm-type="send"
@@ -92,6 +93,8 @@
 				<button class="cu-btn bg-main shadow-blur animated" hover-class="jello" @click="sendComment">发送</button>
 			</view>
 		</view>
+		<HMmessages ref="HMmessages" @complete="HMmessages = $refs.HMmessages" @clickMessage="clickMessage"></HMmessages>
+
 	</view>
 </template>
 
@@ -101,6 +104,7 @@
 	import CutBar from "../../components/colorui/components/cutbar";
 	import review from "../../components/dl-review/review";
 	import ChatBar from "../../components/colorui/components/chatbar";
+	import HMmessages from "../../components/HM-messages/HMmessages";
 	// import ChatBar from "../../components/user-chat/user-chat-bottom";
 	var serverUrl = common.serverUrl;
 	export default{
@@ -111,7 +115,8 @@
 		components:{
 			CutBar,
 			review,
-			ChatBar
+			ChatBar,
+			HMmessages
 		},
 		data() {
 				return {
@@ -133,6 +138,7 @@
 				InputBottom: 0,
 				placeHolder:"理一下ta好不好",
 				content:'',
+				commentPic:[],
 				parentId:"",
 				isFocus:false,
 				commentObj:{}
@@ -222,6 +228,11 @@
 			},
 		methods:{
 			sendComment(){
+				var content = this.content
+				if (content===""&&this.commentPic.length!==1){
+					this.warning("不能说悄悄话哦")
+					return
+				}
 				var comment=this.commentObj
 				if(comment.cenId!==null&&comment.cenId!==undefined){
 					var parentId=comment.cenId
@@ -230,24 +241,65 @@
 						apiRootId=comment.cenId
 					}
 				}else{
-					debugger
 					var apiRootId = this.post.postId
 					var parentId = "0"
 				}
-
-
 				uni.request({
 					url:serverUrl+'/comments/',
 					method:'POST',
 					data:{
 						"userId":this.userId,
-						"content":this.content,
+						"content":content,
 						"type":3,
 						"parentId":parentId,
 						"apiRootId":apiRootId
 					},
 					success: (res) => {
 						if(res.data.code===0){
+							var commentId = res.data.data
+							if (this.commentPic.length===1){
+								uni.uploadFile({
+									header:{
+										"Authorization":this.token,
+										"type":this.type
+									},
+									url:serverUrl+'/oss/?parentId='+commentId,
+									filePath:this.commentPic[0],
+									name:"file",
+									method:'POST',
+									success: (re) => {
+										var da = JSON.parse(re.data)
+										if (da.code === 0) {
+											this.commentPic=this.commentPic.splice(0,1)
+											this.content="";
+											this.placeHolder="理一下ta好不好"
+											uni.request({
+												url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
+												method:'GET',
+												success: (r) => {
+													debugger
+													if(r.data.code===0){
+														this.reviewMsg=r.data.data.reviewMsg
+													}
+												}
+											});
+
+											uni.request({
+												url:"http://192.168.1.7:8086/comments/"+apiRootId,
+												method:'GET',
+												success: (r) => {
+													if(r.data.code===0){
+														this.childData=r.data.data
+													}
+												}
+											})
+										}
+									},
+									fail:(e)=>{
+									console.log(e)
+								}
+								})
+							}
 							this.content=""
 							this.placeHolder="理一下ta好不好"
 							uni.request({
@@ -255,14 +307,25 @@
 								method:'GET',
 								success: (res) => {
 									if(res.data.code===0){
+										console.log(res.data.data.reviewMsg)
 										this.reviewMsg=res.data.data.reviewMsg
+									}
+								}
+							});
+							uni.request({
+								url:"http://192.168.1.7:8086/comments/"+apiRootId,
+								method:'GET',
+								success: (res) => {
+									if(res.data.code===0){
+										this.childData=res.data.data
 									}
 								}
 							})
 						}
 					}
 
-				})
+				});
+
 			},
 			contentInput(e){
 				var value= e.detail.value
@@ -338,11 +401,28 @@
 					url:"../userCenter/userCenter"
 				})
 			},
+			warning(msg) {
+				this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})
+			},
 			InputFocus(e) {
 				this.InputBottom = e.detail.height
 			},
 			InputBlur(e) {
 				this.InputBottom = 0
+			},
+			ChooseImage() {
+			    uni.chooseImage({
+			        count: 1,
+			        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+			        sourceType: ['album'], //从相册选择
+			        success: (res) => {
+			            var imgUrl=res.tempFilePaths[0]
+							var array = [];
+							array[0]=imgUrl
+							this.commentPic=array
+			        }
+			    });
+
 			}
 
 
@@ -376,6 +456,21 @@
 		z-index: 999;
 		border-radius: 20rpx;
 	}
+
+/* 	.cu-tag1.badge1 {
+		border-radius: 200upx;
+		top: -10upx;
+		right: -10upx;
+		font-size: 20upx;
+		padding: 0upx 10upx;
+		height: 28upx;
+		color: #ffffff;
+	} */
+
+
+
+
+
 
 
 </style>

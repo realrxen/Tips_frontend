@@ -180,12 +180,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
 {
   name: 'review',
   props: {
     reviewMsg: [Object],
     childData: [Array],
-    obj: Object },
+    obj: Object,
+    obk: Object },
 
 
   components: {

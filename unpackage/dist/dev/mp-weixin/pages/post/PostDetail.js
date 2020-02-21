@@ -100,6 +100,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.HMmessages = _vm.$refs.HMmessages
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -134,6 +139,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
 
 
 
@@ -330,10 +338,13 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 319));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 326));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 333));}; // import ChatBar from "../../components/user-chat/user-chat-bottom";
-var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", props: {}, components: { CutBar: CutBar, review: review, ChatBar: ChatBar }, data: function data() {return { postId: "", isFollow: false, cutBarText: "最新评论", commentCount: 0, // 列表详情数据
+//
+//
+//
+var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 319));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 326));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 333));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 192));}; // import ChatBar from "../../components/user-chat/user-chat-bottom";
+var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", props: {}, components: { CutBar: CutBar, review: review, ChatBar: ChatBar, HMmessages: HMmessages }, data: function data() {return { postId: "", isFollow: false, cutBarText: "最新评论", commentCount: 0, // 列表详情数据
       childData: [], // 评论列表
-      reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}this.postId = paramsObj.postId;uni.request({ url: serverUrl + '/posts/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {var post = res.data.data;_this.post = post;_this.commentCount = post.commentCount;uni.request({ header: { "Authorization": _this.token, "type": _this.type }, url: serverUrl + '/follows/' + post.userId + '?userId=' + _this.userId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.isFollow = res.data.data;}if (_this.post.userId === _this.userId && _this.userId !== "") {_this.isFollow = true;}}, fail: function fail() {}, complete: function complete() {} });}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.comments = res.data.data;}
+      reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', commentPic: [], parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}this.postId = paramsObj.postId;uni.request({ url: serverUrl + '/posts/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {var post = res.data.data;_this.post = post;_this.commentCount = post.commentCount;uni.request({ header: { "Authorization": _this.token, "type": _this.type }, url: serverUrl + '/follows/' + post.userId + '?userId=' + _this.userId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.isFollow = res.data.data;}if (_this.post.userId === _this.userId && _this.userId !== "") {_this.isFollow = true;}}, fail: function fail() {}, complete: function complete() {} });}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.comments = res.data.data;}
 
       },
       fail: function fail() {
@@ -357,6 +368,11 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
   },
   methods: {
     sendComment: function sendComment() {var _this2 = this;
+      var content = this.content;
+      if (content === "" && this.commentPic.length !== 1) {
+        this.warning("不能说悄悄话哦");
+        return;
+      }
       var comment = this.commentObj;
       if (comment.cenId !== null && comment.cenId !== undefined) {
         var parentId = comment.cenId;
@@ -365,24 +381,65 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
           apiRootId = comment.cenId;
         }
       } else {
-        debugger;
         var apiRootId = this.post.postId;
         var parentId = "0";
       }
-
-
       uni.request({
         url: serverUrl + '/comments/',
         method: 'POST',
         data: {
           "userId": this.userId,
-          "content": this.content,
+          "content": content,
           "type": 3,
           "parentId": parentId,
           "apiRootId": apiRootId },
 
         success: function success(res) {
           if (res.data.code === 0) {
+            var commentId = res.data.data;
+            if (_this2.commentPic.length === 1) {
+              uni.uploadFile({
+                header: {
+                  "Authorization": _this2.token,
+                  "type": _this2.type },
+
+                url: serverUrl + '/oss/?parentId=' + commentId,
+                filePath: _this2.commentPic[0],
+                name: "file",
+                method: 'POST',
+                success: function success(re) {
+                  var da = JSON.parse(re.data);
+                  if (da.code === 0) {
+                    _this2.commentPic = _this2.commentPic.splice(0, 1);
+                    _this2.content = "";
+                    _this2.placeHolder = "理一下ta好不好";
+                    uni.request({
+                      url: "http://192.168.1.7:8086/comments/?apiRootId=" + _this2.postId,
+                      method: 'GET',
+                      success: function success(r) {
+                        debugger;
+                        if (r.data.code === 0) {
+                          _this2.reviewMsg = r.data.data.reviewMsg;
+                        }
+                      } });
+
+
+                    uni.request({
+                      url: "http://192.168.1.7:8086/comments/" + apiRootId,
+                      method: 'GET',
+                      success: function success(r) {
+                        if (r.data.code === 0) {
+                          _this2.childData = r.data.data;
+                        }
+                      } });
+
+                  }
+                },
+                fail: function fail(e) {
+                  console.log(e);
+                } });
+
+            }
             _this2.content = "";
             _this2.placeHolder = "理一下ta好不好";
             uni.request({
@@ -390,12 +447,23 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
               method: 'GET',
               success: function success(res) {
                 if (res.data.code === 0) {
+                  console.log(res.data.data.reviewMsg);
                   _this2.reviewMsg = res.data.data.reviewMsg;
+                }
+              } });
+
+            uni.request({
+              url: "http://192.168.1.7:8086/comments/" + apiRootId,
+              method: 'GET',
+              success: function success(res) {
+                if (res.data.code === 0) {
+                  _this2.childData = res.data.data;
                 }
               } });
 
           }
         } });
+
 
 
     },
@@ -473,11 +541,28 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
         url: "../userCenter/userCenter" });
 
     },
+    warning: function warning(msg) {
+      this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
+    },
     InputFocus: function InputFocus(e) {
       this.InputBottom = e.detail.height;
     },
     InputBlur: function InputBlur(e) {
       this.InputBottom = 0;
+    },
+    ChooseImage: function ChooseImage() {var _this5 = this;
+      uni.chooseImage({
+        count: 1,
+        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album'], //从相册选择
+        success: function success(res) {
+          var imgUrl = res.tempFilePaths[0];
+          var array = [];
+          array[0] = imgUrl;
+          _this5.commentPic = array;
+        } });
+
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

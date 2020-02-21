@@ -4,7 +4,7 @@
 		@touchstart="refreshStart" @touchmove="refreshMove" @touchend="refreshEnd" @scrolltolower="loadMore">
 			<refresh ref="refresh" @isRefresh='isRefresh'></refresh>
 			<view v-for="(item, key) in reviewMsg" :key="key">
-				<item :reviewMsg="item" @childReview="childReview" @commentMe="commentMe"></item>
+				<item :reviewMsg="item" @childReview="childReview" :obk="item" @commentMe="commentMe"></item>
 			</view>
 			<loadmore :status="more"></loadmore>
 		</scroll-view>
