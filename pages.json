@@ -85,6 +85,10 @@
 		    "style" : {}
 		},
 		{
+		    "path" : "pages/pic/pic",
+		    "style" : {}
+		},
+		{
 		    "path" : "pages/souvenir/souvenir",
 		    "style": {
 		    	"app-plus":{

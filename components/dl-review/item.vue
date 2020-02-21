@@ -24,7 +24,8 @@
 						@click.stop="goToCenter(reviewMsg.targetUserId)">@{{reviewMsg.targetUserName}}:</text>
 					</view>
 					<text class="textSendMsg">{{reviewMsg.sendMsg}}</text>
-					<view v-if="reviewMsg.commentPic!==''&&reviewMsg.commentPic!==undefined&&reviewMsg.commentPic!==null" class="cuIcon-pic" style="margin-left: 10upx;color: #5090cd;">查看图片</view>
+					<view v-if="reviewMsg.commentPic!==''&&reviewMsg.commentPic!==undefined&&reviewMsg.commentPic!==null" 
+					class="cuIcon-pic" style="margin-left: 10upx;color: #5090cd;" @click.stop="goToDetail(reviewMsg.commentPic)">查看图片</view>
 
 				</view>
 				<view class="iconRow">
@@ -94,6 +95,13 @@
 			goToCenter(data){
 				var userId = data;
 				console.log(userId)
+			},
+			
+			goToDetail(data){
+				var imgUrl =data 
+				uni.navigateTo({
+					url:'../../pages/pic/pic?imgUrl='+imgUrl
+				})
 			},
 			commentMe(obj){
 				// var userId = e.currentTarget.dataset.userid

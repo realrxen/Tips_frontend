@@ -15,6 +15,7 @@
     "pages/send/PostEdit",
     "pages/souvenir/SouvenirDetail",
     "pages/souvenir/tabBar/cart/cart",
+    "pages/pic/pic",
     "pages/souvenir/souvenir"
   ],
   "subPackages": [],
@@ -30,5 +31,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap89.json"
+  "sitemapLocation": "sitemap14.json"
 }

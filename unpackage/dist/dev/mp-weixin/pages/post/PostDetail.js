@@ -341,7 +341,7 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 319));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 326));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 333));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 192));}; // import ChatBar from "../../components/user-chat/user-chat-bottom";
+var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 327));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 334));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 341));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 200));}; // import ChatBar from "../../components/user-chat/user-chat-bottom";
 var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", props: {}, components: { CutBar: CutBar, review: review, ChatBar: ChatBar, HMmessages: HMmessages }, data: function data() {return { postId: "", isFollow: false, cutBarText: "最新评论", commentCount: 0, // 列表详情数据
       childData: [], // 评论列表
       reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', commentPic: [], parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}this.postId = paramsObj.postId;uni.request({ url: serverUrl + '/posts/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {var post = res.data.data;_this.post = post;_this.commentCount = post.commentCount;uni.request({ header: { "Authorization": _this.token, "type": _this.type }, url: serverUrl + '/follows/' + post.userId + '?userId=' + _this.userId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.isFollow = res.data.data;}if (_this.post.userId === _this.userId && _this.userId !== "") {_this.isFollow = true;}}, fail: function fail() {}, complete: function complete() {} });}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.comments = res.data.data;}
@@ -417,7 +417,6 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
                       url: "http://192.168.1.7:8086/comments/?apiRootId=" + _this2.postId,
                       method: 'GET',
                       success: function success(r) {
-                        debugger;
                         if (r.data.code === 0) {
                           _this2.reviewMsg = r.data.data.reviewMsg;
                         }
@@ -471,6 +470,7 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
       var value = e.detail.value;
       this.content = value;
     },
+
     commentForChildren: function commentForChildren(data) {
       this.placeHolder = '@' + data.userName;
       this.isFocus = !this.isFocus;

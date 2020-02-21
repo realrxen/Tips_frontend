@@ -277,7 +277,6 @@
 												url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
 												method:'GET',
 												success: (r) => {
-													debugger
 													if(r.data.code===0){
 														this.reviewMsg=r.data.data.reviewMsg
 													}
@@ -331,6 +330,7 @@
 				var value= e.detail.value
 				this.content=value
 			},
+			
 			commentForChildren(data){
 				this.placeHolder='@'+data.userName
 				this.isFocus=!this.isFocus

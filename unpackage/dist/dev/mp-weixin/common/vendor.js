@@ -7703,7 +7703,7 @@ var _default = {
 
 /***/ }),
 
-/***/ 274:
+/***/ 282:
 /*!****************************************!*\
   !*** D:/Uni-app/travel/common/time.js ***!
   \****************************************/
@@ -8623,7 +8623,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 359:
+/***/ 367:
 /*!******************************************************!*\
   !*** D:/Uni-app/travel/components/sx-rate/common.js ***!
   \******************************************************/
@@ -8642,7 +8642,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 383:
+/***/ 391:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -9702,7 +9702,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {}, "pages/souvenir/SouvenirDetail": {}, "pages/souvenir/tabBar/cart/cart": {}, "pages/souvenir/souvenir": { "enablePullDownRefresh": true } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {}, "pages/souvenir/SouvenirDetail": {}, "pages/souvenir/tabBar/cart/cart": {}, "pages/pic/pic": {}, "pages/souvenir/souvenir": { "enablePullDownRefresh": true } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
 
 /***/ }),
 
