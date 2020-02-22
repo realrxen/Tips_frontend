@@ -63,7 +63,7 @@
 	.wrapper{
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-evenly;
+		justify-content: flex-start;
 		margin-top: 93rpx;
 		padding: 20rpx 20rpx 0;
 	}
@@ -79,6 +79,7 @@
 		border-radius: 15rpx;
 		padding: 10rpx;
 		margin-bottom: 12rpx;
+		margin-left: 7rpx;
 	}
 	.coverPicture{
 		width: 350rpx;

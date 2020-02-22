@@ -5,9 +5,9 @@
 	display: flex;
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
-	-webkit-box-pack: space-evenly;
-	-webkit-justify-content: space-evenly;
-	        justify-content: space-evenly;
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	        justify-content: flex-start;
 	margin-top: 93rpx;
 	padding: 20rpx 20rpx 0;
 }
@@ -28,6 +28,7 @@
 	border-radius: 15rpx;
 	padding: 10rpx;
 	margin-bottom: 12rpx;
+	margin-left: 7rpx;
 }
 .coverPicture{
 	width: 350rpx;

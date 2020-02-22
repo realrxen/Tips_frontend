@@ -89,6 +89,10 @@
 		    "style" : {}
 		},
 		{
+		    "path" : "pages/meInfo/children/telephone",
+		    "style" : {}
+		},
+		{
 		    "path" : "pages/souvenir/souvenir",
 		    "style": {
 		    	"app-plus":{

@@ -248,50 +248,44 @@
 					image:"../../static/icos/xixi.png"
 				})
 			},
-			// getOtpCode(){
-			// 	var telephone = this.telephone
-			// 	uni.login({
-			// 		provider: 'weixin',
-			// 		success: function (loginRes) {
-			// 			var code = loginRes.code
-			// 			if (telephone === "") {
-			// 				this.warning("手机号不能为空哟")
-			// 				return
-			// 			}
-			// 				uni.request({
-			// 					url:serverUrl+'/users/otp/'+telephone+'/'+code,
-			// 					method:'GET',
-			// 					success: (res) => {
-			// 						if(res.data.code===0){
-			// 							uni.showToast({
-			// 								title:res.data.data,
-			// 								mask:true,
-			// 								duration:2000
-			// 							})
-			// 							// if(this.codeTime>0){return}
-			// 							// this.codeTime=30
-			// 							// let timer = setInterval(()=>{
-			// 							// 	if(this.codeTime>=1){
-			// 							// 		this.codeTime--
-			// 							// 	}else{
-			// 							// 		this.codeTime=0
-			// 							// 		clearInterval(timer)
-			// 							// 	}
-			// 							// },1000)
-			// 						}
-			// 						if (res.data.code === 10009) {
-			// 							uni.showToast({
-			// 								title:res.data.msg,
-			// 								mask:true,
-			// 								duration:2000
-			// 							})
-			// 						}
-			// 					}
-			// 				});
-			// 		}
-			// 	});
-			//
-			// 		},
+			getOtpCode(){
+				var telephone = this.telephone
+						if (telephone === "") {
+							this.warning("手机号不能为空哟")
+							return
+						}
+							uni.request({
+								url:serverUrl+'/users/otp/'+telephone,
+								method:'GET',
+								success: (res) => {
+									if(res.data.code===0){
+										uni.showToast({
+											title:res.data.data,
+											mask:true,
+											duration:2000
+										})
+										if(this.codeTime>0){return}
+										this.codeTime=30
+										let timer = setInterval(()=>{
+											if(this.codeTime>=1){
+												this.codeTime--
+											}else{
+												this.codeTime=0
+												clearInterval(timer)
+											}
+										},1000)
+									}
+									if (res.data.code === 10009) {
+										uni.showToast({
+											title:res.data.msg,
+											mask:true,
+											duration:2000
+										})
+									}
+								}
+							});
+			
+					},
 			appOAuthLogin(e){
 				var logintype =e.currentTarget.dataset.logintype
 				uni.login({
@@ -363,8 +357,6 @@
 			wxLogin(e){
 					// 通过微信开放能力 获得微信用户的基本信息
 					var userInfo = e.detail.userInfo
-					console.log(userInfo)
-					console.log(userInfo.avatarUrl)
 					//实现微信登录
 					uni.login({
 						provider:"weixin",

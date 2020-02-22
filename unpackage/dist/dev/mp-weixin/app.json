@@ -16,6 +16,7 @@
     "pages/souvenir/SouvenirDetail",
     "pages/souvenir/tabBar/cart/cart",
     "pages/pic/pic",
+    "pages/meInfo/children/telephone",
     "pages/souvenir/souvenir"
   ],
   "subPackages": [],
@@ -31,5 +32,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap14.json"
+  "sitemapLocation": "sitemap56.json"
 }

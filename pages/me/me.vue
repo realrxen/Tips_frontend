@@ -40,7 +40,7 @@
 			<UniListItem title="社区认证" showExtraIcon>
 				<text slot="icon" class="iconfont icon-dongtai11"></text>
 			</UniListItem>
-			<UniListItem @click="skip" title="审核帖子" showExtraIcon>
+			<UniListItem @click="online" title="在线人数" showExtraIcon>
 				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 			</UniListItem>
 			<navigator url="../souvenir/souvenir">
@@ -57,6 +57,8 @@
 
 <script>
 	import UniListItem from '../../components/uni-ui/uni-list-item/uni-list-item.vue'
+	import common from "../../common/common.js"
+	var serverUrl =common.serverUrl
 	export default {
 		components:{
 			UniListItem
@@ -71,7 +73,23 @@
 		methods: {
 			pop(data){
 				this.show = data;
+			},
+			online(){
+				uni.request({
+					url:serverUrl+'/users/online',
+					method:'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							uni.showToast({
+								title:'在线人数:'+res.data.data,
+								duration:2000,
+								image:"../../static/icos/xixi.png"
+							})
+						}
+					}
+				})
 			}
+			
 		},
 		onShow() {
 			this.show=false

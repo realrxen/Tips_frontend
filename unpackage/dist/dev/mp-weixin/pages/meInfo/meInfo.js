@@ -245,6 +245,59 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -356,8 +409,60 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var _default = { data: function data() {return { userInfo: {} };}, onShow: function onShow() {// var me = this
-    var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userIsLogin = true;this.userInfo = userInfo;} else {this.userIsLogin = false;}}, methods: { modifyBirthday: function modifyBirthday() {uni.navigateTo({ url: "../meBirthday/meBirthday" });}, modifySex: function modifySex() {uni.navigateTo({ url: "../sex/sex" });}, modifyCity: function modifyCity() {uni.navigateTo({ url: "../meCity/meCity" });}, modifyNickname: function modifyNickname() {uni.navigateTo({ url: "../meNickname/meNickname" });}, operator: function operator() {var _this = this;uni.showActionSheet({ itemList: ["查看我的头像", "从相册中选择上传"], success: function success(res) {var index = res.tapIndex;if (index == 0) {var faceArr = [];faceArr.push(_this.userInfo.faceIcon);uni.previewImage({ urls: faceArr, current: faceArr[0] });} else if (index == 1) {uni.chooseImage({ count: 1, sizeType: ["compressed"], sourceType: ["album", "camera"], success: function success(res) {//获得临时路径
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var serverUrl = _common.default.serverUrl;var _default = { data: function data() {return { userInfo: {}, telephone: "" };}, onShow: function onShow() {var me = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userIsLogin = true;this.userInfo = userInfo;this.te;} else {this.userIsLogin = false;}}, onLoad: function onLoad() {}, methods: { bindTel: function bindTel() {uni.navigateTo({ url: "./children/telephone" });}, modifyBirthday: function modifyBirthday() {uni.navigateTo({ url: "../meBirthday/meBirthday" });}, modifySex: function modifySex() {uni.navigateTo({ url: "../sex/sex" });}, modifyCity: function modifyCity() {uni.navigateTo({ url: "../meCity/meCity" });}, modifyNickname: function modifyNickname() {uni.navigateTo({ url: "../meNickname/meNickname" });}, operator: function operator() {var _this = this;uni.showActionSheet({ itemList: ["查看我的头像", "从相册中选择上传"], success: function success(res) {var index = res.tapIndex;if (index == 0) {var faceArr = [];faceArr.push(_this.userInfo.faceIcon);uni.previewImage({ urls: faceArr, current: faceArr[0] });} else if (index == 1) {uni.chooseImage({ count: 1, sizeType: ["compressed"], sourceType: ["album", "camera"], success: function success(res) {//获得临时路径
                 var tempFilePath = res.tempFilePaths[0];uni.navigateTo({ url: "../faceCrop/faceCrop?tempFilePath=" + tempFilePath });} });}} });}, cleanStorage: function cleanStorage() {uni.clearStorageSync();uni.showToast({ title: "成功清除缓存", mask: false, duration: 1500 });uni.navigateBack({ delta: 1 });}, logout: function logout() {var userInfo = this.getGlobalUser("globalUser");uni.request({ url: serverUrl + '/users/logout?userId=' + userInfo.userId, header: { "Authorization": "Bearer " + this.userInfo.token }, method: 'POST', // header:{
         // 	"Authorization":userInfo.token
         // },

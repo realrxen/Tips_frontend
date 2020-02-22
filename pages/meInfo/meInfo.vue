@@ -2,12 +2,30 @@
 	<view class="page page-fill">
 		<view class="page-block info-list">
 					<!-- 头像 -->
-					
+
 					<view class="item-wrapper face-line-upbottom" @click="operator">
 						<view class="info-words">头像</view>
-						
+
 						<view class="right-wrapper">
 							<image :src="userInfo.faceIcon" class="face"></image>
+							<view class="arrow-block">
+								<image src="../../static/icos/left-gray-arrow.png" class="arrow-ico"></image>
+							</view>
+						</view>
+					</view>
+
+					<view class="line-top">
+						<view class="line"></view>
+					</view>
+					
+					<!-- 用户名 -->
+					<view class="item-wrapper" @click="modifyNickname">
+						<view class="info-words">用户名</view>
+					
+						<view class="right-wrapper">
+							<view class="gray-fields">
+								{{userInfo.username}}
+							</view>
 							<view class="arrow-block">
 								<image src="../../static/icos/left-gray-arrow.png" class="arrow-ico"></image>
 							</view>
@@ -17,11 +35,11 @@
 					<view class="line-top">
 						<view class="line"></view>
 					</view>
-					
+
 					<!-- 昵称 -->
 					<view class="item-wrapper" @click="modifyNickname">
 						<view class="info-words">昵称</view>
-						
+
 						<view class="right-wrapper">
 							<view class="gray-fields">
 								{{userInfo.nickname}}
@@ -31,15 +49,50 @@
 							</view>
 						</view>
 					</view>
-					
+
 					<view class="line-top">
 						<view class="line"></view>
 					</view>
-					
+
+					<!-- 手机号 -->
+					<view class="item-wrapper" @click="bindTel">
+						<view class="info-words">手机号</view>
+
+						<view class="right-wrapper">
+							<view class="gray-fields">
+		{{userInfo.telephone!==null&&userInfo.telephone!==undefined&&userInfo.telephone!=="none"?userInfo.telephone:"绑定手机号"}}
+							</view>
+							<view class="arrow-block">
+								<image src="../../static/icos/left-gray-arrow.png" class="arrow-ico"></image>
+							</view>
+						</view>
+					</view>
+
+					<view class="line-top">
+						<view class="line"></view>
+					</view>
+
+					<!-- 更改密码 -->
+					<view class="item-wrapper" @click="modifyNickname">
+						<view class="info-words">更改密码</view>
+
+						<view class="right-wrapper">
+							<view class="gray-fields">
+							</view>
+							<view class="arrow-block">
+								<image src="../../static/icos/left-gray-arrow.png" class="arrow-ico"></image>
+							</view>
+						</view>
+					</view>
+
+					<view class="line-top">
+						<view class="line"></view>
+					</view>
+
 					<!-- 城市 -->
-					<view class="item-wrapper" @click="modifyCity">
+					<!-- <view class="item-wrapper" @click="modifyCity">
 						<view class="info-words">城市</view>
-						
+
 						<view class="right-wrapper">
 							<view class="gray-fields">
 								{{userInfo.city}}
@@ -49,13 +102,13 @@
 							</view>
 						</view>
 					</view>
-					
+
 					<view class="line-top">
 						<view class="line"></view>
-					</view>
-					
+					</view> -->
+
 					<!-- 性别 -->
-					<view class="item-wrapper" @click="modifySex">
+					<!-- <view class="item-wrapper" @click="modifySex">
 						<view class="info-words">性别</view>
 						<view class="right-wrapper">
 							<view class="gray-fields">
@@ -76,12 +129,12 @@
 					</view>
 					<view class="line-top">
 						<view class="line"></view>
-					</view>
-					
+					</view> -->
+
 					<!-- 生日 -->
-					<view class="item-wrapper" @click="modifyBirthday">
+					<!-- <view class="item-wrapper" @click="modifyBirthday">
 						<view class="info-words">生日</view>
-						
+
 						<view class="right-wrapper">
 							<view class="gray-fields">
 								{{userInfo.birthday}}
@@ -91,13 +144,13 @@
 							</view>
 						</view>
 					</view>
-					
+
 					<view class="line-top">
 						<view class="line"></view>
-					</view>
-					
+					</view> -->
+
 				</view>
-				
+
 				<view class="footer-wrapper">
 					<view class="footer-words" @click="cleanStorage">
 						清理缓存
@@ -115,20 +168,31 @@
 	export default{
 		data(){
 			return{
-				userInfo:{}
+				userInfo:{},
+				telephone:""
 			}
 		},
 		onShow() {
-			// var me = this
+			var me = this
 			var userInfo = uni.getStorageSync("globalUser")
 			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
 				this.userIsLogin = true
 				this.userInfo=userInfo
+				this.te
 			}else{
 				this.userIsLogin = false
 			}
 		},
+		onLoad() {
+
+		},
 		methods:{
+			
+			bindTel(){
+				uni.navigateTo({
+					url:"./children/telephone"
+				})
+			},
 			modifyBirthday(){
 				uni.navigateTo({
 					url:"../meBirthday/meBirthday"
@@ -179,10 +243,10 @@
 									url:"../faceCrop/faceCrop?tempFilePath="+tempFilePath
 								})
 								// #endif
-								
+
 								}
 							})
-						
+
 						}
 					}
 				})

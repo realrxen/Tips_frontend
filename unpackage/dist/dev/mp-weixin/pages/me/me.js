@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var UniListItem = function UniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/uni-list-item/uni-list-item.vue */ 221));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -192,6 +192,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var UniListItem = function UniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/uni-list-item/uni-list-item.vue */ 229));};
+var serverUrl = _common.default.serverUrl;var _default =
 {
   components: {
     UniListItem: UniListItem },
@@ -206,7 +208,23 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   methods: {
     pop: function pop(data) {
       this.show = data;
+    },
+    online: function online() {
+      uni.request({
+        url: serverUrl + '/users/online',
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            uni.showToast({
+              title: '在线人数:' + res.data.data,
+              duration: 2000,
+              image: "../../static/icos/xixi.png" });
+
+          }
+        } });
+
     } },
+
 
   onShow: function onShow() {
     this.show = false;
@@ -224,6 +242,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   onHide: function onHide() {
     this.show = false;
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

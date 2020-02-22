@@ -143,10 +143,10 @@
 													title:"发布成功!",
 													duration:2000,
 												})
-												// uni.navigateBack({delta:1})
-												uni.redirectTo({
-													url:'../post/post'
-												})
+												uni.navigateBack({delta:1})
+												// uni.redirectTo({
+												// 	url:'../post/post'
+												// })
 											},
 										})
 									}}else{
