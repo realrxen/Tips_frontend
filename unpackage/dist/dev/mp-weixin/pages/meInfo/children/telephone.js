@@ -189,7 +189,7 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/com
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../../components/HM-messages/HMmessages.vue */ 208));};var _default = { components: { HMmessages: HMmessages }, data: function data() {return { // userId:"",
+var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../../components/HM-messages/HMmessages.vue */ 216));};var _default = { components: { HMmessages: HMmessages }, data: function data() {return { // userId:"",
       // password:""
       userId: "", userInfo: {}, token: '', type: '', status: false, account: "", password: "", telephone: "", otpCode: "", codeTime: 0, code: "", checked: true, faceIcon: "http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png" };}, onShow: function onShow() {this.show = false;
     var userInfo = uni.getStorageSync("globalUser");
@@ -273,10 +273,10 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
               duration: 1500 });
 
             var userInfo = uni.getStorageSync("globalUser");
-            uni.setStorageSync("globalUser", userInfo);
             userInfo.telephone = res.data.data;
-            uni.redirectTo({
-              url: "../meInfo" });
+            uni.setStorageSync("globalUser", userInfo);
+            uni.navigateBack({
+              delta: 1 });
 
 
           }

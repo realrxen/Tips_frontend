@@ -17,11 +17,11 @@
 					<view class="line-top">
 						<view class="line"></view>
 					</view>
-					
+
 					<!-- 用户名 -->
 					<view class="item-wrapper" @click="modifyNickname">
 						<view class="info-words">用户名</view>
-					
+
 						<view class="right-wrapper">
 							<view class="gray-fields">
 								{{userInfo.username}}
@@ -31,7 +31,7 @@
 							</view>
 						</view>
 					</view>
-					
+
 					<view class="line-top">
 						<view class="line"></view>
 					</view>
@@ -73,7 +73,7 @@
 					</view>
 
 					<!-- 更改密码 -->
-					<view class="item-wrapper" @click="modifyNickname">
+					<view class="item-wrapper" @click="resetPwd">
 						<view class="info-words">更改密码</view>
 
 						<view class="right-wrapper">
@@ -187,7 +187,11 @@
 
 		},
 		methods:{
-			
+			resetPwd(){
+				uni.navigateTo({
+					url:"./children/password"
+				})
+			},
 			bindTel(){
 				uni.navigateTo({
 					url:"./children/telephone"

@@ -17,6 +17,7 @@
     "pages/souvenir/tabBar/cart/cart",
     "pages/pic/pic",
     "pages/meInfo/children/telephone",
+    "pages/meInfo/children/password",
     "pages/souvenir/souvenir"
   ],
   "subPackages": [],
@@ -31,6 +32,5 @@
     "cu-custom": "/components/colorui/components/cu-custom",
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
-  },
-  "sitemapLocation": "sitemap56.json"
+  }
 }

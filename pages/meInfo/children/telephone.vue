@@ -133,10 +133,10 @@
 								duration:1500,
 							});
 							var userInfo = uni.getStorageSync("globalUser")
-							uni.setStorageSync("globalUser",userInfo)
 							userInfo.telephone=res.data.data
-							uni.redirectTo({
-								url:"../meInfo"
+							uni.setStorageSync("globalUser",userInfo)
+							uni.navigateBack({
+								delta:1
 							})
 							
 						}

@@ -46,7 +46,7 @@
 		<view class="password-login-Wrapper">
 			<view style="font-size: 30rpx;color: #969896;" @click="changeLogin">{{status?'验证码登录':'账号密码登录'}}</view>
 			<text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
-			<view style="font-size: 30rpx;color: #969896;margin-right: 20rpx;">忘记密码</view>
+			<view style="font-size: 30rpx;color: #969896;margin-right: 20rpx;"@click="forgetPwd">忘记密码</view>
 			<!-- <text style="margin-left: 20rpx;margin-right: 20rpx;">|</text>
 			<navigator url="./login">
 			<view style="font-size: 30rpx;color: #969896;">注册</view>
@@ -119,6 +119,11 @@
 			}
 		},
 		methods:{
+			forgetPwd(){
+				uni.navigateTo({
+					url:"../meInfo/children/password"
+				})
+			},
 			rememberMe(){
 				this.checked=!this.checked
 			},
@@ -163,6 +168,12 @@
 									duration:2000,
 									image:"../../static/icos/error1.jpg"
 								})
+							}else if(res.data.code===1){
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/error1.jpg"
+								})
 							}
 						}
 					})
@@ -193,6 +204,12 @@
 									image:"../../static/icos/xixi.png"
 								})
 							}else if(res.data.code===466){
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/error1.jpg"
+								})
+							}else if(res.data.code===1){
 								uni.showToast({
 									title:res.data.msg,
 									duration:2000,

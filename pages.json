@@ -93,6 +93,10 @@
 		    "style" : {}
 		},
 		{
+		    "path" : "pages/meInfo/children/password",
+		    "style" : {}
+		},
+		{
 		    "path" : "pages/souvenir/souvenir",
 		    "style": {
 		    	"app-plus":{
