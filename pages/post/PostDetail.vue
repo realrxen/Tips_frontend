@@ -159,6 +159,10 @@
 				uni.request({
 					url:serverUrl+'/posts/'+this.postId,
 					method:'GET',
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
 					success: (res) => {
 						if(res.data.code===0){
 							var post =res.data.data
@@ -201,11 +205,14 @@
 				uni.request({
 					url:serverUrl+'/comments/'+this.postId,
 					method:'GET',
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
 					success: res => {
 						if(res.data.code===0){
 							this.comments=res.data.data
 						}
-
 					},
 					fail: () => {
 
@@ -215,7 +222,7 @@
 					}
 				});
 				uni.request({
-					url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
+					url:serverUrl+'/comments/?apiRootId='+this.postId,
 					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){
@@ -245,6 +252,10 @@
 					var parentId = "0"
 				}
 				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
 					url:serverUrl+'/comments/',
 					method:'POST',
 					data:{
@@ -274,7 +285,11 @@
 											this.content="";
 											this.placeHolder="理一下ta好不好"
 											uni.request({
-												url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
+												header:{
+													"Authorization":this.token,
+													"type":this.type
+												},
+												url:serverUrl+"/comments/?apiRootId="+this.postId,
 												method:'GET',
 												success: (r) => {
 													if(r.data.code===0){
@@ -284,7 +299,11 @@
 											});
 
 											uni.request({
-												url:"http://192.168.1.7:8086/comments/"+apiRootId,
+												header:{
+													"Authorization":this.token,
+													"type":this.type
+												},
+												url:serverUrl+"/comments/"+apiRootId,
 												method:'GET',
 												success: (r) => {
 													if(r.data.code===0){
@@ -302,7 +321,11 @@
 							this.content=""
 							this.placeHolder="理一下ta好不好"
 							uni.request({
-								url:"http://192.168.1.7:8086/comments/?apiRootId="+this.postId,
+								header:{
+									"Authorization":this.token,
+									"type":this.type
+								},
+								url:serverUrl+"/comments/?apiRootId="+this.postId,
 								method:'GET',
 								success: (res) => {
 									if(res.data.code===0){
@@ -312,13 +335,22 @@
 								}
 							});
 							uni.request({
-								url:"http://192.168.1.7:8086/comments/"+apiRootId,
+								header:{
+									"Authorization":this.token,
+									"type":this.type
+								},
+								url:serverUrl+"/comments/"+apiRootId,
 								method:'GET',
 								success: (res) => {
 									if(res.data.code===0){
 										this.childData=res.data.data
 									}
 								}
+							})
+						}else if(res.data.code===30002){
+							uni.showToast({
+								title:'亲，要登陆哟',
+								duration:2000
 							})
 						}
 					}
@@ -339,7 +371,7 @@
 			childReview(data) {
 				this.clickComment=data
 				uni.request({
-					url:"http://192.168.1.7:8086/comments/"+data.cenId,
+					url:serverUrl+"/comments/"+data.cenId,
 					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){

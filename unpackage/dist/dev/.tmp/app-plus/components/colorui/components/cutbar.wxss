@@ -1,0 +1,10 @@
+
+.myCutBarTitle.data-v-65dad365 {
+    margin-left: 5rpx;
+    font-size: 16px;
+    font-weight: bold;
+}
+.myCommentCount.data-v-65dad365{
+    font-size: 15px;
+}
+

@@ -149,7 +149,6 @@
 							if(res.data.code===0){
 								var userInfo ={}
 								userInfo=res.data.data
-								console.log(res.data.data)
 								// 缓存的API  保存用户信息到全局的缓存中
 								uni.setStorageSync("globalUser",userInfo)
 								if (this.checked) {
@@ -190,7 +189,6 @@
 							if(res.data.code===0){
 								var userInfo ={}
 								userInfo=res.data.data
-								console.log(res.data.data)
 								// 缓存的API  保存用户信息到全局的缓存中
 								uni.setStorageSync("globalUser",userInfo)
 								if (this.checked) {
@@ -220,38 +218,47 @@
 					})
 				}
 			},
-			// submitTc() {
-			// 	if (this.telephone === "") {
-			// 		this.warning("手机号不能为空哟")
-			// 		return
-			// 	}
-			// 	if (this.otpCode === "") {
-			// 		this.warning("验证码不能为空哟")
-			// 		return
-			// 	}
-			// 	if (this.validate()) {
-			// 		uni.request({
-			// 			url:serverUrl+'/users/otpLogin',
-			// 			data:{
-			// 				"telephone":this.telephone,
-			// 				"validCode":this.otpCode,
-			// 			},
-			// 			method:"POST",
-			// 			success: (res) => {
-			// 				// debugger
-			// 				if(res.data.code===0){
-			// 					this.successHandler()
-			// 				}else if(res.data.code===466){
-			// 					uni.showToast({
-			// 						title:res.data.msg,
-			// 						duration:2000,
-			// 						image:"../../static/icos/error1.jpg"
-			// 					})
-			// 				}
-			// 			}
-			// 		})
-			// 	}
-			// },
+			submitTc() {
+				if (this.telephone === "") {
+					this.warning("手机号不能为空哟")
+					return
+				}
+				if (this.otpCode === "") {
+					this.warning("验证码不能为空哟")
+					return
+				}
+				if (this.validate()) {
+					uni.request({
+						url:serverUrl+'/users/otpLogin',
+						data:{
+							"telephone":this.telephone,
+							"code":this.otpCode,
+						},
+						method:"POST",
+						success: (res) => {
+							// debugger
+							if(res.data.code===0){
+								var userInfo ={}
+								userInfo=res.data.data
+								// 缓存的API  保存用户信息到全局的缓存中
+								uni.setStorageSync("globalUser",userInfo)
+								uni.navigateBack({delta:1})
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/xixi.png"
+								})
+							}else if(res.data.code===466){
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000,
+									image:"../../static/icos/error1.jpg"
+								})
+							}
+						}
+					})
+				}
+			},
 			successHandler(){
 				var userInfo ={}
 				userInfo=res.data.data
@@ -272,7 +279,7 @@
 							return
 						}
 							uni.request({
-								url:serverUrl+'/users/otp/'+telephone,
+								url:serverUrl+'/users/otp/'+telephone+'?type=tp',
 								method:'GET',
 								success: (res) => {
 									if(res.data.code===0){
@@ -298,10 +305,22 @@
 											mask:true,
 											duration:2000
 										})
+									}else if (res.data.code === 10008) {
+										uni.showToast({
+											title:res.data.msg,
+											mask:true,
+											duration:2000
+										})
+									}else if (res.data.code === 10019) {
+										uni.showToast({
+											title:res.data.msg,
+											mask:true,
+											duration:2000
+										})
 									}
 								}
 							});
-			
+
 					},
 			appOAuthLogin(e){
 				var logintype =e.currentTarget.dataset.logintype

@@ -1,0 +1,132 @@
+
+.face-wrapper {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin-top: 65rpx;
+	margin-bottom: 65rpx;
+}
+.face {
+	width: 160rpx;
+	height: 160rpx;
+}
+.loginFormWrapper{
+	padding: 20rpx;
+}
+.form-item{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	border-bottom: solid 1px #DBDBDA;
+	padding: 20rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.words-label{
+	font-size: 18.75px;
+	color: #808080;
+}
+.input{
+	width: 400rpx;
+	margin-left: 20rpx;
+	margin-top: 10rpx;
+}
+.graywords {
+	color: #EAEAEA;
+}
+.forgetPwd{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 140rpx;
+	height: 70rpx;
+	padding: 5rpx;
+	margin-top: 9rpx;
+	margin-left: auto;
+}
+.text-login{
+	padding-top: 130rpx;
+	padding-bottom: 70rpx;
+	font-size: 55rpx;
+	text-align: center;
+}
+.buttonWrapper{
+	padding:20rpx 40rpx
+}
+.loginButton{
+	border-radius: 50rpx;
+	border: 0;
+	font-size: 40rpx;
+	color: #ffffff;
+	background-color: #FFD655;
+}
+.questionWrapper{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	padding-top: 10rpx;
+	padding-bottom: 30rpx;
+}
+.socialLoginWrapper{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.third-icos-wrapper {
+	margin-top: 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.third-ico {
+	width: 70rpx;
+	height: 70rpx;
+}
+.myIcon{
+	width: 100rpx;
+	height: 100rpx;
+	font-size: 50rpx;
+	/* padding: 20rpx; */
+	left: 0;
+}
+

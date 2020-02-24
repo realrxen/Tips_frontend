@@ -199,7 +199,7 @@ var serverUrl = _common.default.serverUrl;var _default =
       console.log(this.keywords);
       uni.request({
         url: serverUrl + '/posts/search?keywords=' + this.keywords,
-        method: 'POST',
+        method: 'GET',
         success: function success(res) {
           if (res.data.code === 0) {
             _this.coverData = res.data.data;

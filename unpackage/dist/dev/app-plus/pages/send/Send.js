@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"send{ display: -webkit-box; display: -webkit-flex; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; flex-direction: column; }\n",],undefined,{path:"./pages/send/Send.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/send/Send.wxml') } }));

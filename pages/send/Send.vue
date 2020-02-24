@@ -4,8 +4,8 @@
 		<MyTextArea @getContent="getTextContent"></MyTextArea>
 		<Tags @getTagIds="getTagIds"></Tags>
 		<UploadImages :isPost="isPost" @getImgList="getImgList"></UploadImages>
-		<HMmessages></HMmessages>
-		<BottomBar :Post="postForm" @click="send"></BottomBar>
+		<BottomBar :Post="postForm" @click="send" @isNull="isNull"></BottomBar>
+		<HMmessages ref="HMmessages" @complete="HMmessages = $refs.HMmessages" @clickMessage="clickMessage"></HMmessages>
 
 	</view>
 </template>
@@ -17,9 +17,6 @@
 	import HMmessages from "../../components/HM-messages/HMmessages";
 	import BottomBar from "./components/BottomBar.vue"
 	export default {
-		// props:{
-		// 	list:Array,
-		// },
 		components:{
 			// NavBar,
 			MyTextArea,
@@ -50,29 +47,29 @@
 				return this.imageList.length>=0
 			}
 		},
-		onBackPress(){
-			if((this.content !==''||this.imageList.length>0)&&!this.showback){
-				uni.showModal({
-					content:'是否保存为草稿?',
-					showCancel:true,
-					cancelText:'不保存',
-					confirmText:'保存',
-					success: (res) => {
-						if(res.confirm){
-							this.saveDraft()
-						}else{
-							 uni.removeStorageSync("postDraft")
-						}
-						uni.navigateBack({
-							delta:1
-						})
-					}
-				})
-				this.showback=true
-				return true
-			}
-			return true
-		},
+		// onBackPress(){
+		// 	if((this.content !==''||this.imageList.length>0)&&!this.showback){
+		// 		uni.showModal({
+		// 			content:'是否保存为草稿?',
+		// 			showCancel:true,
+		// 			cancelText:'不保存',
+		// 			confirmText:'保存',
+		// 			success: (res) => {
+		// 				if(res.confirm){
+		// 					this.saveDraft()
+		// 				}else{
+		// 					 uni.removeStorageSync("postDraft")
+		// 				}
+		// 				uni.navigateBack({
+		// 					delta:1
+		// 				})
+		// 			}
+		// 		})
+		// 		this.showback=true
+		// 		return true
+		// 	}
+		// 	return true
+		// },
 		onload() {
 			// TODO onload()函数加载缓存不可以
 		},
@@ -87,6 +84,9 @@
 		// 	this.imageList = this.list
 		// },
 		methods: {
+			isNull(data){
+				this.warning(data)
+			},
 			/*获取图片数组*/
 			getImgList(data) {
 				this.postForm.imgUrls = data;
@@ -129,6 +129,9 @@
 				console.log(e)
 				this.imageList = e
 			},
+			warning(msg) {
+				this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})
+			}
 
 
 		}

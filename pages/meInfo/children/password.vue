@@ -2,7 +2,7 @@
 	<view class="body">
 
 		<view class="face-wrapper">
-			<image :src="faceIcon" class="face"></image>
+			<image :src="(userInfo.faceIcon===undefined||userInfo.faceIcon===null||userInfo.faceIcon==='')?faceIcon:userInfo.faceIcon" class="face"></image>
 		</view>
 
 
@@ -85,8 +85,8 @@
 		methods:{
 			confirmPwd(){
 				if(this.pwd1!==this.pwd2){
-					this.warning("密码不一致哟")
-					return
+					this.warning("密码不一致哟");
+					return;
 				}
 				uni.request({
 					url:serverUrl+'/users/pwd',
@@ -124,11 +124,17 @@
 				var telephone = this.telephone
 				if (telephone === "") {
 					this.warning("手机号不能为空哟")
-					return	
+					return
 				}
+				// if (this.userInfo.telephone!==undefined&&this.userInfo.telephone!==""&&this.userInfo.telephone!==null&&this.userInfo!==null) {
+				// 	if (this.telephone !== this.userInfo.telephone) {
+				// 		this.warning("非账户绑定手机~~");
+				// 		return;
+				// 	}
+				// }
 				if (this.validate()) {
 					uni.request({
-						url:serverUrl+'/users/otp/'+telephone+'?type=pwd',
+						url:serverUrl+'/users/otp/'+telephone+'?type=password',
 						method:'GET',
 						success: (res) => {
 							if(res.data.code===0){
@@ -154,6 +160,24 @@
 									mask:true,
 									duration:2000
 								})
+							}else if (res.data.code === 10008) {
+								uni.showToast({
+									title:res.data.msg,
+									mask:true,
+									duration:2000
+								})
+							} else if (res.data.code === 10019) {
+								uni.showToast({
+									title: res.data.msg,
+									mask: true,
+									duration: 2000
+								});
+							} else if (res.data.code === 70002) {
+								uni.showToast({
+									title: res.data.msg,
+									mask: true,
+									duration: 2000
+								});
 							}
 						}
 					});
@@ -161,10 +185,11 @@
 
 
 			},
-			
-			
-			
+
+
+
 		valid(){
+			var telephone = this.telephone
 			uni.request({
 				header:{
 					"Authorization":this.token,
@@ -176,17 +201,17 @@
 					if(res.data.code===10021){
 						this.ok=true
 						this.telephone=telephone
-			
+
 					}
 				},
 				complete() {
-			
-			
+
+
 				}
-			
+
 			})
 		},
-			
+
 
 			bind(){
 				uni.request({

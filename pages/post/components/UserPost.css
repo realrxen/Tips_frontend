@@ -50,7 +50,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			border-radius: 5rpx;
+			border-radius: 10rpx;
+			padding: 5upx;
 			background-color: #FFD655;
 			color: #FFFFFF;
 		}
@@ -88,7 +89,6 @@
 
 	 	/*tags start*/
 		.myTagsWrapper{
-			display: flex;
 			align-items: center;
 			justify-content: flex-start;
 			padding: 0 30rpx;
@@ -97,8 +97,8 @@
 
 		.myTag {
 			display: inline-block;
-			width: auto;
-			height: auto;
+			/*width: auto;*/
+			/*height: auto;*/
 			border-radius: 18rpx;
 			margin-right: 20rpx;
 		}

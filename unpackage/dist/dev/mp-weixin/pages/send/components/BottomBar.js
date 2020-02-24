@@ -164,6 +164,14 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
 
   methods: {
     send: function send() {var _this = this;
+      if (this.Post.imgUrls.length === 0 && (this.Post.content == null || this.Post.content == undefined || this.Post.content == "")) {
+        this.$emit("isNull", "您这是唱哪出呢？");
+        return;
+      }
+      uni.showLoading({
+        title: "发送中...",
+        mask: true });
+
       if (this.edit) {
         var imgs = this.Post.imgUrls;
         if (this.Post.content === "") {
@@ -187,8 +195,8 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
                     url: serverUrl + '/posts/one?postId=' + _this.targetPostId + '&content=' + _this.Post.content,
                     method: 'PUT',
                     success: function success(resp) {
-                      console.log(resp.data.code);
                       if (resp.data.code === 0) {
+                        uni.hideLoading();
                         uni.showToast({
                           title: "更新成功!",
                           duration: 2000 });
@@ -198,6 +206,15 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
 
                       }
                     } });
+
+                } else if (mydata.code === 30002) {
+                  uni.hideLoading();
+                  uni.showToast({
+                    title: mydata.msg,
+                    duration: 2000 });
+
+                  uni.navigateBack({
+                    delta: 1 });
 
                 }
 
@@ -209,6 +226,7 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
             method: 'PUT',
             success: function success(resp) {
               if (resp.data.code === 0) {
+                uni.hideLoading();
                 uni.showToast({
                   title: "更新成功!",
                   duration: 2000 });
@@ -216,6 +234,15 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
                 // uni.navigateBack({delta:1})
                 uni.redirectTo({
                   url: '../post/post' });
+
+              } else if (resp.data.code === 30002) {
+                uni.hideLoading();
+                uni.showToast({
+                  title: resp.data.msg,
+                  duration: 2000 });
+
+                uni.navigateBack({
+                  delta: 1 });
 
               }
             } });
@@ -272,6 +299,18 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "BottomBar", pr
                 uni.navigateBack({ delta: 1 });
               }
               //
+            } else if (res.data.code === 30002) {
+              uni.hideLoading();
+              // uni.navigateBack({
+              // 	delta:1
+              // })
+              uni.reLaunch({
+                url: "../me/me" });
+
+              uni.showToast({
+                title: res.data.msg,
+                duration: 2000 });
+
             }
           } });
 

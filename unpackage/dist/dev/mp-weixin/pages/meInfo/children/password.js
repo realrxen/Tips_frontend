@@ -266,9 +266,15 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
         this.warning("手机号不能为空哟");
         return;
       }
+      // if (this.userInfo.telephone!==undefined&&this.userInfo.telephone!==""&&this.userInfo.telephone!==null&&this.userInfo!==null) {
+      // 	if (this.telephone !== this.userInfo.telephone) {
+      // 		this.warning("非账户绑定手机~~");
+      // 		return;
+      // 	}
+      // }
       if (this.validate()) {
         uni.request({
-          url: serverUrl + '/users/otp/' + telephone + '?type=pwd',
+          url: serverUrl + '/users/otp/' + telephone + '?type=password',
           method: 'GET',
           success: function success(res) {
             if (res.data.code === 0) {
@@ -294,6 +300,24 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
                 mask: true,
                 duration: 2000 });
 
+            } else if (res.data.code === 10008) {
+              uni.showToast({
+                title: res.data.msg,
+                mask: true,
+                duration: 2000 });
+
+            } else if (res.data.code === 10019) {
+              uni.showToast({
+                title: res.data.msg,
+                mask: true,
+                duration: 2000 });
+
+            } else if (res.data.code === 70002) {
+              uni.showToast({
+                title: res.data.msg,
+                mask: true,
+                duration: 2000 });
+
             }
           } });
 
@@ -305,6 +329,7 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
 
 
     valid: function valid() {var _this2 = this;
+      var telephone = this.telephone;
       uni.request({
         header: {
           "Authorization": this.token,

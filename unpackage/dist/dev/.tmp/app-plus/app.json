@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/post/post",
+    "pages/travels/travels",
+    "pages/me/me",
+    "pages/send/Send",
+    "pages/registLogin/registLogin",
+    "pages/meInfo/meInfo",
+    "pages/information/information",
+    "pages/search/search",
+    "pages/userspace/UserSpace",
+    "pages/registLogin/login",
+    "pages/registLogin/teleLogin",
+    "pages/post/PostDetail",
+    "pages/send/PostEdit",
+    "pages/souvenir/SouvenirDetail",
+    "pages/souvenir/tabBar/cart/cart",
+    "pages/pic/pic",
+    "pages/meInfo/children/telephone",
+    "pages/meInfo/children/password",
+    "pages/souvenir/souvenir"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Tips",
+    "navigationBarBackgroundColor": "#FFD655",
+    "backgroundColor": "#FFFEFF"
+  },
+  "nvueCompiler": "uni-app",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "Tips",
+  "compilerVersion": "2.5.1",
+  "usingComponents": {
+    "divider": "/components/Divider/Divider",
+    "cu-custom": "/components/colorui/components/cu-custom",
+    "tabbar": "/components/colorui/components/bar",
+    "pop-up": "/components/popup/popup"
+  }
+}

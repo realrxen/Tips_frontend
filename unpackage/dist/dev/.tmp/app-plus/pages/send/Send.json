@@ -1,0 +1,13 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "发动态",
+  "navigationBarBackgroundColor": "#FFD655",
+  "titleNView": true,
+  "usingComponents": {
+    "my-text-area": "/pages/send/components/TextArea",
+    "tags": "/components/colorui/components/tags",
+    "upload-images": "/components/colorui/components/uploadImages",
+    "h-mmessages": "/components/HM-messages/HMmessages",
+    "bottom-bar": "/pages/send/components/BottomBar"
+  }
+}

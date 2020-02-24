@@ -205,13 +205,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         username: "昵称",
         sex: 1,
         age: 20,
-        isguanzhu: false, //关注为关注状态，适用于除自己以外的其他用户的个人页面。具体设置在 ./components/user-space/UserSpaceHead.vue
+        isguanzhu: true, //关注为关注状态，适用于除自己以外的其他用户的个人页面。具体设置在 ./components/user-space/UserSpaceHead.vue
         regtime: "2019-04-11",
         id: 1213,
-        birthday: "1987-02-07",
-        job: "IT",
-        path: "广东广州",
-        qg: "已婚" },
+        birthday: "1998-10-07",
+        job: "学生",
+        path: "江苏徐州中国矿业大学南湖校区",
+        qg: "恋爱ing" },
 
       spacedata: [
       { name: "获赞", num: "10k" },

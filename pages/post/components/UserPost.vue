@@ -17,12 +17,7 @@
 			<view>
 				<!--标题-->
 				<view class="title" @click="goToPostDetail" :data-postId="post.postId">{{post.content}}</view>
-				<!--图片-->
-<!--				<view class="imageWrapper">-->
-<!--					<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
-<!--					@click="goToPostDetail"></image>-->
-
-<!--				</view>-->
+				<!--图片 -->
 				<view class="bg-white" :class="post.imgUrls.length>0?'padding-thirty':'padding-xs'">
 					<view class="grid col-3 grid-square">
 							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls">
@@ -102,7 +97,6 @@
 					this.token="Bearer "+this.userInfo.token
 					this.type=this.userInfo.tokenType
 					this.userId=this.userInfo.userId
-					console.log(this.userId)
 				}
 			},
 		methods:{

@@ -195,21 +195,23 @@
 				success: (res) => {
 					if(res.data.code===0){
 						var dataList =res.data.data
-						console.log(dataList)
 						this.dataList=dataList
+					}else if(res.data.code===30001){
+						uni.showToast({
+							title:'😙要重新登录',
+							duration:2000
+						})
 					}
 				},
 				complete() {
 					uni.hideLoading()
 					uni.stopPullDownRefresh();
-					// uni.hideNavigationBarLoading()
-
 				}
 			})
 		},
 		onLoad() {
 			var userInfo = uni.getStorageSync("globalUser")
-			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+			if(userInfo!==null&&userInfo!==""&&userInfo!==undefined){
 				this.userInfo=userInfo
 				this.token="Bearer "+this.userInfo.token
 				this.type=this.userInfo.tokenType
@@ -220,7 +222,7 @@
 		onShow() {
 			this.show = false;
 			var userInfo = uni.getStorageSync("globalUser")
-			if(userInfo!=null&&userInfo!=""&&userInfo!=undefined){
+			if(userInfo!==null&&userInfo!==""&&userInfo!==undefined){
 				this.userInfo=userInfo
 				this.token="Bearer "+this.userInfo.token
 				this.type=this.userInfo.tokenType
@@ -235,21 +237,25 @@
 				method: 'GET',
 				success: (res) => {
 					if(res.data.code===0){
-						console.log(res.data.data)
-						var dataList = res.data.data
+						var dataList = res.data.data;
 						this.sort()
 						this.dataList=dataList
 					}
+					if(res.data.code===30001){
+						uni.showToast({
+							title:'😙要重新登录',
+							duration:2500
+						})
+						uni.removeStorageSync("globalUser")
+					}
 				},
 				complete() {
-					uni.hideLoading()
+					uni.hideLoading();
 					uni.stopPullDownRefresh();
-					// uni.hideNavigationBarLoading()
 
 				}
 
 			})
-			// }, 500);
 		},
 		onHide() {
 			this.show = false;
@@ -368,6 +374,11 @@
 							if(res.data.code===0){
 								posts[e.index].love[e.type+'Count']+=1
 								posts[e.index].love.type=e.type
+							}else if(res.data.code===30002){
+								uni.showToast({
+									title:res.data.msg,
+									duration:2000
+								})
 							}
 						},
 						fail: () => {

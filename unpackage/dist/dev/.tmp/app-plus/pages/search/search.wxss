@@ -1,0 +1,62 @@
+.search-icon{
+	width: 40rpx;
+	height: 40rpx;
+}
+.search-text{
+	font-size: 14px;
+	background-color:#F8F8F8;
+	height: 60rpx;
+	width: 650rpx;
+}
+.search-block{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	/* 设置内边距 */
+	padding: 15rpx;
+	/* 固定搜索栏 */
+	position: fixed;
+	top: 0;
+	z-index: 2000;
+	background-color: #F8F8F8;
+}
+.search-icon-wrapper{
+	background-color:#F8F8F8;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	padding: 0rpx 10rpx;
+}
+.poster{
+	width: 200rpx;
+	height: 270rpx;
+}
+.movie-list{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	        justify-content: flex-start;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	padding: 100rpx 10rpx 0rpx 10rpx;
+}
+.movie-wrapper{
+	padding: 20rpx;
+}
+.mySearch{
+	padding-bottom: 100rpx;
+}
+

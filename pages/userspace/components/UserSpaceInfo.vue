@@ -34,7 +34,7 @@
 
 <style scoped>
 .user-space-userinfo{
-	padding: 0 30upx;
+	padding: 0 30upx 110upx;
 }
 .user-space-userinfo-item{
 	padding: 20upx 0;

@@ -97,8 +97,8 @@
 
 		.myTag {
 			display: inline-block;
-			width: auto;
-			height: auto;
+			/*width: auto;*/
+			/*height: auto;*/
 			border-radius: 18rpx;
 			margin-right: 20rpx;
 		}

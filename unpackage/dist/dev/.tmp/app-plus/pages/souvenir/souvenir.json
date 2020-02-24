@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "titleNView": false,
+  "usingComponents": {
+    "goods-header": "/pages/souvenir/components/GoodsHeader",
+    "good-list": "/pages/souvenir/components/GoodsList"
+  }
+}

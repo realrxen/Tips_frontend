@@ -83,6 +83,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.HMmessages = _vm.$refs.HMmessages
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -116,26 +121,33 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../HM-messages/HMmessages.vue */ 216));};
+
+var serverUrl = _common.default.serverUrl;var _default =
 {
   name: "tags",
   props: {
     hasSelectTags: Array },
+
+  components: {
+    HMmessages: HMmessages },
 
   data: function data() {
     return {
@@ -161,8 +173,23 @@ var _default =
       // isSelected:false
     };
   },
+  created: function created() {var _this = this;
+    uni.request({
+      url: serverUrl + '/tags/',
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this.tags = res.data.data;
+        }
+      } });
+
+  },
   methods: {
-    changeTagSelect: function changeTagSelect(e) {var _this = this;
+    changeTagSelect: function changeTagSelect(e) {var _this2 = this;
+      if (this.selectedTagIds.length >= 4) {
+        this.warning("最多选四个标签哟！");
+        return;
+      }
       var tagId = e.currentTarget.dataset.tagid;
       var tagList = this.tags;
       var selectedTagIdsList = this.selectedTagIds;
@@ -174,7 +201,7 @@ var _default =
                 selectedTagIdsList.splice(order, 1);
                 tag.isSelected = !tag.isSelected;
                 var uniqueTagIds = _toConsumableArray(new Set(selectedTagIdsList));
-                _this.selectedTagIds = uniqueTagIds;
+                _this2.selectedTagIds = uniqueTagIds;
                 // console.log(this.selectedTagIds);
               }
             });
@@ -182,7 +209,7 @@ var _default =
             selectedTagIdsList.push(tagId);
             tag.isSelected = !tag.isSelected;
             var uniqueTagIds = _toConsumableArray(new Set(selectedTagIdsList));
-            _this.selectedTagIds = uniqueTagIds;
+            _this2.selectedTagIds = uniqueTagIds;
             // console.log(this.selectedTagIds)
           }
         }
@@ -190,7 +217,11 @@ var _default =
 
       this.$emit('getTagIds', this.selectedTagIds.toString());
 
+    },
+    warning: function warning(msg) {
+      this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

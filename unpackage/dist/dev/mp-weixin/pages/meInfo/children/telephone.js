@@ -250,6 +250,12 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
                 mask: true,
                 duration: 2000 });
 
+            } else if (res.data.code === 10008) {
+              uni.showToast({
+                title: res.data.msg,
+                mask: true,
+                duration: 2000 });
+
             }
           } });
 
@@ -278,6 +284,10 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
             uni.navigateBack({
               delta: 1 });
 
+          }if (res.data.code === 10012) {
+            uni.showToast({
+              title: '未绑定微信',
+              duration: 1500 });
 
           }
         },

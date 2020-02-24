@@ -46,6 +46,14 @@
 
 		methods:{
 			send() {
+				if(this.Post.imgUrls.length===0&&(this.Post.content==null||this.Post.content==undefined||this.Post.content=="")){
+					this.$emit("isNull","您这是唱哪出呢？")
+					return
+				}
+				uni.showLoading({
+					title:"发送中...",
+					mask:true,
+				})
 				if (this.edit) {
 					var imgs=this.Post.imgUrls
 					if(this.Post.content===""){
@@ -69,8 +77,8 @@
 											url:serverUrl+'/posts/one?postId='+this.targetPostId+'&content='+this.Post.content,
 											method:'PUT',
 											success: (resp) => {
-												console.log(resp.data.code)
 												if(resp.data.code===0){
+													uni.hideLoading()
 													uni.showToast({
 														title:"更新成功!",
 														duration:2000,
@@ -80,6 +88,15 @@
 													})
 												}
 											}
+										})
+									}else if(mydata.code===30002){
+										uni.hideLoading()
+										uni.showToast({
+											title:mydata.msg,
+											duration:2000,
+										})
+										uni.navigateBack({
+											delta:1
 										})
 									}
 
@@ -91,6 +108,7 @@
 								method:'PUT',
 								success: (resp) => {
 									if(resp.data.code===0){
+										uni.hideLoading()
 										uni.showToast({
 											title:"更新成功!",
 											duration:2000,
@@ -98,6 +116,15 @@
 										// uni.navigateBack({delta:1})
 										uni.redirectTo({
 											url:'../post/post'
+										})
+									}else if(resp.data.code===30002){
+										uni.hideLoading()
+										uni.showToast({
+											title:resp.data.msg,
+											duration:2000,
+										})
+										uni.navigateBack({
+											delta:1
 										})
 									}
 								}
@@ -154,7 +181,19 @@
 									uni.navigateBack({delta:1})
 								}
 								//
-							}
+							}else if(res.data.code===30002){
+										uni.hideLoading()
+										// uni.navigateBack({
+										// 	delta:1
+										// })
+										uni.reLaunch({
+											url:"../me/me"
+										})
+										uni.showToast({
+											title:res.data.msg,
+											duration:2000,
+										})
+									}
 						},
 
 					});

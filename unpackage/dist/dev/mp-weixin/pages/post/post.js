@@ -339,21 +339,23 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       success: function success(res) {
         if (res.data.code === 0) {
           var dataList = res.data.data;
-          console.log(dataList);
           _this.dataList = dataList;
+        } else if (res.data.code === 30001) {
+          uni.showToast({
+            title: '😙要重新登录',
+            duration: 2000 });
+
         }
       },
       complete: function complete() {
         uni.hideLoading();
         uni.stopPullDownRefresh();
-        // uni.hideNavigationBarLoading()
-
       } });
 
   },
   onLoad: function onLoad() {
     var userInfo = uni.getStorageSync("globalUser");
-    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
       this.userInfo = userInfo;
       this.token = "Bearer " + this.userInfo.token;
       this.type = this.userInfo.tokenType;
@@ -364,7 +366,7 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
   onShow: function onShow() {var _this2 = this;
     this.show = false;
     var userInfo = uni.getStorageSync("globalUser");
-    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
       this.userInfo = userInfo;
       this.token = "Bearer " + this.userInfo.token;
       this.type = this.userInfo.tokenType;
@@ -379,21 +381,25 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       method: 'GET',
       success: function success(res) {
         if (res.data.code === 0) {
-          console.log(res.data.data);
           var dataList = res.data.data;
           _this2.sort();
           _this2.dataList = dataList;
+        }
+        if (res.data.code === 30001) {
+          uni.showToast({
+            title: '😙要重新登录',
+            duration: 2500 });
+
+          uni.removeStorageSync("globalUser");
         }
       },
       complete: function complete() {
         uni.hideLoading();
         uni.stopPullDownRefresh();
-        // uni.hideNavigationBarLoading()
 
       } });
 
 
-    // }, 500);
   },
   onHide: function onHide() {
     this.show = false;
@@ -512,6 +518,11 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
             if (res.data.code === 0) {
               posts[e.index].love[e.type + 'Count'] += 1;
               posts[e.index].love.type = e.type;
+            } else if (res.data.code === 30002) {
+              uni.showToast({
+                title: res.data.msg,
+                duration: 2000 });
+
             }
           },
           fail: function fail() {

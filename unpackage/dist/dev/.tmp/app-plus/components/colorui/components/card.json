@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "user-post": "/pages/information/components/UserPost"
+  }
+}

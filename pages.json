@@ -18,7 +18,7 @@
 			"path" : "pages/send/Send",
 			"style" : {
 				"app-plus":{
-					"titleNView": false
+					"titleNView": true
 				},
 				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "发动态",

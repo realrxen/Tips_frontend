@@ -64,7 +64,7 @@
 				console.log(this.keywords)
 				uni.request({
 					url:serverUrl+'/posts/search?keywords='+this.keywords,
-					method:'POST',
+					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){
 							this.coverData=res.data.data

@@ -1,0 +1,11 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "divider": "/components/Divider/Divider",
+    "pop-up": "/components/popup/popup",
+    "tabbar": "/components/colorui/components/bar",
+    "nav": "/components/colorui/components/nav",
+    "user-post": "/pages/post/components/UserPost",
+    "card": "/components/colorui/components/card"
+  }
+}

@@ -1,0 +1,59 @@
+
+.fixed-bottom{
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1030;
+	background-color: #FFFFFF;
+	height: 85rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.send{
+	margin-left: auto;
+	width: 140rpx;
+	height: 60rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	border-radius: 20rpx;
+	margin-right: 15rpx;
+	background-color: #FFD655;
+}
+.iconWrapper{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-align-content: center;
+	        align-content: center;
+}
+.myIcon{
+	width: 86rpx;
+	height: 86rpx;
+	font-size:50rpx ;
+	margin-left: 10rpx;
+	left: 10rpx;
+	color: #FF0000;
+}
+
+
+
+
+

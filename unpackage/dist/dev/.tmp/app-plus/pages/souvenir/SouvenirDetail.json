@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "goods-header": "/pages/souvenir/components/GoodsHeader",
+    "popup-spec": "/common/popupSpec",
+    "star": "/components/sx-rate/index"
+  }
+}

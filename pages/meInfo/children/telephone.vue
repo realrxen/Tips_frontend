@@ -2,7 +2,7 @@
 	<view class="body">
 
 		<view class="face-wrapper">
-			<image :src="faceIcon" class="face"></image>
+			<image :src="userInfo.faceIcon" class="face"></image>
 		</view>
 
 		<view class="info-wrapper">
@@ -110,6 +110,12 @@
 									mask:true,
 									duration:2000
 								})
+							}else if (res.data.code === 10008) {
+								uni.showToast({
+									title:res.data.msg,
+									mask:true,
+									duration:2000
+								})
 							}
 						}
 					});
@@ -138,16 +144,20 @@
 							uni.navigateBack({
 								delta:1
 							})
-							
+						}if(res.data.code===10012){
+							uni.showToast({
+								title: '未绑定微信',
+								duration:1500,
+							});
 						}
 					},
 					complete() {
 
-				
+
 					}
-				
+
 				})
-				
+
 			},
 			initForm(){
 				this.username="",

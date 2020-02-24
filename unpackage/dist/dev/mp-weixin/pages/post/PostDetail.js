@@ -344,8 +344,15 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 343));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 350));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 357));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 216));}; // import ChatBar from "../../components/user-chat/user-chat-bottom";
 var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", props: {}, components: { CutBar: CutBar, review: review, ChatBar: ChatBar, HMmessages: HMmessages }, data: function data() {return { postId: "", isFollow: false, cutBarText: "最新评论", commentCount: 0, // 列表详情数据
       childData: [], // 评论列表
-      reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', commentPic: [], parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}this.postId = paramsObj.postId;uni.request({ url: serverUrl + '/posts/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {var post = res.data.data;_this.post = post;_this.commentCount = post.commentCount;uni.request({ header: { "Authorization": _this.token, "type": _this.type }, url: serverUrl + '/follows/' + post.userId + '?userId=' + _this.userId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.isFollow = res.data.data;}if (_this.post.userId === _this.userId && _this.userId !== "") {_this.isFollow = true;}}, fail: function fail() {}, complete: function complete() {} });}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.comments = res.data.data;}
+      reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', commentPic: [], parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}this.postId = paramsObj.postId;uni.request({ url: serverUrl + '/posts/' + this.postId, method: 'GET', header: { "Authorization": this.token, "type": this.type }, success: function success(res) {if (res.data.code === 0) {var post = res.data.data;_this.post = post;_this.commentCount = post.commentCount;uni.request({ header: { "Authorization": _this.token, "type": _this.type }, url: serverUrl + '/follows/' + post.userId + '?userId=' + _this.userId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.isFollow = res.data.data;}if (_this.post.userId === _this.userId && _this.userId !== "") {_this.isFollow = true;}}, fail: function fail() {}, complete: function complete() {} });}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET',
+      header: {
+        "Authorization": this.token,
+        "type": this.type },
 
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this.comments = res.data.data;
+        }
       },
       fail: function fail() {
 
@@ -355,7 +362,7 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
       } });
 
     uni.request({
-      url: "http://192.168.1.7:8086/comments/?apiRootId=" + this.postId,
+      url: serverUrl + '/comments/?apiRootId=' + this.postId,
       method: 'GET',
       success: function success(res) {
         if (res.data.code === 0) {
@@ -385,6 +392,10 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
         var parentId = "0";
       }
       uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
         url: serverUrl + '/comments/',
         method: 'POST',
         data: {
@@ -414,7 +425,11 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
                     _this2.content = "";
                     _this2.placeHolder = "理一下ta好不好";
                     uni.request({
-                      url: "http://192.168.1.7:8086/comments/?apiRootId=" + _this2.postId,
+                      header: {
+                        "Authorization": _this2.token,
+                        "type": _this2.type },
+
+                      url: serverUrl + "/comments/?apiRootId=" + _this2.postId,
                       method: 'GET',
                       success: function success(r) {
                         if (r.data.code === 0) {
@@ -424,7 +439,11 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
 
 
                     uni.request({
-                      url: "http://192.168.1.7:8086/comments/" + apiRootId,
+                      header: {
+                        "Authorization": _this2.token,
+                        "type": _this2.type },
+
+                      url: serverUrl + "/comments/" + apiRootId,
                       method: 'GET',
                       success: function success(r) {
                         if (r.data.code === 0) {
@@ -442,7 +461,11 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
             _this2.content = "";
             _this2.placeHolder = "理一下ta好不好";
             uni.request({
-              url: "http://192.168.1.7:8086/comments/?apiRootId=" + _this2.postId,
+              header: {
+                "Authorization": _this2.token,
+                "type": _this2.type },
+
+              url: serverUrl + "/comments/?apiRootId=" + _this2.postId,
               method: 'GET',
               success: function success(res) {
                 if (res.data.code === 0) {
@@ -452,13 +475,22 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
               } });
 
             uni.request({
-              url: "http://192.168.1.7:8086/comments/" + apiRootId,
+              header: {
+                "Authorization": _this2.token,
+                "type": _this2.type },
+
+              url: serverUrl + "/comments/" + apiRootId,
               method: 'GET',
               success: function success(res) {
                 if (res.data.code === 0) {
                   _this2.childData = res.data.data;
                 }
               } });
+
+          } else if (res.data.code === 30002) {
+            uni.showToast({
+              title: '亲，要登陆哟',
+              duration: 2000 });
 
           }
         } });
@@ -479,7 +511,7 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
     childReview: function childReview(data) {var _this3 = this;
       this.clickComment = data;
       uni.request({
-        url: "http://192.168.1.7:8086/comments/" + data.cenId,
+        url: serverUrl + "/comments/" + data.cenId,
         method: 'GET',
         success: function success(res) {
           if (res.data.code === 0) {

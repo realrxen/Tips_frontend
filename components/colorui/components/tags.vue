@@ -10,15 +10,22 @@
                       :data-tagId="tag.tagId">{{tag.name}}</view>
             </view>
         </view>
+		<HMmessages ref="HMmessages" @complete="HMmessages = $refs.HMmessages" @clickMessage="clickMessage"></HMmessages>
     </view>
 </template>
 
 <script>
+	import common from "../../../common/common.js"
+	import HMmessages from "../../HM-messages/HMmessages.vue"
+	var serverUrl = common.serverUrl
     export default {
         name: "tags",
         props:{
             hasSelectTags:Array
         },
+		components:{
+			HMmessages
+		},
         data(){
             return{
                 tags: [
@@ -43,8 +50,23 @@
                 // isSelected:false
             }
         },
+		created() {
+			uni.request({
+				url:serverUrl+'/tags/',
+				method:'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						this.tags=res.data.data
+					}
+				}
+			})
+		},
         methods:{
             changeTagSelect(e) {
+				if(this.selectedTagIds.length>=4){
+					this.warning("最多选四个标签哟！")
+					return
+				}
                 var tagId = e.currentTarget.dataset.tagid
                 var tagList = this.tags
                 var selectedTagIdsList= this.selectedTagIds
@@ -73,6 +95,9 @@
                 this.$emit('getTagIds',this.selectedTagIds.toString())
 
             },
+			warning(msg) {
+				this.HMmessages.show(msg, {iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655"})
+			}
 
 
         },
@@ -82,22 +107,26 @@
 </script>
 
 <style scoped>
-    .tag{
+    /* .tag{
         background-color: #FFFEFF;
         display: flex;
         flex-direction: column;
-    }
-    .myText{
+    } */
+    /* .myText{
         float: left;
         margin-left: 20rpx;
         margin-bottom: 10rpx;
-    }
-    .myTagsWrapper{
+    } */
+  /*  .myTagsWrapper{
+		display: flex;
+		flex-wrap: wrap;
         padding: 0 20px 20px 20px;
-    }
-    .myTag{
+    } */
+ /*   .myTag{
+		display:block;
         border-radius: 30rpx;
-    }
+		white-space:nowrap;
+    } */
 
 /*.myTagsWrapper{*/
 /*    display: flex;*/

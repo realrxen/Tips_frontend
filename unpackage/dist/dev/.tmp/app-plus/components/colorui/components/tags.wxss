@@ -1,0 +1,37 @@
+
+.tag.data-v-d6be7026{
+        background-color: #FFFEFF;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+                flex-direction: column;
+}
+.myText.data-v-d6be7026{
+        float: left;
+        margin-left: 20rpx;
+        margin-bottom: 10rpx;
+}
+.myTagsWrapper.data-v-d6be7026{
+        padding: 0 20px 20px 20px;
+}
+.myTag.data-v-d6be7026{
+        border-radius: 30rpx;
+}
+    /*.myTagsWrapper{*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*    justify-content: flex-start;*/
+    /*    padding: 0 30rpx;*/
+    /*    margin-top: 10rpx;*/
+    /*}*/
+    /*.myTag {*/
+    /*    display: inline-block;*/
+    /*    width: auto;*/
+    /*    height: auto;*/
+    /*    border-radius: 18rpx;*/
+    /*    margin-right: 20rpx;*/
+    /*}*/
+

@@ -100,6 +100,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.HMmessages = _vm.$refs.HMmessages
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -133,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MyTextArea = function MyTextArea() {return __webpack_require__.e(/*! import() | pages/send/components/TextArea */ "pages/send/components/TextArea").then(__webpack_require__.bind(null, /*! ./components/TextArea.vue */ 244));};var Tags = function Tags() {return __webpack_require__.e(/*! import() | components/colorui/components/tags */ "components/colorui/components/tags").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/tags */ 251));};var UploadImages = function UploadImages() {return Promise.all(/*! import() | components/colorui/components/uploadImages */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/uploadImages")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 230));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 216));};var BottomBar = function BottomBar() {return Promise.all(/*! import() | pages/send/components/BottomBar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/send/components/BottomBar")]).then(__webpack_require__.bind(null, /*! ./components/BottomBar.vue */ 258));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MyTextArea = function MyTextArea() {return __webpack_require__.e(/*! import() | pages/send/components/TextArea */ "pages/send/components/TextArea").then(__webpack_require__.bind(null, /*! ./components/TextArea.vue */ 244));};var Tags = function Tags() {return Promise.all(/*! import() | components/colorui/components/tags */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/tags")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/tags */ 251));};var UploadImages = function UploadImages() {return Promise.all(/*! import() | components/colorui/components/uploadImages */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/uploadImages")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 230));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 216));};var BottomBar = function BottomBar() {return Promise.all(/*! import() | pages/send/components/BottomBar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/send/components/BottomBar")]).then(__webpack_require__.bind(null, /*! ./components/BottomBar.vue */ 258));};var _default =
 
 
 
@@ -152,9 +157,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 {
-  // props:{
-  // 	list:Array,
-  // },
   components: {
     // NavBar,
     MyTextArea: MyTextArea,
@@ -185,29 +187,29 @@ __webpack_require__.r(__webpack_exports__);
       return this.imageList.length >= 0;
     } },
 
-  onBackPress: function onBackPress() {var _this = this;
-    if ((this.content !== '' || this.imageList.length > 0) && !this.showback) {
-      uni.showModal({
-        content: '是否保存为草稿?',
-        showCancel: true,
-        cancelText: '不保存',
-        confirmText: '保存',
-        success: function success(res) {
-          if (res.confirm) {
-            _this.saveDraft();
-          } else {
-            uni.removeStorageSync("postDraft");
-          }
-          uni.navigateBack({
-            delta: 1 });
-
-        } });
-
-      this.showback = true;
-      return true;
-    }
-    return true;
-  },
+  // onBackPress(){
+  // 	if((this.content !==''||this.imageList.length>0)&&!this.showback){
+  // 		uni.showModal({
+  // 			content:'是否保存为草稿?',
+  // 			showCancel:true,
+  // 			cancelText:'不保存',
+  // 			confirmText:'保存',
+  // 			success: (res) => {
+  // 				if(res.confirm){
+  // 					this.saveDraft()
+  // 				}else{
+  // 					 uni.removeStorageSync("postDraft")
+  // 				}
+  // 				uni.navigateBack({
+  // 					delta:1
+  // 				})
+  // 			}
+  // 		})
+  // 		this.showback=true
+  // 		return true
+  // 	}
+  // 	return true
+  // },
   onload: function onload() {
     // TODO onload()函数加载缓存不可以
   },
@@ -222,6 +224,9 @@ __webpack_require__.r(__webpack_exports__);
   // 	this.imageList = this.list
   // },
   methods: {
+    isNull: function isNull(data) {
+      this.warning(data);
+    },
     /*获取图片数组*/
     getImgList: function getImgList(data) {
       this.postForm.imgUrls = data;
@@ -263,6 +268,9 @@ __webpack_require__.r(__webpack_exports__);
     changeImage: function changeImage(e) {
       console.log(e);
       this.imageList = e;
+    },
+    warning: function warning(msg) {
+      this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

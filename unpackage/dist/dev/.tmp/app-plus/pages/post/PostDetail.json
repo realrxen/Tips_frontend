@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "cut-bar": "/components/colorui/components/cutbar",
+    "review": "/components/dl-review/review",
+    "chat-bar": "/components/colorui/components/chatbar",
+    "h-mmessages": "/components/HM-messages/HMmessages"
+  }
+}

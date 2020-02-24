@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "pop-up": "/components/popup/popup",
+    "tabbar": "/components/colorui/components/bar",
+    "h-mmessages": "/components/HM-messages/HMmessages",
+    "t-color-picker": "/components/t-color-picker/t-color-picker",
+    "upload-images": "/components/colorui/components/uploadImages"
+  }
+}

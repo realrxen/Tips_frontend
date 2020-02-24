@@ -318,9 +318,8 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 216));};var _default = { components: { HMmessages: HMmessages }, data: function data() {return { // userId:"",
       // password:""
       status: true, account: "", password: "", telephone: "", otpCode: "", codeTime: 0, code: "", checked: true };}, created: function created() {var account = uni.getStorageSync("account");if (account !== null && account !== "" && account !== undefined) {this.account = account;}var password = uni.getStorageSync("pwd");if (password !== null && password !== "" && password !== undefined) {this.password = password;}}, methods: { forgetPwd: function forgetPwd() {uni.navigateTo({ url: "../meInfo/children/password" });}, rememberMe: function rememberMe() {this.checked = !this.checked;}, submitAp: function submitAp() {var _this = this;if (this.account === "") {this.warning("用户名/手机号不能为空哟");return;}if (this.password === "") {this.warning("密码不能为空哟");return;}if (this.validate2()) {uni.request({ url: serverUrl + '/users/tpLogin', data: { "telephone": this.account, "password": this.password }, method: "POST", success: function success(res) {// debugger
-            if (res.data.code === 0) {var userInfo = {};userInfo = res.data.data;console.log(res.data.data); // 缓存的API  保存用户信息到全局的缓存中
-              uni.setStorageSync("globalUser", userInfo);if (_this.checked) {uni.setStorageSync('account', _this.account);uni.setStorageSync('pwd', _this.password);}uni.navigateBack({ delta: 1 });uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/xixi.png" });} else if (res.data.code === 466) {uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/error1.jpg" });} else if (res.data.code === 1) {uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/error1.jpg" });}} });} else {uni.request({ url: serverUrl + '/users/upLogin',
-          data: {
+            if (res.data.code === 0) {var userInfo = {};userInfo = res.data.data; // 缓存的API  保存用户信息到全局的缓存中
+              uni.setStorageSync("globalUser", userInfo);if (_this.checked) {uni.setStorageSync('account', _this.account);uni.setStorageSync('pwd', _this.password);}uni.navigateBack({ delta: 1 });uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/xixi.png" });} else if (res.data.code === 466) {uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/error1.jpg" });} else if (res.data.code === 1) {uni.showToast({ title: res.data.msg, duration: 2000, image: "../../static/icos/error1.jpg" });}} });} else {uni.request({ url: serverUrl + '/users/upLogin', data: {
             "username": this.account,
             "password": this.password },
 
@@ -330,7 +329,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
             if (res.data.code === 0) {
               var userInfo = {};
               userInfo = res.data.data;
-              console.log(res.data.data);
               // 缓存的API  保存用户信息到全局的缓存中
               uni.setStorageSync("globalUser", userInfo);
               if (_this.checked) {
@@ -360,38 +358,47 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
 
       }
     },
-    // submitTc() {
-    // 	if (this.telephone === "") {
-    // 		this.warning("手机号不能为空哟")
-    // 		return
-    // 	}
-    // 	if (this.otpCode === "") {
-    // 		this.warning("验证码不能为空哟")
-    // 		return
-    // 	}
-    // 	if (this.validate()) {
-    // 		uni.request({
-    // 			url:serverUrl+'/users/otpLogin',
-    // 			data:{
-    // 				"telephone":this.telephone,
-    // 				"validCode":this.otpCode,
-    // 			},
-    // 			method:"POST",
-    // 			success: (res) => {
-    // 				// debugger
-    // 				if(res.data.code===0){
-    // 					this.successHandler()
-    // 				}else if(res.data.code===466){
-    // 					uni.showToast({
-    // 						title:res.data.msg,
-    // 						duration:2000,
-    // 						image:"../../static/icos/error1.jpg"
-    // 					})
-    // 				}
-    // 			}
-    // 		})
-    // 	}
-    // },
+    submitTc: function submitTc() {
+      if (this.telephone === "") {
+        this.warning("手机号不能为空哟");
+        return;
+      }
+      if (this.otpCode === "") {
+        this.warning("验证码不能为空哟");
+        return;
+      }
+      if (this.validate()) {
+        uni.request({
+          url: serverUrl + '/users/otpLogin',
+          data: {
+            "telephone": this.telephone,
+            "code": this.otpCode },
+
+          method: "POST",
+          success: function success(res) {
+            // debugger
+            if (res.data.code === 0) {
+              var userInfo = {};
+              userInfo = res.data.data;
+              // 缓存的API  保存用户信息到全局的缓存中
+              uni.setStorageSync("globalUser", userInfo);
+              uni.navigateBack({ delta: 1 });
+              uni.showToast({
+                title: res.data.msg,
+                duration: 2000,
+                image: "../../static/icos/xixi.png" });
+
+            } else if (res.data.code === 466) {
+              uni.showToast({
+                title: res.data.msg,
+                duration: 2000,
+                image: "../../static/icos/error1.jpg" });
+
+            }
+          } });
+
+      }
+    },
     successHandler: function successHandler() {
       var userInfo = {};
       userInfo = res.data.data;
@@ -412,7 +419,7 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
         return;
       }
       uni.request({
-        url: serverUrl + '/users/otp/' + telephone,
+        url: serverUrl + '/users/otp/' + telephone + '?type=tp',
         method: 'GET',
         success: function success(res) {
           if (res.data.code === 0) {
@@ -433,6 +440,18 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
             }, 1000);
           }
           if (res.data.code === 10009) {
+            uni.showToast({
+              title: res.data.msg,
+              mask: true,
+              duration: 2000 });
+
+          } else if (res.data.code === 10008) {
+            uni.showToast({
+              title: res.data.msg,
+              mask: true,
+              duration: 2000 });
+
+          } else if (res.data.code === 10019) {
             uni.showToast({
               title: res.data.msg,
               mask: true,
