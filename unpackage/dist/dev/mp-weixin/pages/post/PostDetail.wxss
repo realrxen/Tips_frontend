@@ -161,7 +161,7 @@
 		margin-top: 40rpx;
 }
 .myComment{
-		padding-bottom: 83rpx;
+		padding-bottom: 102rpx;
 }
 .chatBar{
 		width: 100%;

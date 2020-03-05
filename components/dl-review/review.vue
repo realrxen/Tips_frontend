@@ -3,21 +3,26 @@
 		<scroll-view scroll-y="true" style="height: 100%;" v-if="!crControl"
 		@touchstart="refreshStart" @touchmove="refreshMove" @touchend="refreshEnd" @scrolltolower="loadMore">
 			<refresh ref="refresh" @isRefresh='isRefresh'></refresh>
-			<view v-for="(item, key) in reviewMsg" :key="key">
+			<view v-for="(item, key) in myPageHelper.list" :key="key">
 				<item :reviewMsg="item" @childReview="childReview" :obk="item" @commentMe="commentMe"></item>
 			</view>
-			<loadmore :status="more"></loadmore>
+			<!-- <loadmore :status="more"></loadmore> -->
+			<view class="getMore" :class="myPageHelper.hasNextPage?'cuIcon-loading2':''">{{myPageHelper.hasNextPage?'加载更多':'--- The end ---'}}</view>
 		</scroll-view>
 		<view class="childReview" v-if="crControl" :animation="animationData">
-			<view class="cr-title">
+			<view class="myDetail">
+				<view class="cr-title">
 				<text class="textSendMsg">评论详情</text>
 				<uniicon type="closeempty" size="30" color="#757575" @click="closeCr"></uniicon>
 			</view>
 			<scroll-view scroll-y="true" style="height: calc(100% - 50px);">
-				<view v-for="(titem, key) in childData" :key="key">
+				<view v-for="(titem, key) in myPageHelperData.list" :key="key">
 					<item :reviewMsg="titem" @commentMe="commentMe" :obj="clickComment"></item>
 				</view>
+				<view class="getMore" :class="myPageHelperData.hasNextPage?'cuIcon-loading2':''">{{myPageHelperData.hasNextPage?'加载更多':'--- The end ---'}}</view>
 			</scroll-view>
+			</view>
+			
 		</view>
 	</view>
 </template>
@@ -33,7 +38,9 @@
 		props: {
 			reviewMsg: [Array],
 			childData: [Array],
-			clickComment: Object
+			clickComment: Object,
+			myPageHelper:{},
+			myPageHelperData:{}
 		},
 		components: {
 			uniicon,
@@ -57,6 +64,14 @@
 		onLoad() {
 
 		},
+		onReachBottom() {
+			var currentNum = this.myPageHelper.pageNum+1
+			var hasNextPage = this.myPageHelper.hasNextPage
+			if(hasNextPage){
+				this.getMore(currentNum,5)
+			}else{return}
+			
+		},
 		mounted() {
 			this.animation = uni.createAnimation();
 			const query = uni.createSelectorQuery().in(this);
@@ -66,6 +81,10 @@
 			}).exec();
 		},
 		methods: {
+			getMore(currentNum,size){
+				console.log(currentNum,size)
+				// this.$emit('newPage',{currentNum,size})
+			},
 			commentMe(obj){
 				this.$emit('comment',obj)
 
@@ -83,6 +102,7 @@
 			},
 			closeCr() {
 				this.crControl = false;
+				this.$emit("hasClose",true)
 			},
 			// 刷新touch监听
 			refreshStart(e) {
@@ -155,5 +175,13 @@
 
 	.textSendMsg {
 		font-size: 14px;
+	}
+	.getMore{
+		text-align: center;
+		color: #C8C8C8;
+		background-color: #FFFEFF;
+	}
+	.myDetail{
+		padding-bottom: 102upx;
 	}
 </style>

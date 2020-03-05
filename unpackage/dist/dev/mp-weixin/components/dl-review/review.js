@@ -146,12 +146,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 {
   name: 'review',
   props: {
     reviewMsg: [Array],
     childData: [Array],
-    clickComment: Object },
+    clickComment: Object,
+    myPageHelper: {},
+    myPageHelperData: {} },
 
   components: {
     uniicon: uniicon,
@@ -175,6 +182,14 @@ __webpack_require__.r(__webpack_exports__);
   onLoad: function onLoad() {
 
   },
+  onReachBottom: function onReachBottom() {
+    var currentNum = this.myPageHelper.pageNum + 1;
+    var hasNextPage = this.myPageHelper.hasNextPage;
+    if (hasNextPage) {
+      this.getMore(currentNum, 5);
+    } else {return;}
+
+  },
   mounted: function mounted() {var _this = this;
     this.animation = uni.createAnimation();
     var query = uni.createSelectorQuery().in(this);
@@ -184,6 +199,10 @@ __webpack_require__.r(__webpack_exports__);
     }).exec();
   },
   methods: {
+    getMore: function getMore(currentNum, size) {
+      console.log(currentNum, size);
+      // this.$emit('newPage',{currentNum,size})
+    },
     commentMe: function commentMe(obj) {
       this.$emit('comment', obj);
 
@@ -201,6 +220,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeCr: function closeCr() {
       this.crControl = false;
+      this.$emit("hasClose", true);
     },
     // 刷新touch监听
     refreshStart: function refreshStart(e) {

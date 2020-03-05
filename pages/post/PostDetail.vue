@@ -3,7 +3,7 @@
 		<view class="page page-fill User-Post">
 		<view class="article">
 			<!-- 头像昵称 -->
-			<view class="userWrapper" >
+			<view class="userWrapper">
 				<view class="userInfoWrapper">
 					<image :src="post.faceIcon" class="faceIcon" lazy-load @click="openSpace"></image>
 					<view class="userDetailWrapper">
@@ -15,14 +15,7 @@
 				v-if="!isFollow">+关注</view>
 			</view>
 			<view>
-				<!--标题-->
 				<view class="title" >{{post.content}}</view>
-				<!--图片-->
-<!--				<view class="imageWrapper">-->
-<!--					<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
-<!--					@click="goToPostDetail"></image>-->
-
-<!--				</view>-->
 				<view class="bg-white padding">
 					<view class="grid col-3 grid-square">
 							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls"-->
@@ -68,7 +61,8 @@
 	</view>
 		<CutBar :text="cutBarText" :commentCount="commentCount"></CutBar>
 		<view class="content myComment">
-			<review :reviewMsg="reviewMsg" :childData="childData" :clickComment="clickComment"
+			<review :reviewMsg="reviewMsg" :childData="childData" :clickComment="clickComment" 
+			:myPageHelper="myPageHelper" :myPageHelperData="myPageHelperData" @hasClose="hasClose"
 			@childReview="childReview" @comment="commentForChildren"></review>
 		</view>
 <!--		<ChatBar></ChatBar>-->
@@ -128,6 +122,8 @@
 				childData: [],
 				// 评论列表
 				reviewMsg: [],
+				myPageHelper:{},
+				myPageHelperData:{},
 				userId:"",
 				userInfo:{},
 				token:'',
@@ -137,11 +133,13 @@
 				comments:[],
 				InputBottom: 0,
 				placeHolder:"理一下ta好不好",
-				content:'',
+				content:"",
 				commentPic:[],
 				parentId:"",
 				isFocus:false,
-				commentObj:{}
+				commentObj:{},
+				isDetail:false,
+				currentCenId:'',
 				}
 
 			},
@@ -155,7 +153,6 @@
 				}else{
 					this.isFollow=false
 				}
-				
 				var postStr = paramsObj.postStr
 				var post=JSON.parse(postStr)
 				this.post = post
@@ -208,38 +205,83 @@
 				// 	}
 				// });
 
-				uni.request({
-					url:serverUrl+'/comments/'+this.postId,
-					method:'GET',
-					header:{
-						"Authorization":this.token,
-						"type":this.type
-					},
-					success: res => {
-						if(res.data.code===0){
-							this.comments=res.data.data
-						}
-					},
-					fail: () => {
+				// uni.request({
+				// 	url:serverUrl+'/comments/'+this.postId,
+				// 	method:'GET',
+				// 	header:{
+				// 		"Authorization":this.token,
+				// 		"type":this.type
+				// 	},
+				// 	success: res => {
+				// 		if(res.data.code===0){
+				// 			this.comments=res.data.data
+				// 		}
+				// 	},
+				// 	fail: () => {
 
-					},
-					complete: () => {
+				// 	},
+				// 	complete: () => {
 
-					}
-				});
+				// 	}
+				// });
 				uni.request({
-					url:serverUrl+'/comments/?apiRootId='+this.postId,
+					url:serverUrl+'/comments/?apiRootId='+this.postId+'&currentNum=1',
 					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){
-							this.reviewMsg=res.data.data.reviewMsg
+							this.myPageHelper=res.data.data.myPageHelper
 						}
 					}
 				})
 
 
 			},
+		onReachBottom() {
+			if(!this.isDetail){
+				var currentNum = this.myPageHelper.pageNum+1
+				var hasNextPage = this.myPageHelper.hasNextPage
+				if(hasNextPage){
+					this.getMoreHomeComments(currentNum,5)
+				}else{return}
+			}else{
+				var currentNum = this.myPageHelperData.pageNum+1
+				var hasNextPage = this.myPageHelperData.hasNextPage
+				if(hasNextPage){
+					this.getMoreChildData(currentNum,5)
+				}else{return}
+			}
+			
+		},
 		methods:{
+			getMoreHomeComments(currentNum,size){
+				uni.request({
+					url:serverUrl+'/comments/?apiRootId='+this.postId+'&currentNum='+currentNum+'&size='+size,
+					method:'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							var oldList = this.myPageHelper.list
+							var newList = res.data.data.myPageHelper.list
+							res.data.data.myPageHelper.list=oldList.concat(newList)
+							this.myPageHelper=res.data.data.myPageHelper
+						}
+					}
+				})
+			},
+			getMoreChildData(currentNum,size){
+				uni.request({
+					url:serverUrl+'/comments/'+this.currentCenId+'?currentNum='+currentNum+'&size='+size,
+					method:'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							var oldList = this.myPageHelperData.list
+							var newList = res.data.data.list
+							res.data.data.list=oldList.concat(newList)
+							this.myPageHelperData=res.data.data
+							
+						}
+					}
+				})
+			},
 			sendComment(){
 				var content = this.content
 				if (content===""&&this.commentPic.length!==1){
@@ -287,7 +329,7 @@
 									success: (re) => {
 										var da = JSON.parse(re.data)
 										if (da.code === 0) {
-											this.commentPic=this.commentPic.splice(0,1)
+											this.commentPic=[]
 											this.content="";
 											this.placeHolder="理一下ta好不好"
 											uni.request({
@@ -295,11 +337,11 @@
 													"Authorization":this.token,
 													"type":this.type
 												},
-												url:serverUrl+"/comments/?apiRootId="+this.postId,
+												url:serverUrl+"/comments/?apiRootId="+this.postId+'&currentNum=1',
 												method:'GET',
 												success: (r) => {
 													if(r.data.code===0){
-														this.reviewMsg=r.data.data.reviewMsg
+														this.myPageHelper=r.data.data.myPageHelper
 													}
 												}
 											});
@@ -309,11 +351,11 @@
 													"Authorization":this.token,
 													"type":this.type
 												},
-												url:serverUrl+"/comments/"+apiRootId,
+												url:serverUrl+"/comments/"+apiRootId+"?currentNum=1",
 												method:'GET',
 												success: (r) => {
 													if(r.data.code===0){
-														this.childData=r.data.data
+														this.myPageHelperData=r.data.data
 													}
 												}
 											})
@@ -331,12 +373,11 @@
 									"Authorization":this.token,
 									"type":this.type
 								},
-								url:serverUrl+"/comments/?apiRootId="+this.postId,
+								url:serverUrl+"/comments/?apiRootId="+this.postId+'&currentNum=1',
 								method:'GET',
 								success: (res) => {
 									if(res.data.code===0){
-										console.log(res.data.data.reviewMsg)
-										this.reviewMsg=res.data.data.reviewMsg
+										this.myPageHelper=res.data.data.myPageHelper
 									}
 								}
 							});
@@ -345,11 +386,11 @@
 									"Authorization":this.token,
 									"type":this.type
 								},
-								url:serverUrl+"/comments/"+apiRootId,
+								url:serverUrl+"/comments/"+apiRootId+"?currentNum=1",
 								method:'GET',
 								success: (res) => {
 									if(res.data.code===0){
-										this.childData=res.data.data
+										this.myPageHelperData=res.data.data
 									}
 								}
 							})
@@ -375,16 +416,21 @@
 				this.commentObj=data
 			},
 			childReview(data) {
+				this.isDetail=true
 				this.clickComment=data
+				this.currentCenId= data.cenId
 				uni.request({
-					url:serverUrl+"/comments/"+data.cenId,
+					url:serverUrl+"/comments/"+data.cenId+'?currentNum=1',
 					method:'GET',
 					success: (res) => {
 						if(res.data.code===0){
-							this.childData=res.data.data
+							this.myPageHelperData=res.data.data
 						}
 					}
 				})
+			},
+			hasClose(data){
+				this.isDetail = !data
 			},
 			follow(){
 				var idolId=this.post.userId
@@ -482,7 +528,7 @@
 	}
 
 	.myComment{
-		padding-bottom: 83upx;
+		padding-bottom: 102upx;
 	}
 
 	.chatBar{

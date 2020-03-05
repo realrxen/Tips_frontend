@@ -49,4 +49,12 @@ page {
 .textSendMsg {
 	font-size: 14px;
 }
+.getMore{
+	text-align: center;
+	color: #C8C8C8;
+	background-color: #FFFEFF;
+}
+.myDetail{
+	padding-bottom: 102rpx;
+}
 
