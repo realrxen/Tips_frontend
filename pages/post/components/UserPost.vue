@@ -3,12 +3,12 @@
 		<view class="page page-fill User-Post">
 		<view class="article">
 			<!-- 头像昵称 -->
-			<view class="userWrapper" :data-postId="post.postId" @click="goToPostDetail">
-				<view class="userInfoWrapper" :data-postId="post.postId" @click="goToPostDetail">
-					<image :src="post.faceIcon" class="faceIcon" :data-postId="post.postId" lazy-load @click="goToPostDetail"></image>
+			<view class="userWrapper" :data-postId="post.postId" @click="goToPostDetail(post)">
+				<view class="userInfoWrapper" :data-postId="post.postId" @click="goToPostDetail(post)">
+					<image :src="post.faceIcon" class="faceIcon" :data-postId="post.postId" lazy-load @click="goToPostDetail(post)"></image>
 					<view class="userDetailWrapper">
-						<view class="userName" :data-postId="post.postId" @click="goToPostDetail">{{post.username}}</view>
-						<view class="createTime" :data-postId="post.postId" @click="goToPostDetail">{{post.createTime}}</view>
+						<view class="userName" :data-postId="post.postId" @click="goToPostDetail(post)">{{post.username}}</view>
+						<view class="createTime" :data-postId="post.postId" @click="goToPostDetail(post)">{{post.createTime}}</view>
 					</view>
 				</view>
 				<view id="follow" class="follow animated" hover-class="rotateOutDownRight" @click.stop="follow"
@@ -16,7 +16,7 @@
 			</view>
 			<view>
 				<!--标题-->
-				<view class="title" @click="goToPostDetail" :data-postId="post.postId">{{post.content}}</view>
+				<view class="title" @click="goToPostDetail(post)" :data-postId="post.postId">{{post.content}}</view>
 				<!--图片 -->
 				<view class="bg-white" :class="post.imgUrls.length>0?'padding-thirty':'padding-xs'">
 					<view class="grid col-3 grid-square">
@@ -24,7 +24,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="myTagsWrapper"  @click="goToPostDetail" :data-postId="post.postId">
+			<view class="myTagsWrapper"  @click="goToPostDetail(post)" :data-postId="post.postId">
 				<view  class="bg-main myTag" v-for="(tag,index) in post.tags" :key="tag.tagId">
 					<view class="tagContent">#{{tag.name}}</view>
 				</view>
@@ -50,7 +50,7 @@
 				</view>
 				<!-- 评论 -->
 				<view class="myIcon animated cuIcon-comment faster" hover-class="rubberBand font-color-change"
-				  @click="goToPostDetail" :data-postId="post.postId">
+				  @click="goToPostDetail(post)" :data-postId="post.postId">
 						<text class="iconfont icon-shanzi icon"></text>
 						<text class="iconText">{{post.commentCount>0?post.commentCount:'评论'}}</text>
 				</view>
@@ -116,10 +116,10 @@
 					index:this.index
 					})
 			},
-			goToPostDetail(e){
-				var postId = e.currentTarget.dataset.postid
+			goToPostDetail(data){
+				var postStr = JSON.stringify(data)
 				uni.navigateTo({
-					url:'./PostDetail?postId='+postId
+					url:'./PostDetail?postStr='+postStr
 				})
 
 			},

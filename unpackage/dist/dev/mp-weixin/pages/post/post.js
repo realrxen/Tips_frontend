@@ -163,6 +163,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -183,10 +185,9 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 195));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 181));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 202));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 209));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 188));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0, posts: [
-        {
-          username: "Seeumt",
-          faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
+//
+//
+var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 195));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 181));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 202));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 209));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 188));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0, posts: [{ username: "Seeumt", faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
           createTime: '2000-10-07',
           isFollow: false,
           title: 'Love',
@@ -325,35 +326,81 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       userInfo: {},
       token: '',
       type: '',
-      sortType: 'createTime' };
+      sortType: 'createTime',
+      recommendCurrentPage: 1,
+      idolsCurrentPage: 1 };
+
+  },
+  onShareAppMessage: function onShareAppMessage(res) {
+    return {
+      title: 'Hi,this is Tips!',
+      path: '/pages/post/post' };
 
   },
   onPullDownRefresh: function onPullDownRefresh() {var _this = this;
-    uni.request({
-      url: serverUrl + '/posts/?userId=' + this.userId,
-      header: {
-        "Authorization": this.token,
-        "type": this.type },
 
-      method: 'GET',
-      success: function success(res) {
-        if (res.data.code === 0) {
-          var dataList = res.data.data;
-          _this.dataList = dataList;
-        } else if (res.data.code === 30001) {
-          uni.showToast({
-            title: '😙要重新登录',
-            duration: 2000 });
+    if (this.tabIndex === 0) {
+      uni.request({
+        url: serverUrl + '/posts/idols?userId=' + this.userId + '&currentNum=1',
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
 
-        }
-      },
-      complete: function complete() {
-        uni.hideLoading();
-        uni.stopPullDownRefresh();
-      } });
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            var myList = [];
+            myList = res.data.data;
+            _this.dataList = myList;
+            uni.setStorageSync("idolsList", myList);
+          } else if (res.data.code === 30001) {
+            uni.showToast({
+              title: '😙要重新登录',
+              duration: 2000 });
+
+          } else if (res.data.code === 50002) {
+            uni.showToast({
+              title: res.data.msg,
+              duration: 2000 });
+
+          }
+        },
+        complete: function complete() {
+          uni.hideLoading();
+          uni.stopPullDownRefresh();
+        } });
+
+
+    } else if (this.tabIndex === 1) {
+      uni.request({
+        url: serverUrl + '/posts/?userId=' + this.userId + '&currentNum=1',
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            var myList = [];
+            myList = res.data.data;
+            _this.dataList = myList;
+            uni.setStorageSync("recommedList", myList);
+          } else if (res.data.code === 30001) {
+            uni.showToast({
+              title: '😙要重新登录',
+              duration: 2000 });
+
+          }
+        },
+        complete: function complete() {
+          uni.hideLoading();
+          uni.stopPullDownRefresh();
+        } });
+
+    }
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {var _this2 = this;
     var userInfo = uni.getStorageSync("globalUser");
     if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
       this.userInfo = userInfo;
@@ -362,28 +409,19 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       this.userId = this.userInfo.userId;
     }
 
-  },
-  onShow: function onShow() {var _this2 = this;
-    this.show = false;
-    var userInfo = uni.getStorageSync("globalUser");
-    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
-      this.userInfo = userInfo;
-      this.token = "Bearer " + this.userInfo.token;
-      this.type = this.userInfo.tokenType;
-      this.userId = this.userInfo.userId;
-    }
     uni.request({
       header: {
         "Authorization": this.token,
         "type": this.type },
 
-      url: serverUrl + '/posts/?userId=' + this.userId,
+      url: serverUrl + '/posts/?userId=' + this.userId + '&currentNum=1',
       method: 'GET',
       success: function success(res) {
         if (res.data.code === 0) {
-          var dataList = res.data.data;
-          _this2.sort();
-          _this2.dataList = dataList;
+          var myList = [];
+          myList = res.data.data;
+          _this2.dataList = myList;
+          uni.setStorageSync("recommendList", myList);
         }
         if (res.data.code === 30001) {
           uni.showToast({
@@ -400,13 +438,103 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       } });
 
 
+
+  },
+  onShow: function onShow() {
+    this.show = false;
+    var userInfo = uni.getStorageSync("globalUser");
+    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
+      this.userInfo = userInfo;
+      this.token = "Bearer " + this.userInfo.token;
+      this.type = this.userInfo.tokenType;
+      this.userId = this.userInfo.userId;
+    }
+
+
+
   },
   onHide: function onHide() {
     this.show = false;
   },
-  methods: {
+  onReachBottom: function onReachBottom() {
+    if (this.tabIndex === 1) {
+      var recommendCurrentPage = this.dataList[1].pageNum + 1;
+      var hasNextPage = this.dataList[1].hasNextPage;
+      if (hasNextPage) {
+        this.getMoreRecommend(recommendCurrentPage, 5);
+      } else {return;}
+    } else if (this.tabIndex === 0) {
+      var idolsCurrentPage = this.dataList[0].pageNum + 1;
+      var hasNextPage = this.dataList[0].hasNextPage;
+      if (hasNextPage) {
 
-    deletePost: function deletePost(data) {var _this3 = this;
+        this.getMoreIdols(idolsCurrentPage, 5);
+      } else {
+        return;
+      }
+    }
+
+  },
+  methods: {
+    getMoreIdols: function getMoreIdols(currentNum, size) {var _this3 = this;
+      uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        url: serverUrl + '/posts/idols/?userId=' + this.userId + '&currentNum=' + currentNum + '&size=' + size,
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code == 0) {
+            var myData = res.data.data;
+            var oldList = _this3.dataList[0].list;
+            var newList = oldList.concat(myData[0].list);
+            var myList = [];
+            myList = myData;
+            myList[0].list = newList;
+            _this3.dataList = myList;
+          }
+
+
+
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    },
+    getMoreRecommend: function getMoreRecommend(currentNum, size) {var _this4 = this;
+      uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        url: serverUrl + '/posts/?userId=' + this.userId + '&currentNum=' + currentNum + '&size=' + size,
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code === 0) {
+            var myData = res.data.data;
+            var oldList = _this4.dataList[1].list;
+            var newList = oldList.concat(myData[1].list);
+            var myList = [];
+            myList = myData;
+            myList[1].list = newList;
+            _this4.dataList = myList;
+          } else if (res.data.code === 50002) {
+            uni.showToast({
+              title: res.data.msg,
+              duration: 2000,
+              image: "../../static/icos/error1.jpg" });
+
+          }
+
+
+
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    },
+    deletePost: function deletePost(data) {var _this5 = this;
       var postId = data;
       uni.showModal({
         title: 'Hola',
@@ -417,35 +545,35 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
           if (resp.confirm) {
             uni.request({
               header: {
-                "Authorization": _this3.token,
-                "type": _this3.type },
+                "Authorization": _this5.token,
+                "type": _this5.type },
 
               url: serverUrl + '/posts/' + postId,
               method: 'DELETE',
               success: function success(res) {
                 if (res.data.code === 10007) {
                   uni.showToast({ title: res.data.msg, duration: 1500 });
-                  if (_this3.tabIndex === 1) {
-                    var currentDataList = _this3.dataList[_this3.tabIndex].posts;
+                  if (_this5.tabIndex === 1) {
+                    var currentDataList = _this5.dataList[_this5.tabIndex].posts;
                     currentDataList.forEach(function (item, index) {
                       if (item.postId === postId) {
                         currentDataList.splice(index, 1);
                       }
                     });
-                    var otherDataList = _this3.dataList[_this3.tabIndex - 1].posts;
+                    var otherDataList = _this5.dataList[_this5.tabIndex - 1].posts;
                     otherDataList.forEach(function (item, index) {
                       if (item.postId === postId) {
                         otherDataList.splice(index, 1);
                       }
                     });
-                  }if (_this3.tabIndex === 0) {
-                    var currentDataList = _this3.dataList[_this3.tabIndex].posts;
+                  }if (_this5.tabIndex === 0) {
+                    var currentDataList = _this5.dataList[_this5.tabIndex].posts;
                     currentDataList.forEach(function (item, index) {
                       if (item.postId === postId) {
                         currentDataList.splice(index, 1);
                       }
                     });
-                    var otherDataList = _this3.dataList[_this3.tabIndex + 1].posts;
+                    var otherDataList = _this5.dataList[_this5.tabIndex + 1].posts;
                     otherDataList.forEach(function (item, index) {
                       if (item.postId === postId) {
                         otherDataList.splice(index, 1);
@@ -463,8 +591,9 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
     },
 
     // 点击关注
-    follow: function follow(e) {var _this4 = this;
+    follow: function follow(e) {var _this6 = this;
       var idolId = e;
+      console.log(e);
       uni.request({
         header: {
           "Authorization": this.token,
@@ -479,12 +608,13 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
         success: function success(res) {
           if (res.data.code === 123) {
             uni.showToast({ title: res.data.msg, duration: 1500 });
-            var dataList = _this4.dataList;
-            if (_this4.tabIndex === 1) {
-              _this4.dataList[_this4.tabIndex].posts.forEach(function (item) {
+            var dataList = _this6.dataList;
+            if (_this6.tabIndex === 1) {
+              _this6.dataList[_this6.tabIndex].list.forEach(function (item) {
                 if (item.userId === idolId) {
                   item.isFollow = true;
-                  dataList[0].posts = dataList[0].posts.concat(item);
+                  dataList[0].list = dataList[0].list.concat(item);
+                  // uni.setStorageSync("idolsList",dataList)
                 }
               });
             }
@@ -503,7 +633,6 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
 
 
     },
-    //点赞start
     likeHateUpDown: function likeHateUpDown(posts, e) {
       var post = posts[e.index];
       if (post.love.type === "") {
@@ -581,12 +710,75 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
     },
 
     love: function love(e) {
-      var posts = this.dataList[this.tabIndex].posts;
+      var posts = this.dataList[this.tabIndex].list;
       this.likeHateUpDown(posts, e);
     },
-    //点赞end
-    tabChanged: function tabChanged(data) {
+    tabChanged: function tabChanged(data) {var _this7 = this;
       this.tabIndex = data;
+      if (this.tabIndex === 0) {
+        var idolsList = uni.getStorageSync("idolsList");
+        if (idolsList !== null && idolsList !== "" && idolsList !== undefined) {
+          this.dataList = idolsList;
+        } else {
+          uni.request({
+            url: serverUrl + '/posts/idols/?userId=' + this.userId + '&currentNum=1',
+            header: {
+              "Authorization": this.token,
+              "type": this.type },
+
+            method: 'GET',
+            success: function success(res) {
+              if (res.data.code === 0) {
+                var myList = [];
+                myList = res.data.data;
+                _this7.dataList = myList;
+                uni.setStorageSync("idolsList", myList);
+              } else if (res.data.code === 30001) {
+                uni.showToast({
+                  title: '😙要重新登录',
+                  duration: 2000 });
+
+              }
+            },
+            complete: function complete() {
+              uni.hideLoading();
+              uni.stopPullDownRefresh();
+            } });
+
+        }
+
+      } else if (this.tabIndex === 1) {
+        var recommendList = uni.getStorageSync("recommendList");
+        if (recommendList !== null && recommendList !== "" && recommendList !== undefined) {
+          this.dataList = recommendList;
+        } else {
+          uni.request({
+            url: serverUrl + '/posts/?userId=' + this.userId + '&currentNum=1',
+            header: {
+              "Authorization": this.token,
+              "type": this.type },
+
+            method: 'GET',
+            success: function success(res) {
+              if (res.data.code === 0) {
+                var myList = [];
+                myList = res.data.data;
+                _this7.dataList = myList;
+                uni.setStorageSync("recommendList", myList);
+              } else if (res.data.code === 30001) {
+                uni.showToast({
+                  title: '😙要重新登录',
+                  duration: 2000 });
+
+              }
+            },
+            complete: function complete() {
+              uni.hideLoading();
+              uni.stopPullDownRefresh();
+            } });
+
+        }
+      }
     },
     pop: function pop(data) {
       this.show = data;

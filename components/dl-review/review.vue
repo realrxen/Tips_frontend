@@ -61,7 +61,7 @@
 			this.animation = uni.createAnimation();
 			const query = uni.createSelectorQuery().in(this);
 			query.select('#id').boundingClientRect(data => {
-				console.log("得到布局位置信息" + JSON.stringify(data));
+				// console.log("得到布局位置信息" + JSON.stringify(data));
 				this.setHeight = data.height;
 			}).exec();
 		},

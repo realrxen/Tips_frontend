@@ -155,52 +155,58 @@
 				}else{
 					this.isFollow=false
 				}
-				this.postId = paramsObj.postId
-				uni.request({
-					url:serverUrl+'/posts/'+this.postId,
-					method:'GET',
-					header:{
-						"Authorization":this.token,
-						"type":this.type
-					},
-					success: (res) => {
-						if(res.data.code===0){
-							var post =res.data.data
-							this.post= post
-							this.commentCount=post.commentCount
-							uni.request({
-								header:{
-									"Authorization":this.token,
-									"type":this.type
-								},
-								url:serverUrl+'/follows/'+post.userId+'?userId='+this.userId,
-								method:'GET',
-								success: (res) => {
-									if(res.data.code===0){
-										this.isFollow=res.data.data
+				
+				var postStr = paramsObj.postStr
+				var post=JSON.parse(postStr)
+				this.post = post
+				this.postId=post.postId
+				this.isFollow=post.isFollow
+				this.commentCount=post.commentCount
+				// uni.request({
+				// 	url:serverUrl+'/posts/'+this.postId,
+				// 	method:'GET',
+				// 	header:{
+				// 		"Authorization":this.token,
+				// 		"type":this.type
+				// 	},
+				// 	success: (res) => {
+				// 		if(res.data.code===0){
+				// 			var post =res.data.data
+				// 			this.post= post
+				// 			this.commentCount=post.commentCount
+				// 			uni.request({
+				// 				header:{
+				// 					"Authorization":this.token,
+				// 					"type":this.type
+				// 				},
+				// 				url:serverUrl+'/follows/'+post.userId+'?userId='+this.userId,
+				// 				method:'GET',
+				// 				success: (res) => {
+				// 					if(res.data.code===0){
+				// 						this.isFollow=res.data.data
 
-									}
-									if(this.post.userId===this.userId&&this.userId!==""){
-										this.isFollow=true
-									}
+				// 					}
+				// 					if(this.post.userId===this.userId&&this.userId!==""){
+				// 						this.isFollow=true
+				// 					}
 
-								},
-								fail: () => {
+				// 				},
+				// 				fail: () => {
 
-								},
-								complete: () => {
+				// 				},
+				// 				complete: () => {
 
-								}
-							});
-						}
-					},
-					fail: () => {
+				// 				}
+				// 			});
+				// 		}
+				// 	},
+				// 	fail: () => {
 
-					},
-					complete: () => {
+				// 	},
+				// 	complete: () => {
 
-					}
-				});
+				// 	}
+				// });
 
 				uni.request({
 					url:serverUrl+'/comments/'+this.postId,
@@ -274,7 +280,7 @@
 										"Authorization":this.token,
 										"type":this.type
 									},
-									url:serverUrl+'/oss/?parentId='+commentId,
+									url:serverUrl+'/oss/3?parentId='+commentId,
 									filePath:this.commentPic[0],
 									name:"file",
 									method:'POST',

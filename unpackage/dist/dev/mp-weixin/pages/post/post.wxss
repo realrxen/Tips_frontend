@@ -1,5 +1,9 @@
 
 .myPost{
-	padding-bottom: 100rpx;
+	padding-bottom: 130rpx;
+}
+.getMore{
+	text-align: center;
+	color: #C8C8C8;
 }
 

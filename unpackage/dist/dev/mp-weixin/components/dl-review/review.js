@@ -179,7 +179,7 @@ __webpack_require__.r(__webpack_exports__);
     this.animation = uni.createAnimation();
     var query = uni.createSelectorQuery().in(this);
     query.select('#id').boundingClientRect(function (data) {
-      console.log("得到布局位置信息" + JSON.stringify(data));
+      // console.log("得到布局位置信息" + JSON.stringify(data));
       _this.setHeight = data.height;
     }).exec();
   },

@@ -4,12 +4,14 @@
 		<view class="myPost">
 			<block v-for="(item,dataIndex) in dataList" :key="dataIndex">
 				<template v-if="tabIndex===item.id">
-					<block v-for="(post,index) in item.posts" :key=index>
+					<block v-for="(post,index) in item.list" :key=index>
 						<UserPost :post='post' :index='index' :currentUserId='userId'
 								  @follow='follow' @love='love' @deletePost='deletePost'></UserPost>
 						<Divider></Divider>
 					</block>
+					<view class="getMore" :class="item.hasNextPage?'cuIcon-loading2':''">{{item.hasNextPage?'加载更多':'--- The end ---'}}</view>
 				</template>
+				
 			</block>
 		</view>
 
@@ -35,7 +37,6 @@
 			PopUp
 		},
 		data() {
-
 			return {
 				dataList2:[
 					{	id:0,
@@ -182,32 +183,78 @@
 				token:'',
 				type:'',
 				sortType:'createTime',
+				recommendCurrentPage:1,
+				idolsCurrentPage:1,
+			}
+		},
+		onShareAppMessage: (res) => {
+			return {
+				title:'Hi,this is Tips!',
+				path:'/pages/post/post'
 			}
 		},
 		onPullDownRefresh() {
-			uni.request({
-				url:serverUrl+'/posts/?userId='+this.userId,
-				header:{
-					"Authorization":this.token,
-					"type":this.type
-				},
-				method: 'GET',
-				success: (res) => {
-					if(res.data.code===0){
-						var dataList =res.data.data
-						this.dataList=dataList
-					}else if(res.data.code===30001){
-						uni.showToast({
-							title:'😙要重新登录',
-							duration:2000
-						})
+
+			if (this.tabIndex === 0) {
+				uni.request({
+					url:serverUrl+'/posts/idols?userId='+this.userId+'&currentNum=1',
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
+					method: 'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							var myList = []
+							myList=res.data.data
+							this.dataList=myList
+							uni.setStorageSync("idolsList",myList)
+						}else if(res.data.code===30001){
+							uni.showToast({
+								title:'😙要重新登录',
+								duration:2000
+							})
+						}else if(res.data.code===50002) {
+							uni.showToast({
+								title:res.data.msg,
+								duration:2000,
+							})
+						}
+					},
+					complete() {
+						uni.hideLoading()
+						uni.stopPullDownRefresh();
 					}
-				},
-				complete() {
-					uni.hideLoading()
-					uni.stopPullDownRefresh();
-				}
-			})
+				});
+				
+			}else if (this.tabIndex === 1) {
+				uni.request({
+					url:serverUrl+'/posts/?userId='+this.userId+'&currentNum=1',
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
+					method: 'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							var myList = []
+							myList=res.data.data
+							this.dataList=myList
+							uni.setStorageSync("recommedList",myList)
+						}else if(res.data.code===30001){
+							uni.showToast({
+								title:'😙要重新登录',
+								duration:2000
+							})
+						}
+					},
+					complete() {
+						uni.hideLoading()
+						uni.stopPullDownRefresh();
+					}
+				});
+			}
+
 		},
 		onLoad() {
 			var userInfo = uni.getStorageSync("globalUser")
@@ -217,29 +264,20 @@
 				this.type=this.userInfo.tokenType
 				this.userId=this.userInfo.userId
 			}
-
-				},
-		onShow() {
-			this.show = false;
-			var userInfo = uni.getStorageSync("globalUser")
-			if(userInfo!==null&&userInfo!==""&&userInfo!==undefined){
-				this.userInfo=userInfo
-				this.token="Bearer "+this.userInfo.token
-				this.type=this.userInfo.tokenType
-				this.userId=this.userInfo.userId
-			}
+			
 			uni.request({
 				header:{
 					"Authorization":this.token,
 					"type":this.type
 				},
-				url:serverUrl+'/posts/?userId='+this.userId,
+				url:serverUrl+'/posts/?userId='+this.userId+'&currentNum=1',
 				method: 'GET',
 				success: (res) => {
 					if(res.data.code===0){
-						var dataList = res.data.data;
-						this.sort()
-						this.dataList=dataList
+						var myList = []
+						myList=res.data.data
+						this.dataList=myList
+						uni.setStorageSync("recommendList",myList)
 					}
 					if(res.data.code===30001){
 						uni.showToast({
@@ -252,16 +290,106 @@
 				complete() {
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
-
+			
 				}
-
+			
 			})
+
+				},
+		onShow() {
+			this.show = false;
+			var userInfo = uni.getStorageSync("globalUser")
+			if(userInfo!==null&&userInfo!==""&&userInfo!==undefined){
+				this.userInfo=userInfo
+				this.token="Bearer "+this.userInfo.token
+				this.type=this.userInfo.tokenType
+				this.userId=this.userInfo.userId
+			}
+			
+			
+			
 		},
 		onHide() {
 			this.show = false;
 		},
+		onReachBottom() {
+			if(this.tabIndex===1){
+				var recommendCurrentPage = this.dataList[1].pageNum+1
+				var hasNextPage = this.dataList[1].hasNextPage
+			if(hasNextPage){
+				this.getMoreRecommend(recommendCurrentPage,5)
+			}else{return}
+			}else if(this.tabIndex===0){
+				var idolsCurrentPage = this.dataList[0].pageNum+1
+				var hasNextPage = this.dataList[0].hasNextPage
+				if(hasNextPage){
+					
+					this.getMoreIdols(idolsCurrentPage,5)
+				}else{
+					return
+				}
+			}
+			
+		},
 		methods: {
-
+			getMoreIdols(currentNum,size){
+				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
+					url:serverUrl+'/posts/idols/?userId='+this.userId+'&currentNum='+currentNum+'&size='+size,
+					method: 'GET',
+					success: (res) => {
+						if(res.data.code==0){
+							var myData = res.data.data
+							var oldList = this.dataList[0].list
+							var newList =oldList.concat(myData[0].list) 
+							var myList = []
+							myList=myData
+							myList[0].list=newList
+							this.dataList=myList
+						}
+						
+						
+					
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			getMoreRecommend(currentNum,size){
+				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
+					url:serverUrl+'/posts/?userId='+this.userId+'&currentNum='+currentNum+'&size='+size,
+					method: 'GET',
+					success: (res) => {
+						if(res.data.code===0){
+							var myData = res.data.data
+							var oldList = this.dataList[1].list
+							var newList =oldList.concat(myData[1].list) 
+							var myList = []
+							myList=myData
+							myList[1].list=newList
+							this.dataList=myList
+						}else if(res.data.code===50002) {
+							uni.showToast({
+								title:res.data.msg,
+								duration:2000,
+								image:"../../static/icos/error1.jpg"
+							})
+						}
+						
+						
+					
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			deletePost(data){
 				var postId= data
 				uni.showModal({
@@ -321,6 +449,7 @@
 			// 点击关注
 			follow(e){
 				var idolId=e;
+				console.log(e)
 				uni.request({
 					header:{
 						"Authorization":this.token,
@@ -337,10 +466,11 @@
 							uni.showToast({title:res.data.msg,duration:1500})
 							var dataList = this.dataList
 							if(this.tabIndex===1){
-								this.dataList[this.tabIndex].posts.forEach(function(item) {
+								this.dataList[this.tabIndex].list.forEach(function(item) {
 									if (item.userId === idolId) {
 										item.isFollow=true
-										dataList[0].posts=dataList[0].posts.concat(item)
+										dataList[0].list=dataList[0].list.concat(item)
+										// uni.setStorageSync("idolsList",dataList)
 									}
 								})
 							}
@@ -359,7 +489,6 @@
 				})
 
 			},
-			//点赞start
 			likeHateUpDown(posts,e){
 				let post = posts[e.index]
 				if(post.love.type===""){
@@ -437,12 +566,75 @@
 			}
 			,
 			love(e){
-				var posts=this.dataList[this.tabIndex].posts
+				var posts=this.dataList[this.tabIndex].list
 				this.likeHateUpDown(posts,e)
 			},
-			//点赞end
 			tabChanged(data){
 				this.tabIndex=data
+				if(this.tabIndex===0){
+					var idolsList = uni.getStorageSync("idolsList")
+					if(idolsList!==null&&idolsList!==""&&idolsList!==undefined){
+						this.dataList=idolsList
+					}else{
+						uni.request({
+						url:serverUrl+'/posts/idols/?userId='+this.userId+'&currentNum=1',
+						header:{
+							"Authorization":this.token,
+							"type":this.type
+						},
+						method: 'GET',
+						success: (res) => {
+							if(res.data.code===0){
+								var myList = []
+								myList=res.data.data
+								this.dataList=myList
+								uni.setStorageSync("idolsList",myList)
+							}else if(res.data.code===30001){
+								uni.showToast({
+									title:'😙要重新登录',
+									duration:2000
+								})
+							}
+						},
+						complete() {
+							uni.hideLoading()
+							uni.stopPullDownRefresh();
+						}
+					});
+					}
+					
+				}else if(this.tabIndex===1){
+						var recommendList = uni.getStorageSync("recommendList")
+						if(recommendList!==null&&recommendList!==""&&recommendList!==undefined){
+							this.dataList=recommendList
+						}else{
+							uni.request({
+							url:serverUrl+'/posts/?userId='+this.userId+'&currentNum=1',
+							header:{
+								"Authorization":this.token,
+								"type":this.type
+							},
+							method: 'GET',
+							success: (res) => {
+								if(res.data.code===0){
+									var myList = []
+									myList=res.data.data
+									this.dataList=myList
+									uni.setStorageSync("recommendList",myList)
+								}else if(res.data.code===30001){
+									uni.showToast({
+										title:'😙要重新登录',
+										duration:2000
+									})
+								}
+							},
+							complete() {
+								uni.hideLoading()
+								uni.stopPullDownRefresh();
+							}
+						});
+						}
+			}
 			},
 			pop(data){
 				this.show = data;
@@ -472,6 +664,11 @@
 
 <style>
 	.myPost{
-		padding-bottom: 100rpx;
+		padding-bottom: 130rpx;
+	}
+	
+	.getMore{
+		text-align: center;
+		color: #C8C8C8;
 	}
 </style>

@@ -344,40 +344,46 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 var CutBar = function CutBar() {return __webpack_require__.e(/*! import() | components/colorui/components/cutbar */ "components/colorui/components/cutbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/cutbar */ 343));};var review = function review() {return __webpack_require__.e(/*! import() | components/dl-review/review */ "components/dl-review/review").then(__webpack_require__.bind(null, /*! ../../components/dl-review/review */ 350));};var ChatBar = function ChatBar() {return __webpack_require__.e(/*! import() | components/colorui/components/chatbar */ "components/colorui/components/chatbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/chatbar */ 357));};var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages */ 216));}; // import ChatBar from "../../components/user-chat/user-chat-bottom";
 var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", props: {}, components: { CutBar: CutBar, review: review, ChatBar: ChatBar, HMmessages: HMmessages }, data: function data() {return { postId: "", isFollow: false, cutBarText: "最新评论", commentCount: 0, // 列表详情数据
       childData: [], // 评论列表
-      reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', commentPic: [], parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}this.postId = paramsObj.postId;uni.request({ url: serverUrl + '/posts/' + this.postId, method: 'GET', header: { "Authorization": this.token, "type": this.type }, success: function success(res) {if (res.data.code === 0) {var post = res.data.data;_this.post = post;_this.commentCount = post.commentCount;uni.request({ header: { "Authorization": _this.token, "type": _this.type }, url: serverUrl + '/follows/' + post.userId + '?userId=' + _this.userId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.isFollow = res.data.data;}if (_this.post.userId === _this.userId && _this.userId !== "") {_this.isFollow = true;}}, fail: function fail() {}, complete: function complete() {} });}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET',
-      header: {
-        "Authorization": this.token,
-        "type": this.type },
-
-      success: function success(res) {
-        if (res.data.code === 0) {
-          _this.comments = res.data.data;
-        }
-      },
-      fail: function fail() {
-
-      },
-      complete: function complete() {
-
-      } });
-
-    uni.request({
-      url: serverUrl + '/comments/?apiRootId=' + this.postId,
-      method: 'GET',
-      success: function success(res) {
-        if (res.data.code === 0) {
-          _this.reviewMsg = res.data.data.reviewMsg;
-        }
-      } });
-
-
-
-  },
-  methods: {
-    sendComment: function sendComment() {var _this2 = this;
-      var content = this.content;
-      if (content === "" && this.commentPic.length !== 1) {
-        this.warning("不能说悄悄话哦");
+      reviewMsg: [], userId: "", userInfo: {}, token: '', type: '', post: {}, clickComment: {}, comments: [], InputBottom: 0, placeHolder: "理一下ta好不好", content: '', commentPic: [], parentId: "", isFocus: false, commentObj: {} };}, onLoad: function onLoad(paramsObj) {var _this = this;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;} else {this.isFollow = false;}var postStr = paramsObj.postStr;var post = JSON.parse(postStr);this.post = post;this.postId = post.postId;this.isFollow = post.isFollow;this.commentCount = post.commentCount; // uni.request({
+    // 	url:serverUrl+'/posts/'+this.postId,
+    // 	method:'GET',
+    // 	header:{
+    // 		"Authorization":this.token,
+    // 		"type":this.type
+    // 	},
+    // 	success: (res) => {
+    // 		if(res.data.code===0){
+    // 			var post =res.data.data
+    // 			this.post= post
+    // 			this.commentCount=post.commentCount
+    // 			uni.request({
+    // 				header:{
+    // 					"Authorization":this.token,
+    // 					"type":this.type
+    // 				},
+    // 				url:serverUrl+'/follows/'+post.userId+'?userId='+this.userId,
+    // 				method:'GET',
+    // 				success: (res) => {
+    // 					if(res.data.code===0){
+    // 						this.isFollow=res.data.data
+    // 					}
+    // 					if(this.post.userId===this.userId&&this.userId!==""){
+    // 						this.isFollow=true
+    // 					}
+    // 				},
+    // 				fail: () => {
+    // 				},
+    // 				complete: () => {
+    // 				}
+    // 			});
+    // 		}
+    // 	},
+    // 	fail: () => {
+    // 	},
+    // 	complete: () => {
+    // 	}
+    // });
+    uni.request({ url: serverUrl + '/comments/' + this.postId, method: 'GET', header: { "Authorization": this.token, "type": this.type }, success: function success(res) {if (res.data.code === 0) {_this.comments = res.data.data;}}, fail: function fail() {}, complete: function complete() {} });uni.request({ url: serverUrl + '/comments/?apiRootId=' + this.postId, method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.reviewMsg = res.data.data.reviewMsg;}} });}, methods: { sendComment: function sendComment() {var _this2 = this;var content = this.content;if (content === "" && this.commentPic.length !== 1) {this.warning("不能说悄悄话哦");
         return;
       }
       var comment = this.commentObj;
@@ -414,7 +420,7 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
                   "Authorization": _this2.token,
                   "type": _this2.type },
 
-                url: serverUrl + '/oss/?parentId=' + commentId,
+                url: serverUrl + '/oss/3?parentId=' + commentId,
                 filePath: _this2.commentPic[0],
                 name: "file",
                 method: 'POST',
