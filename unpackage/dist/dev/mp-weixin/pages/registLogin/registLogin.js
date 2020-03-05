@@ -402,7 +402,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
     successHandler: function successHandler() {
       var userInfo = {};
       userInfo = res.data.data;
-      console.log(res.data.data);
       // 缓存的API  保存用户信息到全局的缓存中
       uni.setStorageSync("globalUser", userInfo);
       uni.navigateBack({ delta: 1 });
@@ -418,6 +417,10 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
         this.warning("手机号不能为空哟");
         return;
       }
+      if (this.codeTime > 0) {
+        this.warning("少侠手速太快了！");
+        return;
+      }
       uni.request({
         url: serverUrl + '/users/otp/' + telephone + '?type=tp',
         method: 'GET',
@@ -428,7 +431,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
               mask: true,
               duration: 2000 });
 
-            if (_this2.codeTime > 0) {return;}
             _this2.codeTime = 30;
             var timer = setInterval(function () {
               if (_this2.codeTime >= 1) {
@@ -471,7 +473,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
           uni.getUserInfo({
             provider: logintype,
             success: function success(info) {
-              // console.log(JSON.stringify(info))
               var userInfo = info.userInfo;
               var faceIcon = "";
               var nickName = "";
@@ -501,7 +502,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
                   if (res.data.code == 0) {
                     var userInfo = {};
                     userInfo = res.data.data;
-                    console.log(res.data.data);
                     // 缓存的API  保存用户信息到全局的缓存中
                     uni.setStorageSync("globalUser", userInfo);
                     uni.switchTab({
@@ -555,7 +555,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
               if (res.data.code === 0) {
                 var userInfo = {};
                 userInfo = res.data.data;
-                console.log(res.data.data);
                 // 缓存的API  保存用户信息到全局的缓存中
                 uni.setStorageSync("globalUser", userInfo);
                 uni.navigateBack({ delta: 1 });
@@ -590,7 +589,6 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
           if (res.data.code == 0) {
             var userInfo = {};
             userInfo = res.data.data;
-            // console.log(res.data)
             // 缓存的API  保存用户信息到全局的缓存中
             uni.setStorageSync("globalUser", userInfo);
             uni.switchTab({

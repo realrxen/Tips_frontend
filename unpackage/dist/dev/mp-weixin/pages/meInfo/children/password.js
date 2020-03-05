@@ -241,7 +241,7 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
               title: res.data.msg,
               duration: 1500 });
 
-            uni.redirectTo({
+            uni.reLaunch({
               url: "../../me/me" });
 
           }
@@ -283,7 +283,10 @@ var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages()
                 mask: true,
                 duration: 2000 });
 
-              if (_this.codeTime > 0) {return;}
+              if (_this.codeTime > 0) {
+                _this.warning("少侠手速太快了！");
+                return;
+              }
               _this.codeTime = 30;
               var timer = setInterval(function () {
                 if (_this.codeTime >= 1) {

@@ -291,32 +291,56 @@ var serverUrl = _common.default.serverUrl;var _default =
     // 请求详情·
     // this.initData();
     uni.request({
+      header: {
+        "Authorization": this.token,
+        "type": this.type },
+
       url: serverUrl + '/carousels/' + this.goodsInfo.goods_id,
       method: 'GET',
       success: function success(res) {
         if (res.data.code === 0) {
           _this.goodsData.swiperList = res.data.data;
+        } else if (res.data.code === 30003) {
+          uni.showToast({ title: res.data.msg, duration: 1500 });
+        } else if (res.data.code === 30002) {
+          uni.showToast({ title: res.data.msg, duration: 1500 });
         }
       } });
 
 
 
     uni.request({
+      header: {
+        "Authorization": this.token,
+        "type": this.type },
+
       url: serverUrl + '/collects/' + this.goodsInfo.goods_id + '?userId=' + this.userId,
       method: 'GET',
       success: function success(res) {
         if (res.data.code === 0) {
           _this.isKeep = res.data.data;
+        } else if (res.data.code === 30003) {
+          uni.showToast({ title: res.data.msg, duration: 1500 });
+        } else if (res.data.code === 30002) {
+          uni.showToast({ title: res.data.msg, duration: 1500 });
         }
       } });
 
 
     uni.request({
+      header: {
+        "Authorization": this.token,
+        "type": this.type },
+
       url: serverUrl + '/ratings/' + this.goodsInfo.goods_id + '?userId=' + this.userId,
       method: 'GET',
       success: function success(res) {
         if (res.data.code === 0) {
           _this.stars = res.data.data;
+        } else if (res.data.code === 30003) {
+          uni.showToast({ title: res.data.msg, duration: 1500 });
+        } else if (res.data.code === 30002) {
+          uni.showToast({ title: res.data.msg, duration: 1500 });
         }
       } });
 
@@ -324,8 +348,11 @@ var serverUrl = _common.default.serverUrl;var _default =
   methods: {
     getRating: function getRating(data) {var _this2 = this;
       var rating = data;
-      console.log(rating);
       uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
         url: serverUrl + '/ratings/' + this.goodsInfo.goods_id + '?userId=' + this.userId + '&rating=' + rating,
         method: 'POST',
         success: function success(res) {
@@ -335,6 +362,10 @@ var serverUrl = _common.default.serverUrl;var _default =
               title: res.data.msg,
               duration: 1500 });
 
+          } else if (res.data.code === 30003) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
+          } else if (res.data.code === 30002) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
           }
         } });
 
@@ -380,6 +411,10 @@ var serverUrl = _common.default.serverUrl;var _default =
     },
     keep: function keep() {var _this3 = this;
       uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
         url: serverUrl + '/collects/?userId=' + this.userId + '&apiRootId=' + this.goodsInfo.goods_id,
         method: 'POST',
         success: function success(res) {
@@ -389,6 +424,10 @@ var serverUrl = _common.default.serverUrl;var _default =
               title: res.data.data,
               duration: 1500 });
 
+          } else if (res.data.code === 30003) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
+          } else if (res.data.code === 30002) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
           }
         } });
 
@@ -450,6 +489,10 @@ var serverUrl = _common.default.serverUrl;var _default =
     },
     joinCart2: function joinCart2() {
       uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
         url: serverUrl + '/carts/' + this.goodsInfo.goods_id + '?userId=' + this.userId + '&count=' + 1,
         method: 'POST',
         success: function success(res) {
@@ -458,6 +501,10 @@ var serverUrl = _common.default.serverUrl;var _default =
               title: "添加购物车成功",
               duration: 1500 });
 
+          } else if (res.data.code === 30003) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
+          } else if (res.data.code === 30002) {
+            uni.showToast({ title: res.data.msg, duration: 1500 });
           }
         } });
 

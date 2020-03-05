@@ -186,8 +186,14 @@ var serverUrl = _common.default.serverUrl;var _default =
   },
   methods: {
     changeTagSelect: function changeTagSelect(e) {var _this2 = this;
-      if (this.selectedTagIds.length >= 4) {
-        this.warning("最多选四个标签哟！");
+      if (this.selectedTagIds.length == 2) {
+        this.warning("亲，你还能再选一个哦！");
+      }
+      if (this.selectedTagIds.length == 3) {
+        this.warning("亲，最多选四个哟！");
+      }
+      if (this.selectedTagIds.length == 4) {
+        this.warning("亲，不能再选了哦！");
         return;
       }
       var tagId = e.currentTarget.dataset.tagid;
@@ -202,7 +208,6 @@ var serverUrl = _common.default.serverUrl;var _default =
                 tag.isSelected = !tag.isSelected;
                 var uniqueTagIds = _toConsumableArray(new Set(selectedTagIdsList));
                 _this2.selectedTagIds = uniqueTagIds;
-                // console.log(this.selectedTagIds);
               }
             });
           } else {
@@ -210,7 +215,6 @@ var serverUrl = _common.default.serverUrl;var _default =
             tag.isSelected = !tag.isSelected;
             var uniqueTagIds = _toConsumableArray(new Set(selectedTagIdsList));
             _this2.selectedTagIds = uniqueTagIds;
-            // console.log(this.selectedTagIds)
           }
         }
       });

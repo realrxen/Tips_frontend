@@ -156,41 +156,68 @@
 			// 请求详情·
 			// this.initData();
 			uni.request({
+				header:{
+					"Authorization":this.token,
+					"type":this.type
+				},
 				url:serverUrl+'/carousels/'+this.goodsInfo.goods_id,
 				method:'GET',
 				success: (res) => {
 					if(res.data.code===0){
 						this.goodsData.swiperList=res.data.data
-					}
+					}else if (res.data.code === 30003) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}else if (res.data.code === 30002) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}
 				}
 			})
 
 
 			uni.request({
+				header:{
+					"Authorization":this.token,
+					"type":this.type
+				},
 				url:serverUrl+'/collects/'+this.goodsInfo.goods_id+'?userId='+this.userId,
 				method:'GET',
 				success: (res) => {
 					if(res.data.code===0){
 						this.isKeep=res.data.data
-					}
+					}else if (res.data.code === 30003) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}else if (res.data.code === 30002) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}
 				}
 			})
 			
 			uni.request({
+				header:{
+					"Authorization":this.token,
+					"type":this.type
+				},
 				url:serverUrl+'/ratings/'+this.goodsInfo.goods_id+'?userId='+this.userId,
 				method:'GET',
 				success: (res) => {
 					if(res.data.code===0){
 						this.stars=res.data.data
-					}
+					}else if (res.data.code === 30003) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}else if (res.data.code === 30002) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}
 				}
 			})
 		},
 		methods: {
 			getRating(data) {
 				var rating = data 
-				console.log(rating)
 				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
 					url:serverUrl+'/ratings/'+this.goodsInfo.goods_id+'?userId='+this.userId+'&rating='+rating,
 					method:'POST',
 					success: (res) => {
@@ -200,6 +227,10 @@
 								title:res.data.msg,
 								duration:1500
 							})
+						}else if (res.data.code === 30003) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}else if (res.data.code === 30002) {
+							uni.showToast({title:res.data.msg,duration:1500})
 						}
 					}
 				})
@@ -245,6 +276,10 @@
 			},
 			keep(){
 				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
 					url:serverUrl+'/collects/?userId='+this.userId+'&apiRootId='+this.goodsInfo.goods_id,
 					method:'POST',
 					success: (res) => {
@@ -254,6 +289,10 @@
 								title:res.data.data,
 								duration:1500
 							})
+						}else if (res.data.code === 30003) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}else if (res.data.code === 30002) {
+							uni.showToast({title:res.data.msg,duration:1500})
 						}
 					}
 				})
@@ -315,6 +354,10 @@
 			},
 			joinCart2(){
 				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
 					url:serverUrl+'/carts/'+this.goodsInfo.goods_id+'?userId='+this.userId+'&count='+1,
 					method:'POST',
 					success: (res) => {
@@ -323,6 +366,10 @@
 								title:"添加购物车成功",
 								duration:1500
 							})
+						}else if (res.data.code === 30003) {
+							uni.showToast({title:res.data.msg,duration:1500})
+						}else if (res.data.code === 30002) {
+							uni.showToast({title:res.data.msg,duration:1500})
 						}
 					}
 				})

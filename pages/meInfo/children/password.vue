@@ -101,7 +101,7 @@
 								title:res.data.msg,
 								duration:1500,
 							})
-							uni.redirectTo({
+							uni.reLaunch({
 								url:"../../me/me"
 							})
 						}
@@ -143,7 +143,10 @@
 									mask:true,
 									duration:2000
 								})
-								if(this.codeTime>0){return}
+								if(this.codeTime>0){
+									this.warning("少侠手速太快了！")
+									return
+								}
 								this.codeTime=30
 								let timer = setInterval(()=>{
 									if(this.codeTime>=1){

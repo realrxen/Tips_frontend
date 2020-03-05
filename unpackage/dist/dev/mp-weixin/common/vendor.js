@@ -7695,8 +7695,8 @@ internalMixin(Vue);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const serverUrl = "http://10.3.186.123:8080"
-// const serverUrl = "http://192.168.1.7:8086"
-var serverUrl = "https://www.seeumt.club/tips";
+var serverUrl = "http://192.168.1.7:8086/tips";
+// const serverUrl = "https://www.seeumt.club/tips"
 // const serverUrl = "http://192.168.1.7:8082"
 // const serverUrl = "http://47.105.147.103:8086"
 var _default = {

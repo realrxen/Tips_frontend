@@ -102,9 +102,6 @@
 	/* 图片end */
 	/*tags start*/
 .myTagsWrapper{
-			display: -webkit-box;
-			display: -webkit-flex;
-			display: flex;
 			-webkit-box-align: center;
 			-webkit-align-items: center;
 			        align-items: center;
@@ -116,13 +113,11 @@
 }
 .myTag {
 			display: inline-block;
-			width: auto;
-			height: auto;
 			border-radius: 18rpx;
 			margin-right: 20rpx;
 }
 .tagContent{
-			padding: 0 20rpx ;
+			padding: 0 20rpx;
 			font-size: 22rpx;
 }
 	/*tags end*/

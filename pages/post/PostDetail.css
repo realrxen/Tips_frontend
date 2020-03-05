@@ -88,23 +88,20 @@
 
 	 	/*tags start*/
 		.myTagsWrapper{
-			display: flex;
 			align-items: center;
 			justify-content: flex-start;
 			padding: 0 30rpx;
 			margin-top: 10rpx;
 		}
-
+		
 		.myTag {
 			display: inline-block;
-			/*width: auto;*/
-			/*height: auto;*/
 			border-radius: 18rpx;
 			margin-right: 20rpx;
 		}
-
+		
 		.tagContent{
-			padding: 0 20rpx ;
+			padding: 0 20rpx;
 			font-size: 22rpx;
 		}
 		/*tags end*/

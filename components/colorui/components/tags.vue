@@ -63,8 +63,14 @@
 		},
         methods:{
             changeTagSelect(e) {
-				if(this.selectedTagIds.length>=4){
-					this.warning("最多选四个标签哟！")
+				if(this.selectedTagIds.length==2){
+					this.warning("亲，你还能再选一个哦！")
+				}
+				if(this.selectedTagIds.length==3){
+					this.warning("亲，最多选四个哟！")
+				}
+				if(this.selectedTagIds.length==4){
+					this.warning("亲，不能再选了哦！")
 					return
 				}
                 var tagId = e.currentTarget.dataset.tagid
@@ -79,7 +85,6 @@
                                     tag.isSelected=!tag.isSelected
                                     var uniqueTagIds = [...new Set(selectedTagIdsList)]
                                     this.selectedTagIds=uniqueTagIds
-                                    // console.log(this.selectedTagIds);
                                 }
                             });
                         }else {
@@ -87,7 +92,6 @@
                             tag.isSelected=!tag.isSelected
                             var uniqueTagIds = [...new Set(selectedTagIdsList)]
                             this.selectedTagIds=uniqueTagIds
-                            // console.log(this.selectedTagIds)
                         }
                     }
                 })
