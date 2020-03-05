@@ -202,7 +202,8 @@ var serverUrl = _common.default.serverUrl;var _default =
     return {
       userIsLogin: false,
       userInfo: {},
-      show: false };
+      show: false,
+      selectedIndex: 5 };
 
   },
   methods: {

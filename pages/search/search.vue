@@ -24,7 +24,7 @@
 <!--			</view>-->
 <!--		</view>-->
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop"></Tabbar>
+		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
 	</view>
 </template>
 
@@ -46,7 +46,8 @@
 			return {
 				show:false,
 				keywords:"",
-				coverData:[]
+				coverData:[],
+				selectedIndex:2
 			}
 		},
 		onLoad() {},

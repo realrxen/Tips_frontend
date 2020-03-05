@@ -20,4 +20,7 @@
 .btn{
 	border-radius: 100%;
 }
+.colored{
+	color: #ffd655;
+}
 

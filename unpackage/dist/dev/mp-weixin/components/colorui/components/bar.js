@@ -159,10 +159,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
+  props: {
+    selectedIndex: {
+      type: Number,
+      defaultValue: 1 } },
+
+
   data: function data() {
     return {
       InputBottom: 0,
-      selectedIndex: 1,
       isShow: true };
 
   },

@@ -181,7 +181,8 @@ var serverUrl = _common.default.serverUrl;var _default =
     return {
       show: false,
       keywords: "",
-      coverData: [] };
+      coverData: [],
+      selectedIndex: 2 };
 
   },
   onLoad: function onLoad() {},

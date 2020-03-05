@@ -20,7 +20,7 @@
 				<!--图片 -->
 				<view class="bg-white" :class="post.imgUrls.length>0?'padding-thirty':'padding-xs'">
 					<view class="grid col-3 grid-square">
-							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" class="coverPicture" v-if="post.imgUrls">
+							<image :src="imgurl" v-for="(imgurl,index) in post.imgUrls" :key="index" @click.stop="viewMe(index)" class="coverPicture" v-if="post.imgUrls">
 					</view>
 				</view>
 			</view>
@@ -100,6 +100,22 @@
 				}
 			},
 		methods:{
+			viewMe(index){
+				var current = index
+				uni.previewImage({
+					current:current,
+					urls: this.post.imgUrls,
+					longPressActions: {
+						itemList: ['发送给朋友', '保存图片', '收藏'],
+						success: function(data) {
+							// console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+						},
+						fail: function(err) {
+							console.log(err.errMsg);
+						}
+					}
+				});
+			},
 			edit(e){
 				var postId = e.currentTarget.dataset.postid
 				uni.navigateTo({

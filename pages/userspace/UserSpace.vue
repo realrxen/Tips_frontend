@@ -37,7 +37,7 @@
 		@lahei="lahei"
 		@beizhu="beizhu"></user-space-popup>
 		<PopUp :show="show1"></PopUp>
-		<Tabbar @pop="pop"></Tabbar>
+		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
 
 	</view>
 </template>
@@ -78,6 +78,7 @@
 					path:"江苏徐州中国矿业大学南湖校区",
 					qg:"恋爱ing"
 				},
+				selectedIndex:4,
 				spacedata:[
 					{ name:"获赞", num:"10k" },
 					{ name:"关注", num:11 },

@@ -11,12 +11,12 @@
 					</block>
 					<view class="getMore" :class="item.hasNextPage?'cuIcon-loading2':''">{{item.hasNextPage?'加载更多':'--- The end ---'}}</view>
 				</template>
-				
+
 			</block>
 		</view>
 
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop"></Tabbar>
+		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
 	</view>
 </template>
 
@@ -185,6 +185,7 @@
 				sortType:'createTime',
 				recommendCurrentPage:1,
 				idolsCurrentPage:1,
+				selectedIndex:1
 			}
 		},
 		onShareAppMessage: (res) => {
@@ -226,7 +227,7 @@
 						uni.stopPullDownRefresh();
 					}
 				});
-				
+
 			}else if (this.tabIndex === 1) {
 				uni.request({
 					url:serverUrl+'/posts/?userId='+this.userId+'&currentNum=1',
@@ -264,7 +265,7 @@
 				this.type=this.userInfo.tokenType
 				this.userId=this.userInfo.userId
 			}
-			
+
 			uni.request({
 				header:{
 					"Authorization":this.token,
@@ -290,9 +291,9 @@
 				complete() {
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
-			
+
 				}
-			
+
 			})
 
 				},
@@ -305,9 +306,9 @@
 				this.type=this.userInfo.tokenType
 				this.userId=this.userInfo.userId
 			}
-			
-			
-			
+
+
+
 		},
 		onHide() {
 			this.show = false;
@@ -323,13 +324,13 @@
 				var idolsCurrentPage = this.dataList[0].pageNum+1
 				var hasNextPage = this.dataList[0].hasNextPage
 				if(hasNextPage){
-					
+
 					this.getMoreIdols(idolsCurrentPage,5)
 				}else{
 					return
 				}
 			}
-			
+
 		},
 		methods: {
 			getMoreIdols(currentNum,size){
@@ -344,15 +345,15 @@
 						if(res.data.code==0){
 							var myData = res.data.data
 							var oldList = this.dataList[0].list
-							var newList =oldList.concat(myData[0].list) 
+							var newList =oldList.concat(myData[0].list)
 							var myList = []
 							myList=myData
 							myList[0].list=newList
 							this.dataList=myList
 						}
-						
-						
-					
+
+
+
 					},
 					fail: () => {},
 					complete: () => {}
@@ -370,7 +371,7 @@
 						if(res.data.code===0){
 							var myData = res.data.data
 							var oldList = this.dataList[1].list
-							var newList =oldList.concat(myData[1].list) 
+							var newList =oldList.concat(myData[1].list)
 							var myList = []
 							myList=myData
 							myList[1].list=newList
@@ -382,9 +383,9 @@
 								image:"../../static/icos/error1.jpg"
 							})
 						}
-						
-						
-					
+
+
+
 					},
 					fail: () => {},
 					complete: () => {}
@@ -602,7 +603,7 @@
 						}
 					});
 					}
-					
+
 				}else if(this.tabIndex===1){
 						var recommendList = uni.getStorageSync("recommendList")
 						if(recommendList!==null&&recommendList!==""&&recommendList!==undefined){
@@ -666,7 +667,7 @@
 	.myPost{
 		padding-bottom: 130rpx;
 	}
-	
+
 	.getMore{
 		text-align: center;
 		color: #C8C8C8;

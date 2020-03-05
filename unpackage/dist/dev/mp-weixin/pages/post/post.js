@@ -328,7 +328,8 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       type: '',
       sortType: 'createTime',
       recommendCurrentPage: 1,
-      idolsCurrentPage: 1 };
+      idolsCurrentPage: 1,
+      selectedIndex: 1 };
 
   },
   onShareAppMessage: function onShareAppMessage(res) {

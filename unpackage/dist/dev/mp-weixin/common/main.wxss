@@ -6405,7 +6405,8 @@ to {
 	position: relative;
 	display: block;
 	height: auto;
-	margin: 0 auto 10rpx;
+	/*修改此处margin-bottom*/
+	margin: 0 auto;
 	text-align: center;
 	font-size: 40rpx;
 }

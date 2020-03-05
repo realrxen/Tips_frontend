@@ -1,7 +1,7 @@
 <template>
 	<view class="black">
 		<image :src="imgUrl"
-		mode="widthFix"
+		mode="scaleToFill"
 		class="cover"
 		@longpress="operator"></image>
 	</view>
@@ -69,7 +69,8 @@
 		position: fixed;
 	}
 
-	.cover{
+	.cover {
 		align-self: center;
+		width: 100%;
 	}
 </style>

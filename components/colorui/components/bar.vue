@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view class="cu-bar tabbar myTabbar">
-			<view class="action text-main" :class="index===selectedIndex?'text-main':'text-gray'" :index="1">
+			<view class="action" :class="1===selectedIndex?'text-main':''">
 				<!-- <navigator url="../post/post"> -->
-					<view class="cuIcon-homefill" @click="skip21"></view> 首页
+					<view class="cuIcon-home" @click="skip21"></view> 首页
 				<!-- </navigator> -->
 			</view>
-			<view class="action" :class="index===selectedIndex?'text-main':'text-gray'" :index="2">
+			<view class="action" :class="2===selectedIndex?'text-main':''" :index="2">
 				<!-- <navigator url="../search/search"> -->
 				<view class="cuIcon-similar" @click="skip22"></view> 游记
 				<!-- </navigator> -->
@@ -17,7 +17,7 @@
 				<!-- </navigator> -->
 				发布
 			</view>
-			<view class="action" :class="index===selectedIndex?'text-main':'text-gray'" :index="4">
+			<view class="action" :class="4===selectedIndex?'text-main':''">
 				<!-- <navigator url="../userspace/UserSpace"> -->
 					<view class="cuIcon-notification" @click="skip24">
 						<view class="cu-tag badge">99</view>
@@ -25,7 +25,7 @@
 				<!-- </navigator> -->
 				动态
 			</view>
-			<view class="action" :class="index===selectedIndex?'text-main':'text-gray'" :index="5">
+			<view class="action" :class="5===selectedIndex?'text-main':''">
 				<!-- <navigator url="../me/me"> -->
 				<view  @click="skip25">
 					<view class="cuIcon-my">
@@ -41,10 +41,15 @@
 
 <script>
 	export default {
+		props:{
+			selectedIndex:{
+				type:Number,
+				defaultValue:1
+			}
+		},
 		data() {
 			return {
 				InputBottom: 0,
-				selectedIndex:1,
 				isShow:true
 			};
 		},
@@ -121,6 +126,9 @@
 	}
 	.btn{
 		border-radius: 100%;
+	}
+	.colored{
+		color: #ffd655;
 	}
 </style>
 

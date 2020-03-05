@@ -50,7 +50,7 @@
 			</navigator>
 		</view>
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop"></Tabbar>
+		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
 
 	</view>
 </template>
@@ -67,7 +67,8 @@
 			return {
 				userIsLogin:false,
 				userInfo:{},
-				show:false
+				show:false,
+				selectedIndex:5
 			}
 		},
 		methods: {
@@ -89,7 +90,7 @@
 					}
 				})
 			}
-			
+
 		},
 		onShow() {
 			this.show=false

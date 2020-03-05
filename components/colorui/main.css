@@ -1774,7 +1774,8 @@ button.cuIcon.lg {
 	position: relative;
 	display: block;
 	height: auto;
-	margin: 0 auto 10upx;
+	/*修改此处margin-bottom*/
+	margin: 0 auto;
 	text-align: center;
 	font-size: 40upx;
 }

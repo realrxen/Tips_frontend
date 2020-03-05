@@ -15,8 +15,9 @@
 	        justify-content: center;
 	position: fixed;
 }
-.cover{
+.cover {
 	-webkit-align-self: center;
 	        align-self: center;
+	width: 100%;
 }
 

@@ -388,7 +388,13 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
     // 	complete: () => {
     // 	}
     // });
-    uni.request({ url: serverUrl + '/comments/?apiRootId=' + this.postId + '&currentNum=1', method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.myPageHelper = res.data.data.myPageHelper;}} });}, onReachBottom: function onReachBottom() {if (!this.isDetail) {var currentNum = this.myPageHelper.pageNum + 1;var hasNextPage = this.myPageHelper.hasNextPage;if (hasNextPage) {this.getMoreHomeComments(currentNum, 5);} else {return;}} else {var currentNum = this.myPageHelperData.pageNum + 1;var hasNextPage = this.myPageHelperData.hasNextPage;if (hasNextPage) {this.getMoreChildData(currentNum, 5);} else {return;}
+    uni.request({ url: serverUrl + '/comments/?apiRootId=' + this.postId + '&currentNum=1', method: 'GET', success: function success(res) {if (res.data.code === 0) {_this.myPageHelper = res.data.data.myPageHelper;}} });}, onShareAppMessage: function onShareAppMessage(res) {return { title: 'Hi,this is Tips!', path: '/pages/post/post' };}, onReachBottom: function onReachBottom() {if (!this.isDetail) {var currentNum = this.myPageHelper.pageNum + 1;var hasNextPage = this.myPageHelper.hasNextPage;if (hasNextPage) {this.getMoreHomeComments(currentNum, 5);} else {return;}
+    } else {
+      var currentNum = this.myPageHelperData.pageNum + 1;
+      var hasNextPage = this.myPageHelperData.hasNextPage;
+      if (hasNextPage) {
+        this.getMoreChildData(currentNum, 5);
+      } else {return;}
     }
 
   },
@@ -604,11 +610,12 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
 
 
     },
-    love: function love(type) {
-      this.$emit("love", {
-        type: type,
-        index: this.index });
-
+    love: function love(type, postId) {
+      // this.$emit("love",{
+      // 	type,
+      // 	index:this.index
+      // 	})
+      console.log(type, postId);
     },
     goToPostDetail: function goToPostDetail() {
       uni.navigateTo({
@@ -645,6 +652,23 @@ var serverUrl = _common.default.serverUrl;var _default = { name: "PostDetail", p
           array[0] = imgUrl;
           _this7.commentPic = array;
         } });
+
+
+    },
+    viewMe: function viewMe(index) {
+      var current = index;
+      uni.previewImage({
+        current: current,
+        urls: this.post.imgUrls,
+        longPressActions: {
+          itemList: ['发送给朋友', '保存图片', '收藏'],
+          itemColor: "#FFD655",
+          success: function success(data) {
+            // console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+          },
+          fail: function fail(err) {
+            console.log(err.errMsg);
+          } } });
 
 
     } } };exports.default = _default;
