@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view class="cu-bar tabbar myTabbar">
-			<view class="action" :class="1===selectedIndex?'text-main':''">
+			<view class="action" :class="1===tIndex?'text-main':''">
 				<!-- <navigator url="../post/post"> -->
 					<view class="cuIcon-home" @click="skip21"></view> 首页
 				<!-- </navigator> -->
 			</view>
-			<view class="action" :class="2===selectedIndex?'text-main':''" :index="2">
+			<view class="action" :class="2===tIndex?'text-main':''" :index="2">
 				<!-- <navigator url="../search/search"> -->
 				<view class="cuIcon-similar" @click="skip22"></view> 游记
 				<!-- </navigator> -->
@@ -17,7 +17,7 @@
 				<!-- </navigator> -->
 				发布
 			</view>
-			<view class="action" :class="4===selectedIndex?'text-main':''">
+			<view class="action" :class="4===tIndex?'text-main':''">
 				<!-- <navigator url="../userspace/UserSpace"> -->
 					<view class="cuIcon-notification" @click="skip24">
 						<view class="cu-tag badge">99</view>
@@ -25,7 +25,7 @@
 				<!-- </navigator> -->
 				动态
 			</view>
-			<view class="action" :class="5===selectedIndex?'text-main':''">
+			<view class="action" :class="5===tIndex?'text-main':''">
 				<!-- <navigator url="../me/me"> -->
 				<view  @click="skip25">
 					<view class="cuIcon-my">
@@ -42,6 +42,10 @@
 <script>
 	export default {
 		props:{
+			tIndex:{
+				type:Number,
+				default:1
+			}
 		},
 		data() {
 			return {

@@ -165,6 +165,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -187,12 +192,12 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 209));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 195));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 216));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 223));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 202));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0, posts: [{ username: "Seeumt", faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png',
-          createTime: '2000-10-07',
-          isFollow: false,
-          title: 'Love',
-          imgUrls: ["http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg",
-          "https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
+//
+//
+//
+//
+//
+var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __webpack_require__.e(/*! import() | components/colorui/components/nav */ "components/colorui/components/nav").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/nav.vue */ 209));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar.vue */ 195));};var UserPost = function UserPost() {return __webpack_require__.e(/*! import() | pages/post/components/UserPost */ "pages/post/components/UserPost").then(__webpack_require__.bind(null, /*! ./components/UserPost */ 216));};var Card = function Card() {return __webpack_require__.e(/*! import() | components/colorui/components/card */ "components/colorui/components/card").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/card.vue */ 223));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 202));};var _default = { components: { Nav: Nav, UserPost: UserPost, Card: Card, Tabbar: Tabbar, PopUp: PopUp }, data: function data() {return { dataList2: [{ id: 0, posts: [{ username: "Seeumt", faceIcon: 'http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png', createTime: '2000-10-07', isFollow: false, title: 'Love', imgUrls: ["http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg", "https://seeumt.oss-cn-hangzhou.aliyuncs.com/7749ba06df674a9d8336dc55d7b487f9.jpg",
           "http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg"],
           love: {
             type: 'like',
@@ -329,7 +334,8 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
       sortType: 'createTime',
       recommendCurrentPage: 1,
       idolsCurrentPage: 1,
-      selectedOrder: 1 };
+      selectedOrder: 1,
+      isUser: true };
 
   },
   onShareAppMessage: function onShareAppMessage(res) {
@@ -363,9 +369,11 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
 
           } else if (res.data.code === 50002) {
             uni.stopPullDownRefresh();
+            _this.isUser = false;
             uni.showToast({
               title: res.data.msg,
               duration: 2000 });
+
 
           }
         },
@@ -726,6 +734,9 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
         if (idolsList !== null && idolsList !== "" && idolsList !== undefined) {
           this.dataList = idolsList;
         } else {
+          uni.showLoading({
+            title: '加载中...' });
+
           uni.request({
             url: serverUrl + '/posts/idols/?userId=' + this.userId + '&currentNum=1',
             header: {
@@ -735,6 +746,7 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
             method: 'GET',
             success: function success(res) {
               if (res.data.code === 0) {
+                uni.hideLoading();
                 var myList = [];
                 myList = res.data.data;
                 _this7.dataList = myList;
@@ -788,6 +800,10 @@ var serverUrl = _common.default.serverUrl;var Nav = function Nav() {return __web
     },
     pop: function pop(data) {
       this.show = data;
+    },
+
+    isMe: function isMe(data) {
+      this.tabIndex = data;
     },
     sort: function sort() {// 排序
       // this.dataList[0].posts.sort(this.compare(this.sortType));

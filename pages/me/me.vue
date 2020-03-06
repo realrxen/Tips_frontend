@@ -50,7 +50,7 @@
 			</navigator>
 		</view>
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop"></Tabbar>
+		<Tabbar @pop="pop" :tIndex="5"></Tabbar>
 
 	</view>
 </template>

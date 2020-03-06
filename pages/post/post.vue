@@ -9,14 +9,19 @@
 								  @follow='follow' @love='love' @deletePost='deletePost'></UserPost>
 						<Divider></Divider>
 					</block>
-					<view class="getMore" :class="item.hasNextPage?'cuIcon-loading2':''">{{item.hasNextPage?'加载更多':'--- The end ---'}}</view>
+					<template v-if="isUser">
+						<view class="getMore" :class="item.hasNextPage?'cuIcon-loading2':''">{{item.hasNextPage?'加载更多':'--- The end ---'}}</view>
+					</template>
+					<template v-else>
+						<!-- 你还没有关注任何人哟！ -->
+					</template>
 				</template>
 
 			</block>
 		</view>
 
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop"></Tabbar>
+		<Tabbar @pop="pop" :tIndex="1"></Tabbar>
 	</view>
 </template>
 
@@ -185,7 +190,8 @@
 				sortType:'createTime',
 				recommendCurrentPage:1,
 				idolsCurrentPage:1,
-				selectedOrder:1
+				selectedOrder:1,
+				isUser:true,
 			}
 		},
 		onShareAppMessage: (res) => {
@@ -219,10 +225,12 @@
 							})
 						}else if(res.data.code===50002) {
 							uni.stopPullDownRefresh()
+							this.isUser=false
 							uni.showToast({
 								title:res.data.msg,
 								duration:2000,
 							})
+							
 						}
 					},
 					complete() {
@@ -582,6 +590,9 @@
 					if(idolsList!==null&&idolsList!==""&&idolsList!==undefined){
 						this.dataList=idolsList
 					}else{
+						uni.showLoading({
+						    title: '加载中...'
+						});
 						uni.request({
 						url:serverUrl+'/posts/idols/?userId='+this.userId+'&currentNum=1',
 						header:{
@@ -591,6 +602,7 @@
 						method: 'GET',
 						success: (res) => {
 							if(res.data.code===0){
+								uni.hideLoading()
 								var myList = []
 								myList=res.data.data
 								this.dataList=myList
@@ -644,6 +656,10 @@
 			},
 			pop(data){
 				this.show = data;
+			},
+			
+			isMe(data){
+				this.tabIndex=data
 			},
 			sort(){                     // 排序
 				// this.dataList[0].posts.sort(this.compare(this.sortType));

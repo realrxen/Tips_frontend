@@ -24,7 +24,7 @@
 <!--			</view>-->
 <!--		</view>-->
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
+		<Tabbar @pop="pop" :tIndex="2"></Tabbar>
 	</view>
 </template>
 

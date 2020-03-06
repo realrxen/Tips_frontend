@@ -159,7 +159,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
-  props: {},
+  props: {
+    tIndex: {
+      type: Number,
+      default: 1 } },
+
 
   data: function data() {
     return {
