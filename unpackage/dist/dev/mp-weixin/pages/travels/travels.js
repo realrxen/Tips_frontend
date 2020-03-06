@@ -235,11 +235,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages.vue */ 230));};var TColorPicker = function TColorPicker() {return __webpack_require__.e(/*! import() | components/t-color-picker/t-color-picker */ "components/t-color-picker/t-color-picker").then(__webpack_require__.bind(null, /*! ../../components/t-color-picker/t-color-picker */ 237));};var UploadImages = function UploadImages() {return Promise.all(/*! import() | components/colorui/components/uploadImages */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/uploadImages")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 244));};
+
+
+
+
+
+
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages.vue */ 230));};var TColorPicker = function TColorPicker() {return __webpack_require__.e(/*! import() | components/t-color-picker/t-color-picker */ "components/t-color-picker/t-color-picker").then(__webpack_require__.bind(null, /*! ../../components/t-color-picker/t-color-picker */ 237));};var UploadImages = function UploadImages() {return Promise.all(/*! import() | components/colorui/components/uploadImages */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/uploadImages")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 244));};
 
 
 
 var serverUrl = _common.default.serverUrl;
+var keyUtil = _common.default.keyUtil();
 var _self;var _default =
 {
   components: {
@@ -269,21 +280,50 @@ var _self;var _default =
       placeholder: '描述下你的旅行心得,帮助更多旅行的人...',
       editorHeight: 300,
       keyboardHeight: 0,
-      isIOS: false };
+      isIOS: false,
+      articleId: "",
+      title: "" };
 
   },
   onLoad: function onLoad() {
     _self = this;
+    var draft = uni.getStorageSync('myDraft');
+    if (draft !== null && draft !== "" && draft !== undefined) {
+      this.articleId = draft.articleId;
+    } else {
+      var articleId = this.key();
+      this.articleId = articleId;
+
+    }
+  },
+  onShow: function onShow() {
+
     var userInfo = uni.getStorageSync("globalUser");
-    if (userInfo != null && userInfo != "" && userInfo != undefined) {
+    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
       this.userInfo = userInfo;
       this.token = "Bearer " + this.userInfo.token;
       this.type = this.userInfo.tokenType;
-      console.log(userInfo);
     }
+
+  },
+  onUnload: function onUnload() {
   },
 
-  methods: {
+  methods: (_methods = {
+    onStatusChange: function onStatusChange() {
+      this.editorCtx.getContents({
+        success: function success(res) {
+          console.log(res);
+          console.log(res.html);
+        } });
+
+    },
+    key: function key() {
+      function S4() {
+        return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+      }
+      return S4() + S4() + "" + S4() + "" + S4() + "" + S4() + "" + S4() + S4() + S4();
+    },
     upload: function upload() {
 
       // if(this.imgs.length===0){
@@ -296,10 +336,11 @@ var _self;var _default =
     upLoadApi: function upLoadApi(i, length) {var _this = this;
       var userInfo = this.getGlobalUser("globalUser");
       uni.uploadFile({
-        url: serverUrl + '/oss/insert?parentId=' + userInfo.userId,
+        url: serverUrl + '/oss/1?parentId=' + this.articleId,
         filePath: this.imgs[i],
         name: "file",
         success: function success(uploadFileRes) {
+          debugger;
           var response = JSON.parse(uploadFileRes.data);
           console.log(response.data);
           if (response.code === 0) {
@@ -337,6 +378,50 @@ var _self;var _default =
     },
     cancel: function cancel() {
       this.isEdit = false;
+    },
+    send: function send() {var _this3 = this;
+      var articleId = this.articleId;
+      var userId = this.userInfo.userId;
+      var title = this.title;
+      var token = this.token;
+      var type = this.type;
+      if (this.title === "") {
+        this.warning("标题不能为空哟!");
+        return;
+      }
+      this.editorCtx.getContents({
+        success: function success(res) {
+          var htmlContent = res.html;
+          console.log(res.html.length);
+          if (htmlContent.length <= 42) {
+            _this3.warning("内容不能为空哟!");
+            return;
+          }
+          uni.request({
+            header: {
+              "Authorization": token,
+              "type": type },
+
+            url: serverUrl + '/articles/',
+            data: {
+              "articleId": articleId,
+              "title": title,
+              "htmlContent": htmlContent,
+              "userId": userId },
+
+            method: 'POST',
+            success: function success(res) {
+              if (res.data.code === 0) {
+                uni.showToast({
+                  title: res.data.msg,
+                  duration: 1500 });
+
+              }
+            } });
+
+
+        } });
+
     },
     open: function open() {
       this.$refs.colorPicker.open();
@@ -384,69 +469,91 @@ var _self;var _default =
       e.target.dataset,name = _e$target$dataset.name,value = _e$target$dataset.value;
       if (!name) return; // console.log('format', name, value)
       this.editorCtx.format(name, value);
-    },
+    } }, _defineProperty(_methods, "onStatusChange", function onStatusChange(
 
-    onStatusChange: function onStatusChange(e) {
-      this.formats = e.detail;
-    },
+  e) {
+    this.formats = e.detail;
+  }), _defineProperty(_methods, "insertDivider", function insertDivider()
 
-    insertDivider: function insertDivider() {
-      this.editorCtx.insertDivider({
-        success: function success() {
-          console.log('insert divider success');
-        } });
+  {
+    this.editorCtx.insertDivider({
+      success: function success() {
+        console.log('insert divider success');
+      } });
 
-    },
+  }), _defineProperty(_methods, "store", function store(
 
-    store: function store(e) {
-      this.editorCtx.getContents({
-        success: function success(res) {
-          e.currentTarget.id == 1 ? console.log('保存内容:', res.html) : uni.navigateTo({
-            url: "./components/preview?rich=".concat(encodeURIComponent(res.html)) });
+  e) {
+    this.editorCtx.getContents({
+      success: function success(res) {
+        e.currentTarget.id == 1 ? console.log('保存内容:', res.html) : uni.navigateTo({
+          url: "./components/preview?rich=".concat(encodeURIComponent(res.html)) });
 
-        } });
+      } });
 
-    },
+  }), _defineProperty(_methods, "clear", function clear()
 
-    clear: function clear() {
-      this.editorCtx.clear({
-        success: function success(res) {
-          console.log("clear success");
-        } });
+  {
+    this.editorCtx.clear({
+      success: function success(res) {
+        console.log("clear success");
+      } });
 
-    },
+  }), _defineProperty(_methods, "removeFormat", function removeFormat()
 
-    removeFormat: function removeFormat() {
-      this.editorCtx.removeFormat();
-    },
+  {
+    this.editorCtx.removeFormat();
+  }), _defineProperty(_methods, "insertDate", function insertDate()
 
-    insertDate: function insertDate() {
-      var date = new Date();
-      var formatDate = "".concat(date.getFullYear(), "/").concat(date.getMonth() + 1, "/").concat(date.getDate());
-      this.editorCtx.insertText({
-        text: formatDate });
+  {
+    var date = new Date();
+    var formatDate = "".concat(date.getFullYear(), "/").concat(date.getMonth() + 1, "/").concat(date.getDate());
+    this.editorCtx.insertText({
+      text: formatDate });
 
-    },
+  }), _defineProperty(_methods, "insertImage", function insertImage()
 
-    insertImage: function insertImage() {
-      // const that = this;
-      uni.chooseImage({
-        count: 1,
-        success: function success(res) {
-          _self.editorCtx.insertImage({
-            src: res.tempFilePaths[0],
-            data: {
-              id: 'abcd',
-              role: 'god' },
+  {
+    // const that = this;
+    var token = this.token;
+    var type = this.type;
+    var articleId = this.articleId;
+    uni.chooseImage({
+      count: 1,
+      success: function success(res) {
+        uni.uploadFile({
+          header: {
+            "Authorization": token,
+            "type": type },
 
-            width: '80%',
-            success: function success() {
-              console.log('insert image success');
-            } });
+          url: serverUrl + '/oss/1?parentId=' + articleId,
+          filePath: res.tempFilePaths[0],
+          name: "file",
+          method: 'POST',
+          success: function success(re) {
+            var mydata = JSON.parse(re.data);
+            _self.editorCtx.insertImage({
+              src: mydata.data,
+              data: {
+                id: 'myImg',
+                role: 'god',
+                class: 'img' },
 
-        } });
+              width: '30%',
+              success: function success() {
+                // console.log('insert image success');
+              } });
 
-    } } };exports.default = _default;
+
+          } });
+
+
+      } });
+
+  }), _defineProperty(_methods, "warning", function warning(
+  msg) {
+    this.HMmessages.show(msg, { iconColor: '#ffffff', fontColor: '#ffffff', background: "#ffd655" });
+  }), _methods) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

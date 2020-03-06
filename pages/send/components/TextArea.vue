@@ -1,12 +1,12 @@
 <template>
-    <view class="bg-white">
+    <view>
 <!--         <textarea placeholder="把你的想法说给大家听听吧"-->
 <!--		 v-model="content"-->
 <!--		 class="textarea"/>-->
-        <view class="cu-form-group margin-top bg-white">
+        <view class="cu-form-group margin-top">
             <textarea class="myTextArea" maxlength="-1" :value="editText" :disabled="false" foucus @input="textareaBInput" :placeholder="edit?'':'把你的想法说给大家听听吧'"></textarea>
         </view>
-        <view class="warn-text bg-white">最多200字呦</view>
+        <view class="warn-text">最多200字呦</view>
         <HMmessages></HMmessages>
     </view>
 </template>

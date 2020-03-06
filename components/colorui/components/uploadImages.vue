@@ -1,6 +1,6 @@
 <template>
-    <view class="bg-gray UpLoadWrapper">
-        <view class="TextWrapper bg-gray">
+    <view class="UpLoadWrapper">
+        <view class="TextWrapper">
             <view class="myText" style="text-align:right">
                 {{warningText}}{{edit?imgs.length:imgList.length}}/{{limitLength}}
             </view>
