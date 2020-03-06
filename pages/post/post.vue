@@ -16,7 +16,7 @@
 		</view>
 
 		<PopUp :show="show"></PopUp>
-		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
+		<Tabbar @pop="pop"></Tabbar>
 	</view>
 </template>
 
@@ -185,7 +185,7 @@
 				sortType:'createTime',
 				recommendCurrentPage:1,
 				idolsCurrentPage:1,
-				selectedIndex:1
+				selectedOrder:1
 			}
 		},
 		onShareAppMessage: (res) => {

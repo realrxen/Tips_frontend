@@ -42,10 +42,6 @@
 <script>
 	export default {
 		props:{
-			selectedIndex:{
-				type:Number,
-				defaultValue:1
-			}
 		},
 		data() {
 			return {
@@ -88,7 +84,7 @@
 			skip24(){
 				this.selectedIndex=4
 				uni.redirectTo({
-				    url: '../userspace/UserSpace'
+				    url: '../article/article'
 				});
 			},
 			skip25(){

@@ -18,7 +18,8 @@
     "pages/pic/pic",
     "pages/meInfo/children/telephone",
     "pages/meInfo/children/password",
-    "pages/souvenir/souvenir"
+    "pages/souvenir/souvenir",
+    "pages/article/article"
   ],
   "subPackages": [],
   "window": {
@@ -33,5 +34,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap43.json"
+  "sitemapLocation": "sitemap67.json"
 }

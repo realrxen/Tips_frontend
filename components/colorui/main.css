@@ -1572,7 +1572,8 @@ button.cuIcon.lg {
 }
 
 .cu-bar .action:last-child {
-	margin-right: 30upx;
+	/*30upx -> 10upx*/
+	margin-right: 10upx;
 }
 
 .cu-bar .action>text[class*="cuIcon-"],

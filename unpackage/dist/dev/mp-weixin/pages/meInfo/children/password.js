@@ -227,7 +227,7 @@ var _common = _interopRequireDefault(__webpack_require__(/*! ../../../common/com
 //
 //
 //
-var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../../components/HM-messages/HMmessages.vue */ 216));};var _default = { components: { HMmessages: HMmessages }, data: function data() {return { // userId:"",
+var serverUrl = _common.default.serverUrl;var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../../components/HM-messages/HMmessages.vue */ 222));};var _default = { components: { HMmessages: HMmessages }, data: function data() {return { // userId:"",
       // password:""
       userId: "", userInfo: {}, token: '', type: '', status: false, account: "", password: "", telephone: "", otpCode: "", codeTime: 0, code: "", checked: true, faceIcon: "http://seeumt.oss-cn-hangzhou.aliyuncs.com/870c6addbb7b48988799af07b0a6d5c2.png", ok: false };}, onShow: function onShow() {this.show = false;var userInfo = uni.getStorageSync("globalUser");if (userInfo != null && userInfo != "" && userInfo != undefined) {this.userInfo = userInfo;this.token = "Bearer " + this.userInfo.token;this.type = this.userInfo.tokenType;this.userId = this.userInfo.userId;}}, created: function created() {}, methods: { confirmPwd: function confirmPwd() {if (this.pwd1 !== this.pwd2) {this.warning("密码不一致哟");return;}uni.request({ url: serverUrl + '/users/pwd',
         data: {

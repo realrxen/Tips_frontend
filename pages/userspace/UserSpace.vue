@@ -37,7 +37,7 @@
 		@lahei="lahei"
 		@beizhu="beizhu"></user-space-popup>
 		<PopUp :show="show1"></PopUp>
-		<Tabbar @pop="pop" :selectedIndex="selectedIndex"></Tabbar>
+		<Tabbar @pop="pop"></Tabbar>
 
 	</view>
 </template>
