@@ -44,6 +44,10 @@
         ,{
             "path" : "pages/search/search",
             "style" : {}
+        }
+		,{
+            "path" : "pages/travels/components/preview",
+            "style" : {}
         },
 		{
 			"path":"pages/userspace/UserSpace",

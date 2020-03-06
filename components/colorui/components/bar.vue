@@ -74,11 +74,11 @@
 				// uni.redirectTo({
 				//     url: '../travels/travels'
 				// });
-				// this.$emit('pop',this.isShow)
-				// this.isShow=!this.isShow
-				uni.navigateTo({
-				    url: '../send/Send'
-				});
+				this.$emit('pop',this.isShow)
+				this.isShow=!this.isShow
+				// uni.navigateTo({
+				//     url: '../send/Send'
+				// });
 
 			},
 			skip24(){

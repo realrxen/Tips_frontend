@@ -79,7 +79,7 @@
         width: 360rpx;
         padding: 50upx;
         box-sizing: border-box;
-        margin:-25px 108px;
+        margin:-20px auto;
         .tabbar-box {
             position: relative;
             display: flex;

@@ -7747,7 +7747,55 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 31);
 
 /***/ }),
 
-/***/ 304:
+/***/ 31:
+/*!************************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() {
+  return this || (typeof self === "object" && self);
+})() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__(/*! ./runtime */ 32);
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
+/***/ 312:
 /*!****************************************!*\
   !*** D:/Uni-app/travel/common/time.js ***!
   \****************************************/
@@ -7841,54 +7889,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 {
   gettime: gettime };exports.default = _default;
-
-/***/ }),
-
-/***/ 31:
-/*!************************************************************!*\
-  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// This method of obtaining a reference to the global object needs to be
-// kept identical to the way it is obtained in runtime.js
-var g = (function() {
-  return this || (typeof self === "object" && self);
-})() || Function("return this")();
-
-// Use `getOwnPropertyNames` because not all browsers support calling
-// `hasOwnProperty` on the global `self` object in a worker. See #183.
-var hadRuntime = g.regeneratorRuntime &&
-  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
-
-// Save the old regeneratorRuntime in case it needs to be restored later.
-var oldRuntime = hadRuntime && g.regeneratorRuntime;
-
-// Force reevalutation of runtime.js.
-g.regeneratorRuntime = undefined;
-
-module.exports = __webpack_require__(/*! ./runtime */ 32);
-
-if (hadRuntime) {
-  // Restore the original runtime.
-  g.regeneratorRuntime = oldRuntime;
-} else {
-  // Remove the global property added by runtime.js.
-  try {
-    delete g.regeneratorRuntime;
-  } catch(e) {
-    g.regeneratorRuntime = undefined;
-  }
-}
-
 
 /***/ }),
 
@@ -8624,7 +8624,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 389:
+/***/ 397:
 /*!******************************************************!*\
   !*** D:/Uni-app/travel/components/sx-rate/common.js ***!
   \******************************************************/
@@ -8655,7 +8655,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 420:
+/***/ 435:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -9703,7 +9703,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {}, "pages/souvenir/SouvenirDetail": {}, "pages/souvenir/tabBar/cart/cart": {}, "pages/pic/pic": { "navigationBarTextStyle": "white", "navigationBarTitleText": "图片", "navigationBarBackgroundColor": "#FFD655" }, "pages/meInfo/children/telephone": {}, "pages/meInfo/children/password": {}, "pages/souvenir/souvenir": { "enablePullDownRefresh": true }, "pages/article/article": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": {}, "pages/travels/components/preview": {}, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {}, "pages/souvenir/SouvenirDetail": {}, "pages/souvenir/tabBar/cart/cart": {}, "pages/pic/pic": { "navigationBarTextStyle": "white", "navigationBarTitleText": "图片", "navigationBarBackgroundColor": "#FFD655" }, "pages/meInfo/children/telephone": {}, "pages/meInfo/children/password": {}, "pages/souvenir/souvenir": { "enablePullDownRefresh": true }, "pages/article/article": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
 
 /***/ }),
 

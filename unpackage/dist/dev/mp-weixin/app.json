@@ -8,6 +8,7 @@
     "pages/meInfo/meInfo",
     "pages/information/information",
     "pages/search/search",
+    "pages/travels/components/preview",
     "pages/userspace/UserSpace",
     "pages/registLogin/login",
     "pages/registLogin/teleLogin",
@@ -34,5 +35,5 @@
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
   },
-  "sitemapLocation": "sitemap67.json"
+  "sitemapLocation": "sitemap0.json"
 }
