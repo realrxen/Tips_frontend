@@ -1,10 +1,10 @@
 <template>
 	<view class="wrapper">
-		<view class="itemWrapper"  :data-postId="item.postId" v-for="(item,index) in coverData" :key="index" @tap="goToDatail">
+		<view class="itemWrapper"  :data-mediaId="item.mediaId" v-for="(item,index) in coverData" :key="index" @tap="goToDatail">
 			<view>
 				<image :src="item.cover" class="coverPicture"></image>
 				<view class="title">
-					{{item.content}}
+					{{item.title}}
 				</view>
 				<view class="resultWrapper">
 					<view class="userWrapper">
@@ -50,9 +50,12 @@
 		},
 		methods:{
 			goToDatail(e){
-				var postId = e.currentTarget.dataset.postid
+				var mediaId = e.currentTarget.dataset.mediaid
+				// uni.navigateTo({
+				// 	url:'../post/PostDetail?mediaId='+mediaId
+				// })
 				uni.navigateTo({
-					url:'../post/PostDetail?postId='+postId
+					url:'../article/article?mediaId='+mediaId
 				})
 			}
 		}

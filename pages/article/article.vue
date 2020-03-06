@@ -1,17 +1,8 @@
 <template>
 	<view>
 		<ArticleHeader></ArticleHeader>
-		<view class="content">
-			<h1>我很开心</h1>
-			<image src="../../static/bgimg/1.jpg" mode=""></image>
-			<p>啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
-			<p>啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
-			<p>啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
-			<image src="../../static/bgimg/1.jpg" mode=""></image>
-			<image src="../../static/bgimg/1.jpg" mode=""></image>
-			<h2>嘻嘻嘻</h2>
-			<image src="../../static/bgimg/1.jpg" mode=""></image>
-			<image src="../../static/bgimg/1.jpg" mode=""></image>
+		<view class="content" v-html="content">
+			{{content}}
 		</view>
 		<ArticleBottom></ArticleBottom>
 	</view>
@@ -20,15 +11,58 @@
 <script>
 	import ArticleHeader from "./components/ArticleHeader";
 	import ArticleBottom from "./components/ArticleBottom";
+	import common from "../../common/common.js"
+	var serverUrl = common.serverUrl
 	export default {
 		components:{
 			ArticleHeader,
-			ArticleBottom
+			ArticleBottom,
 		},
 		data() {
 			return {
-
+				userInfo:{},
+				token:'',
+				type:'',
+				content:""
 			}
+		},
+		onShow(){
+			var userInfo = uni.getStorageSync("globalUser")
+			if(userInfo!==null&&userInfo!==""&&userInfo!==undefined){
+				this.userInfo=userInfo
+				this.token="Bearer "+this.userInfo.token
+				this.type=this.userInfo.tokenType
+			}
+			uni.request({
+				header:{
+					"Authorization":this.token,
+					"type":this.type
+				},
+				url:serverUrl+'/articles/'+this.articleId,
+				method: 'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						this.content = res.data.data.htmlContent
+					}
+					if(res.data.code===30001){
+						uni.showToast({
+							title:'😙要重新登录',
+							duration:2500
+						})
+						uni.removeStorageSync("globalUser")
+					}
+				},
+				complete() {
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+			
+				}
+			
+			})
+		},
+		onLoad(paramsObj) {
+			var articleId = paramsObj.mediaId
+			this.articleId = articleId 
 		},
 		methods: {
 

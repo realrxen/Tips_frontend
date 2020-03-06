@@ -13,7 +13,7 @@
 					@confirm="searchMe"/>
 		</view> -->
 		<view class="mySearch">
-			<SearchItem :coverData="coverData"></SearchItem>
+			<SearchItem :coverData="myPageHelper.list"></SearchItem>
 		</view>
 <!--		<view class="movie-list page-block">-->
 <!--			<view class="movie-wrapper" v-for="post in articleList">-->
@@ -47,7 +47,29 @@
 				show:false,
 				keywords:"",
 				coverData:[],
-				selectedIndex:2
+				selectedIndex:2,
+				myPageHelper:{}
+			}
+		},
+		onPullDownRefresh(){
+			uni.request({
+				url:serverUrl+'/articles/search?currentNum=1',
+				method:'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						uni.stopPullDownRefresh()
+						this.myPageHelper=res.data.data
+					}
+				}
+			})
+		},
+		onReachBottom() {
+			var currentPage = this.myPageHelper.pageNum+1
+			var hasNextPage = this.myPageHelper.hasNextPage
+			if(hasNextPage){
+				this.getMoreArticles(currentPage,7)
+			}else{
+				return
 			}
 		},
 		onLoad() {},
@@ -55,14 +77,45 @@
 			// setTimeout(() => {
 			this.show = false;
 			// }, 500);
+			uni.request({
+				url:serverUrl+'/articles/search?currentNum=1',
+				method:'GET',
+				success: (res) => {
+					if(res.data.code===0){
+						this.myPageHelper=res.data.data
+					}
+				}
+			})
 		},
 		onHide() {
 			this.show = false;
 		},
 		methods: {
+			getMoreArticles(currentNum,size){
+				uni.request({
+					header:{
+						"Authorization":this.token,
+						"type":this.type
+					},
+					url:serverUrl+'/articles/search?currentNum='+currentNum+'&size='+size,
+					method: 'GET',
+					success: (res) => {
+						if(res.data.code==0){
+							var myData = res.data.data
+							var oldList = this.myPageHelper.list
+							var newList =oldList.concat(myData.list)
+							myData.list=newList
+							this.myPageHelper = myData
+							this.coverData = myData.list
+						}
+			
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			search(data){
 				this.keywords=data
-				console.log(this.keywords)
 				uni.request({
 					url:serverUrl+'/posts/search?keywords='+this.keywords,
 					method:'GET',

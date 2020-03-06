@@ -43,7 +43,9 @@
         }
         ,{
             "path" : "pages/search/search",
-            "style" : {}
+            "style": {
+            	"enablePullDownRefresh":true
+            }
         }
 		,{
             "path" : "pages/travels/components/preview",

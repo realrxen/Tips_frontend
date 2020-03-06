@@ -182,28 +182,81 @@ var serverUrl = _common.default.serverUrl;var _default =
       show: false,
       keywords: "",
       coverData: [],
-      selectedIndex: 2 };
+      selectedIndex: 2,
+      myPageHelper: {} };
 
   },
+  onPullDownRefresh: function onPullDownRefresh() {var _this = this;
+    uni.request({
+      url: serverUrl + '/articles/search?currentNum=1',
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          uni.stopPullDownRefresh();
+          _this.myPageHelper = res.data.data;
+        }
+      } });
+
+  },
+  onReachBottom: function onReachBottom() {
+    var currentPage = this.myPageHelper.pageNum + 1;
+    var hasNextPage = this.myPageHelper.hasNextPage;
+    if (hasNextPage) {
+      this.getMoreArticles(currentPage, 7);
+    } else {
+      return;
+    }
+  },
   onLoad: function onLoad() {},
-  onShow: function onShow() {
+  onShow: function onShow() {var _this2 = this;
     // setTimeout(() => {
     this.show = false;
     // }, 500);
+    uni.request({
+      url: serverUrl + '/articles/search?currentNum=1',
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this2.myPageHelper = res.data.data;
+        }
+      } });
+
   },
   onHide: function onHide() {
     this.show = false;
   },
   methods: {
-    search: function search(data) {var _this = this;
+    getMoreArticles: function getMoreArticles(currentNum, size) {var _this3 = this;
+      uni.request({
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        url: serverUrl + '/articles/search?currentNum=' + currentNum + '&size=' + size,
+        method: 'GET',
+        success: function success(res) {
+          if (res.data.code == 0) {
+            var myData = res.data.data;
+            var oldList = _this3.myPageHelper.list;
+            var newList = oldList.concat(myData.list);
+            myData.list = newList;
+            _this3.myPageHelper = myData;
+            _this3.coverData = myData.list;
+          }
+
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    },
+    search: function search(data) {var _this4 = this;
       this.keywords = data;
-      console.log(this.keywords);
       uni.request({
         url: serverUrl + '/posts/search?keywords=' + this.keywords,
         method: 'GET',
         success: function success(res) {
           if (res.data.code === 0) {
-            _this.coverData = res.data.data;
+            _this4.coverData = res.data.data;
           }
         } });
 

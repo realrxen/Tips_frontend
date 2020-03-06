@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ArticleHeader = function ArticleHeader() {return __webpack_require__.e(/*! import() | pages/article/components/ArticleHeader */ "pages/article/components/ArticleHeader").then(__webpack_require__.bind(null, /*! ./components/ArticleHeader */ 416));};var ArticleBottom = function ArticleBottom() {return __webpack_require__.e(/*! import() | pages/article/components/ArticleBottom */ "pages/article/components/ArticleBottom").then(__webpack_require__.bind(null, /*! ./components/ArticleBottom */ 423));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -146,26 +146,61 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
-
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var ArticleHeader = function ArticleHeader() {return __webpack_require__.e(/*! import() | pages/article/components/ArticleHeader */ "pages/article/components/ArticleHeader").then(__webpack_require__.bind(null, /*! ./components/ArticleHeader */ 416));};var ArticleBottom = function ArticleBottom() {return __webpack_require__.e(/*! import() | pages/article/components/ArticleBottom */ "pages/article/components/ArticleBottom").then(__webpack_require__.bind(null, /*! ./components/ArticleBottom */ 423));};
+var serverUrl = _common.default.serverUrl;var _default =
 {
   components: {
     ArticleHeader: ArticleHeader,
     ArticleBottom: ArticleBottom },
 
   data: function data() {
-    return {};
+    return {
+      userInfo: {},
+      token: '',
+      type: '',
+      content: "" };
+
+  },
+  onShow: function onShow() {var _this = this;
+    var userInfo = uni.getStorageSync("globalUser");
+    if (userInfo !== null && userInfo !== "" && userInfo !== undefined) {
+      this.userInfo = userInfo;
+      this.token = "Bearer " + this.userInfo.token;
+      this.type = this.userInfo.tokenType;
+    }
+    uni.request({
+      header: {
+        "Authorization": this.token,
+        "type": this.type },
+
+      url: serverUrl + '/articles/' + this.articleId,
+      method: 'GET',
+      success: function success(res) {
+        if (res.data.code === 0) {
+          _this.content = res.data.data.htmlContent;
+        }
+        if (res.data.code === 30001) {
+          uni.showToast({
+            title: '😙要重新登录',
+            duration: 2500 });
+
+          uni.removeStorageSync("globalUser");
+        }
+      },
+      complete: function complete() {
+        uni.hideLoading();
+        uni.stopPullDownRefresh();
+
+      } });
 
 
   },
+  onLoad: function onLoad(paramsObj) {
+    var articleId = paramsObj.mediaId;
+    this.articleId = articleId;
+  },
   methods: {} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

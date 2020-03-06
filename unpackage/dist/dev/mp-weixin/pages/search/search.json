@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "search-item": "/pages/search/components/SearchItem",
     "search-bar": "/components/colorui/components/searchbar",

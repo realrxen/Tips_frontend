@@ -392,11 +392,13 @@ var _self;var _default =
       this.editorCtx.getContents({
         success: function success(res) {
           var htmlContent = res.html;
-          console.log(res.html.length);
           if (htmlContent.length <= 42) {
             _this3.warning("内容不能为空哟!");
             return;
           }
+          uni.showLoading({
+            title: '发布中...' });
+
           uni.request({
             header: {
               "Authorization": token,
@@ -411,10 +413,14 @@ var _self;var _default =
 
             method: 'POST',
             success: function success(res) {
+              uni.hideLoading();
               if (res.data.code === 0) {
                 uni.showToast({
                   title: res.data.msg,
                   duration: 1500 });
+
+                uni.reLaunch({
+                  url: "../search/search" });
 
               }
             } });
@@ -539,7 +545,7 @@ var _self;var _default =
                 role: 'god',
                 class: 'img' },
 
-              width: '30%',
+              width: '60%',
               success: function success() {
                 // console.log('insert image success');
               } });

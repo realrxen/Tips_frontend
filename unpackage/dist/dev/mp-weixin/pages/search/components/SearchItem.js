@@ -168,9 +168,12 @@ var _default =
   },
   methods: {
     goToDatail: function goToDatail(e) {
-      var postId = e.currentTarget.dataset.postid;
+      var mediaId = e.currentTarget.dataset.mediaid;
+      // uni.navigateTo({
+      // 	url:'../post/PostDetail?mediaId='+mediaId
+      // })
       uni.navigateTo({
-        url: '../post/PostDetail?postId=' + postId });
+        url: '../article/article?mediaId=' + mediaId });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

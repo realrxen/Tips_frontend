@@ -3,7 +3,7 @@
 		<view class="box">
 			<view class="bottomBar bg-white">
 				<view class="round commentBar">
-					<text class="cuIcon-edit myExitIcon"></text>
+					<text class="cuIcon-edit myEditIcon"></text>
 					<input @focus="InputFocus" @blur="InputBlur"
 						   type="text" confirm-type="send"
 						   :value="content"
@@ -11,7 +11,7 @@
 						   @input="contentInput"
 						   :placeholder="placeHolder"
 						   placeholder-class="placeholder-c"
-						   :adjust-position="true" class="solid-bottom"
+						   :adjust-position="false" class="solid-bottom"
 						   :focus="isFocus" maxlength="1000" cursor-spacing="10">
 					</input>
 				</view>
@@ -29,8 +29,6 @@
 						<view class="operation-num">2000</view>
 					</view>
 				</view>
-
-
 			</view>
 
 		</view>
@@ -41,7 +39,7 @@
 	export default {
 		data() {
 			return {
-				placeHolder:"你想说什么~~~",
+				placeHolder:"  你想说什么~~~",
 				content:"",
 				isFocus:false
 			}
@@ -80,9 +78,11 @@
 		margin-left: 30rpx;
 		width: 60%;
 	}
-	.myExitIcon{
+	.myEditIcon{
 		font-size: 30rpx;
-		margin-right:0 20rpx;
+		margin-right:0 20rpx 0 30rpx;
+		padding: 0 0 0 25rpx;
+		color: #708090
 	}
 	.bottomBar{
 		display: flex;

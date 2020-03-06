@@ -159,8 +159,10 @@
 				this.postId=post.postId
 				this.isFollow=post.isFollow
 				this.commentCount=post.commentCount
+				
+				// var postId = paramsObj.mediaId
 				// uni.request({
-				// 	url:serverUrl+'/posts/'+this.postId,
+				// 	url:serverUrl+'/posts/'+postId,
 				// 	method:'GET',
 				// 	header:{
 				// 		"Authorization":this.token,
@@ -205,25 +207,6 @@
 				// 	}
 				// });
 
-				// uni.request({
-				// 	url:serverUrl+'/comments/'+this.postId,
-				// 	method:'GET',
-				// 	header:{
-				// 		"Authorization":this.token,
-				// 		"type":this.type
-				// 	},
-				// 	success: res => {
-				// 		if(res.data.code===0){
-				// 			this.comments=res.data.data
-				// 		}
-				// 	},
-				// 	fail: () => {
-
-				// 	},
-				// 	complete: () => {
-
-				// 	}
-				// });
 				uni.request({
 					url:serverUrl+'/comments/?apiRootId='+this.postId+'&currentNum=1',
 					method:'GET',

@@ -206,16 +206,19 @@
 					method: 'GET',
 					success: (res) => {
 						if(res.data.code===0){
+							uni.stopPullDownRefresh()
 							var myList = []
 							myList=res.data.data
 							this.dataList=myList
 							uni.setStorageSync("idolsList",myList)
 						}else if(res.data.code===30001){
+							uni.stopPullDownRefresh()
 							uni.showToast({
 								title:'😙要重新登录',
 								duration:2000
 							})
 						}else if(res.data.code===50002) {
+							uni.stopPullDownRefresh()
 							uni.showToast({
 								title:res.data.msg,
 								duration:2000,
@@ -238,11 +241,13 @@
 					method: 'GET',
 					success: (res) => {
 						if(res.data.code===0){
+							uni.stopPullDownRefresh()
 							var myList = []
 							myList=res.data.data
 							this.dataList=myList
 							uni.setStorageSync("recommedList",myList)
 						}else if(res.data.code===30001){
+							uni.stopPullDownRefresh()
 							uni.showToast({
 								title:'😙要重新登录',
 								duration:2000
