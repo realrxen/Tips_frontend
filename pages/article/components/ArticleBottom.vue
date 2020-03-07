@@ -1,5 +1,6 @@
 <template>
-	<view class="bottomBarWrapper">
+	<view>
+		<view class="bottomBarWrapper" :style="[{bottom:InputBottom+'px'}]">
 		<view class="box">
 			<view class="bottomBar bg-white">
 				<view class="round commentBar">
@@ -33,6 +34,7 @@
 
 		</view>
 	</view>
+	</view>
 </template>
 
 <script>
@@ -41,19 +43,29 @@
 			return {
 				placeHolder:"  你想说什么~~~",
 				content:"",
-				isFocus:false
+				isFocus:false,
+				InputBottom:0
 			}
 		},
 		methods: {
 			contentInput(e){
-				var value= e.detail.value
+				var value = e.detail.value
 				this.content=value
 			},
 			InputFocus(e) {
 				this.InputBottom = e.detail.height
+				// uni.showToast({
+				// 	title:this.InputBottom.toString(),
+				// 	duration:5000
+				// })
 			},
 			InputBlur(e) {
 				this.InputBottom = 0
+				// uni.showToast({
+				// 	title:this.InputBottom.toString(),
+				// 	duration:5000
+				// })
+
 			},
 		}
 	}
@@ -62,7 +74,7 @@
 <style>
 	.bottomBarWrapper{
 		position: fixed;
-		bottom: 0;
+		/*bottom: 0;*/
 		z-index: 2000;
 		width: 100%;
 	}
@@ -101,7 +113,7 @@
 		align-items: center;
 		margin-left: 15rpx;
 	}
-	
+
 	.operation-icon{
 		font-size: 40rpx;
 	}

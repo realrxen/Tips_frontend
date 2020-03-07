@@ -34,17 +34,21 @@
 			<UniListItem @click="toSpace" title="我的空间" showExtraIcon>
 				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 			</UniListItem>
+			
 			<UniListItem title="浏览历史" showExtraIcon>
 				<text slot="icon" class="iconfont icon-dongtai10"></text>
 			</UniListItem>
+			
 			<UniListItem title="社区认证" showExtraIcon>
 				<text slot="icon" class="iconfont icon-dongtai11"></text>
 			</UniListItem>
+			
 			<UniListItem @click="online" title="在线人数" showExtraIcon>
 				<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 			</UniListItem>
+			
 			<navigator url="../souvenir/souvenir">
-				<UniListItem @click="skip" title="积分兑换" showExtraIcon>
+				<UniListItem title="积分兑换" showExtraIcon>
 					<text slot="icon" class="iconfont icon-bingtanghulu"></text>
 				</UniListItem>
 			</navigator>
@@ -70,6 +74,9 @@
 				show:false,
 				selectedIndex:5
 			}
+		},
+		provide: {
+			 list: {}
 		},
 		methods: {
 			pop(data){

@@ -5,8 +5,9 @@
 				<view class="userInfo">
 					<image class="myIcon" src="../../../static/icos/default-face.png" mode=""></image>
 					<view>
-						<view class="myNickname">巴拉拉能量</view>
-						<view class="releaseTime">发布于 2020-02-02</view>
+						<view class="myNickname">{{article.nickname}}</view>
+						<view class="releaseTime" v-if="article.createTime===article.updateTime">发布于 {{article.createTime}}</view>
+						<view class="releaseTime" v-if="article.createTime!==article.updateTime">更新于 {{article.updateTime}}</view>
 					</view>
 				</view>
 				<view class="action">
@@ -20,6 +21,9 @@
 
 <script>
 	export default {
+		props:{
+			article:Object
+		},
 		data() {
 			return {
 

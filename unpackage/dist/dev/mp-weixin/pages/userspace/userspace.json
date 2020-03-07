@@ -2,13 +2,5 @@
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "个人空间",
   "navigationBarBackgroundColor": "#FFD655",
-  "usingComponents": {
-    "user-space-head": "/pages/userspace/components/UserSpaceHead",
-    "home-data": "/components/home/home-data",
-    "swiper-tab-head": "/components/index/swiper-tab-head",
-    "user-space-userinfo": "/pages/userspace/components/UserSpaceInfo",
-    "common-list": "/components/common/common-list",
-    "load-more": "/components/common/load-more",
-    "user-space-popup": "/pages/userspace/components/UserSpacePopup"
-  }
+  "usingComponents": {}
 }

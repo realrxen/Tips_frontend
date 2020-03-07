@@ -7803,103 +7803,6 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 312:
-/*!****************************************!*\
-  !*** D:/Uni-app/travel/common/time.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var gettime = {
-  // 计算当前日期星座
-  getHoroscope: function getHoroscope(date) {
-    var c = ['摩羯', '水瓶', '双鱼', '白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手', '摩羯'];
-    date = new Date(date);
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var startMonth = month - (day - 14 < '865778999988'.charAt(month));
-    return c[startMonth] + '座';
-  },
-  // 计算指定时间与当前的时间差
-  sumAge: function sumAge(data) {
-    var dateBegin = new Date(data.replace(/-/g, "/"));
-    var dateEnd = new Date(); //获取当前时间
-    var dateDiff = dateEnd.getTime() - dateBegin.getTime(); //时间差的毫秒数
-    var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000)); //计算出相差天数
-    var leave1 = dateDiff % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
-    var hours = Math.floor(leave1 / (3600 * 1000)); //计算出小时数
-    //计算相差分钟数
-    var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
-    var minutes = Math.floor(leave2 / (60 * 1000)); //计算相差分钟数
-    //计算相差秒数
-    var leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数
-    var seconds = Math.round(leave3 / 1000);
-    return dayDiff + "天 " + hours + "小时 ";
-  },
-  // 获取聊天时间（相差300s内的信息不会显示时间）
-  getChatTime: function getChatTime(v1, v2) {
-    v1 = v1.toString().length < 13 ? v1 * 1000 : v1;
-    v2 = v2.toString().length < 13 ? v2 * 1000 : v2;
-    if ((parseInt(v1) - parseInt(v2)) / 1000 > 300) {
-      return this.gettime(v1);
-    }
-  },
-  // 人性化时间格式
-  gettime: function gettime(shorttime) {
-    shorttime = shorttime.toString().length < 13 ? shorttime * 1000 : shorttime;
-    var now = new Date().getTime();
-    var cha = (now - parseInt(shorttime)) / 1000;
-
-    if (cha < 43200) {
-      // 当天
-      return this.dateFormat(new Date(shorttime), "{A} {t}:{ii}");
-    } else if (cha < 518400) {
-      // 隔天 显示日期+时间
-      return this.dateFormat(new Date(shorttime), "{Mon}月{DD}日 {A} {t}:{ii}");
-    } else {
-      // 隔年 显示完整日期+时间
-      return this.dateFormat(new Date(shorttime), "{Y}-{MM}-{DD} {A} {t}:{ii}");
-    }
-  },
-
-  parseNumber: function parseNumber(num) {
-    return num < 10 ? "0" + num : num;
-  },
-
-  dateFormat: function dateFormat(date, formatStr) {
-    var dateObj = {},
-    rStr = /\{([^}]+)\}/,
-    mons = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
-
-    dateObj["Y"] = date.getFullYear();
-    dateObj["M"] = date.getMonth() + 1;
-    dateObj["MM"] = this.parseNumber(dateObj["M"]);
-    dateObj["Mon"] = mons[dateObj['M'] - 1];
-    dateObj["D"] = date.getDate();
-    dateObj["DD"] = this.parseNumber(dateObj["D"]);
-    dateObj["h"] = date.getHours();
-    dateObj["hh"] = this.parseNumber(dateObj["h"]);
-    dateObj["t"] = dateObj["h"] > 12 ? dateObj["h"] - 12 : dateObj["h"];
-    dateObj["tt"] = this.parseNumber(dateObj["t"]);
-    dateObj["A"] = dateObj["h"] > 12 ? '下午' : '上午';
-    dateObj["i"] = date.getMinutes();
-    dateObj["ii"] = this.parseNumber(dateObj["i"]);
-    dateObj["s"] = date.getSeconds();
-    dateObj["ss"] = this.parseNumber(dateObj["s"]);
-
-    while (rStr.test(formatStr)) {
-      formatStr = formatStr.replace(rStr, dateObj[RegExp.$1]);
-    }
-    return formatStr;
-  } };var _default =
-
-
-{
-  gettime: gettime };exports.default = _default;
-
-/***/ }),
-
 /***/ 32:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -8632,7 +8535,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 397:
+/***/ 341:
 /*!******************************************************!*\
   !*** D:/Uni-app/travel/components/sx-rate/common.js ***!
   \******************************************************/
@@ -8651,19 +8554,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 4:
-/*!************************************!*\
-  !*** D:/Uni-app/travel/pages.json ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-
-/***/ 435:
+/***/ 379:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -8802,6 +8693,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "cloud-download-filled": "\uE8E9",
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
+
+/***/ }),
+
+/***/ 4:
+/*!************************************!*\
+  !*** D:/Uni-app/travel/pages.json ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /***/ }),
 
@@ -9711,7 +9614,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true, "usingComponents": { "nav": "/components/colorui/components/nav", "user-post": "/pages/post/components/UserPost", "card": "/components/colorui/components/card", "tabbar": "/components/colorui/components/bar", "pop-up": "/components/popup/popup" }, "usingAutoImportComponents": {} }, "pages/travels/travels": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages", "t-color-picker": "/components/t-color-picker/t-color-picker", "upload-images": "/components/colorui/components/uploadImages" }, "usingAutoImportComponents": {} }, "pages/me/me": { "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655", "usingComponents": { "my-text-area": "/pages/send/components/TextArea", "tags": "/components/colorui/components/tags", "upload-images": "/components/colorui/components/uploadImages", "h-mmessages": "/components/HM-messages/HMmessages", "bottom-bar": "/pages/send/components/BottomBar" }, "usingAutoImportComponents": {} }, "pages/registLogin/registLogin": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/information/information": { "usingComponents": { "user-post": "/pages/information/components/UserPost" }, "usingAutoImportComponents": {} }, "pages/search/search": { "enablePullDownRefresh": true, "usingComponents": { "search-item": "/pages/search/components/SearchItem", "search-bar": "/components/colorui/components/searchbar", "tabbar": "/components/colorui/components/bar", "pop-up": "/components/popup/popup" }, "usingAutoImportComponents": {} }, "pages/travels/components/preview": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655", "usingComponents": { "user-space-head": "/pages/userspace/components/UserSpaceHead", "home-data": "/components/home/home-data", "swiper-tab-head": "/components/index/swiper-tab-head", "user-space-userinfo": "/pages/userspace/components/UserSpaceInfo", "common-list": "/components/common/common-list", "load-more": "/components/common/load-more", "user-space-popup": "/pages/userspace/components/UserSpacePopup" }, "usingAutoImportComponents": {} }, "pages/registLogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/registLogin/teleLogin": { "usingComponents": { "uni-status-bar": "/components/uni-ui/uni-status-bar/uni-status-bar" }, "usingAutoImportComponents": {} }, "pages/post/PostDetail": { "usingComponents": { "cut-bar": "/components/colorui/components/cutbar", "review": "/components/dl-review/review", "chat-bar": "/components/colorui/components/chatbar", "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/send/PostEdit": { "usingComponents": { "my-text-area": "/pages/send/components/TextArea", "tags": "/components/colorui/components/tags", "upload-images": "/components/colorui/components/uploadImages", "h-mmessages": "/components/HM-messages/HMmessages", "bottom-bar": "/pages/send/components/BottomBar" }, "usingAutoImportComponents": {} }, "pages/souvenir/SouvenirDetail": { "usingComponents": { "goods-header": "/pages/souvenir/components/GoodsHeader", "popup-spec": "/common/popupSpec", "star": "/components/sx-rate/index" }, "usingAutoImportComponents": {} }, "pages/souvenir/tabBar/cart/cart": { "usingComponents": { "counter": "/common/counter" }, "usingAutoImportComponents": {} }, "pages/pic/pic": { "navigationBarTextStyle": "white", "navigationBarTitleText": "图片", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/meInfo/children/telephone": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/meInfo/children/password": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/souvenir/souvenir": { "enablePullDownRefresh": true, "usingComponents": { "goods-header": "/pages/souvenir/components/GoodsHeader", "good-list": "/pages/souvenir/components/GoodsList" }, "usingAutoImportComponents": {} }, "pages/article/article": { "usingComponents": { "article-header": "/pages/article/components/ArticleHeader", "article-bottom": "/pages/article/components/ArticleBottom" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true, "usingComponents": { "nav": "/components/colorui/components/nav", "user-post": "/pages/post/components/UserPost", "card": "/components/colorui/components/card", "tabbar": "/components/colorui/components/bar", "pop-up": "/components/popup/popup" }, "usingAutoImportComponents": {} }, "pages/travels/travels": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages", "t-color-picker": "/components/t-color-picker/t-color-picker", "upload-images": "/components/colorui/components/uploadImages" }, "usingAutoImportComponents": {} }, "pages/me/me": { "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655", "usingComponents": { "my-text-area": "/pages/send/components/TextArea", "tags": "/components/colorui/components/tags", "upload-images": "/components/colorui/components/uploadImages", "h-mmessages": "/components/HM-messages/HMmessages", "bottom-bar": "/pages/send/components/BottomBar" }, "usingAutoImportComponents": {} }, "pages/registLogin/registLogin": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/information/information": { "usingComponents": { "user-post": "/pages/information/components/UserPost" }, "usingAutoImportComponents": {} }, "pages/search/search": { "enablePullDownRefresh": true, "usingComponents": { "search-item": "/pages/search/components/SearchItem", "search-bar": "/components/colorui/components/searchbar", "tabbar": "/components/colorui/components/bar", "pop-up": "/components/popup/popup" }, "usingAutoImportComponents": {} }, "pages/travels/components/preview": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/registLogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/registLogin/teleLogin": { "usingComponents": { "uni-status-bar": "/components/uni-ui/uni-status-bar/uni-status-bar" }, "usingAutoImportComponents": {} }, "pages/post/PostDetail": { "usingComponents": { "cut-bar": "/components/colorui/components/cutbar", "review": "/components/dl-review/review", "chat-bar": "/components/colorui/components/chatbar", "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/send/PostEdit": { "usingComponents": { "my-text-area": "/pages/send/components/TextArea", "tags": "/components/colorui/components/tags", "upload-images": "/components/colorui/components/uploadImages", "h-mmessages": "/components/HM-messages/HMmessages", "bottom-bar": "/pages/send/components/BottomBar" }, "usingAutoImportComponents": {} }, "pages/souvenir/SouvenirDetail": { "usingComponents": { "goods-header": "/pages/souvenir/components/GoodsHeader", "popup-spec": "/common/popupSpec", "star": "/components/sx-rate/index" }, "usingAutoImportComponents": {} }, "pages/souvenir/tabBar/cart/cart": { "usingComponents": { "counter": "/common/counter" }, "usingAutoImportComponents": {} }, "pages/pic/pic": { "navigationBarTextStyle": "white", "navigationBarTitleText": "图片", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/meInfo/children/telephone": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/meInfo/children/password": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/souvenir/souvenir": { "enablePullDownRefresh": true, "usingComponents": { "goods-header": "/pages/souvenir/components/GoodsHeader", "good-list": "/pages/souvenir/components/GoodsList" }, "usingAutoImportComponents": {} }, "pages/article/article": { "usingComponents": { "article-header": "/pages/article/components/ArticleHeader", "article-bottom": "/pages/article/components/ArticleBottom" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
 
 /***/ }),
 

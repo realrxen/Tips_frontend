@@ -1,1 +1,1 @@
-<view><article-header vue-id="1" bind:__l="__l"></article-header><view class="content"><rich-text nodes="{{content}}"></rich-text></view><article-bottom vue-id="2" bind:__l="__l"></article-bottom></view>
+<view><article-header vue-id="1" article="{{article}}" bind:__l="__l"></article-header><view class="content"><rich-text nodes="{{content}}"></rich-text></view><article-bottom vue-id="2" bind:__l="__l"></article-bottom></view>

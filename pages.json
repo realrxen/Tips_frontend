@@ -51,26 +51,26 @@
             "path" : "pages/travels/components/preview",
             "style" : {}
         },
+		// {
+		// 	"path":"pages/userspace/UserSpace",
+		// 	"style":{
+		// 		"navigationBarTextStyle": "white",
+		// 		"navigationBarTitleText": "个人空间",
+		// 		"navigationBarBackgroundColor": "#FFD655",
+		// 		"app-plus":{
+		// 			"scrollIndicator":"none",
+		// 			"titleNView":{
+		// 				"type":"transparent",
+		// 				"buttons":[
+		// 					{
+		// 						"type":"menu"
+		// 					}
+		// 				]
+		// 			}
+		// 		}
+		// 	}
+		// },
 		{
-			"path":"pages/userspace/UserSpace",
-			"style":{
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "个人空间",
-				"navigationBarBackgroundColor": "#FFD655",
-				"app-plus":{
-					"scrollIndicator":"none",
-					"titleNView":{
-						"type":"transparent",
-						"buttons":[
-							{
-								"type":"menu"
-							}
-						]
-					}
-				}
-			}
-		}
-	    ,{
             "path" : "pages/registLogin/login",
             "style" : {}
         },{

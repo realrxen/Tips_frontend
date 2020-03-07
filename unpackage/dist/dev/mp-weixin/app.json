@@ -9,7 +9,6 @@
     "pages/information/information",
     "pages/search/search",
     "pages/travels/components/preview",
-    "pages/userspace/UserSpace",
     "pages/registLogin/login",
     "pages/registLogin/teleLogin",
     "pages/post/PostDetail",
@@ -34,6 +33,5 @@
     "cu-custom": "/components/colorui/components/cu-custom",
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
-  },
-  "sitemapLocation": "sitemap86.json"
+  }
 }

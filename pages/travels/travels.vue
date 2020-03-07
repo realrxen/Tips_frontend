@@ -74,7 +74,7 @@
 						<i class="iconfont icon-baocun" @tap="store" id="1"></i>
 					</view>
 					<view class="container">
-						<editor id="editor" show-img-size :read-only="isEdit" show-img-resize show-img-toolbar class="ql-container"
+						<editor id="editor" :adjust-position="false" show-img-size :read-only="isEdit" show-img-resize show-img-toolbar class="ql-container"
 								:placeholder="placeholder" @statuschange="onStatusChange" @ready="onEditorReady">
 						</editor>
 					</view>
@@ -137,7 +137,7 @@
 				fontColor: '#000',
 				formats: {},
 				readOnly: false,
-				placeholder: '描述下你的旅行心得,帮助更多旅行的人...',
+				placeholder: '描述下你的出行心得,帮助更多出行的人...',
 				editorHeight: 300,
 				keyboardHeight: 0,
 				isIOS: false,
@@ -173,8 +173,6 @@
 			onStatusChange(){
 				this.editorCtx.getContents({
 					success: function(res) {
-						console.log(res)
-						console.log(res.html)
 					}
 				});
 			},

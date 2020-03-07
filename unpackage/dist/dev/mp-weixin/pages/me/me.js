@@ -192,7 +192,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var UniListItem = function UniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/uni-list-item/uni-list-item.vue */ 251));};
+
+
+
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var UniListItem = function UniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! ../../components/uni-ui/uni-list-item/uni-list-item.vue */ 245));};
 var serverUrl = _common.default.serverUrl;var _default =
 {
   components: {
@@ -206,6 +210,9 @@ var serverUrl = _common.default.serverUrl;var _default =
       selectedIndex: 5 };
 
   },
+  provide: {
+    list: {} },
+
   methods: {
     pop: function pop(data) {
       this.show = data;

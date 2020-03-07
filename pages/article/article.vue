@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<ArticleHeader></ArticleHeader>
+		<ArticleHeader :article="article"></ArticleHeader>
 		<view class="content" v-html="content">
 			{{content}}
 		</view>
@@ -23,6 +23,7 @@
 				userInfo:{},
 				token:'',
 				type:'',
+				article:{},
 				content:""
 			}
 		},
@@ -42,6 +43,8 @@
 				method: 'GET',
 				success: (res) => {
 					if(res.data.code===0){
+						this.article=res.data.data
+						console.log(this.article)
 						this.content = res.data.data.htmlContent
 					}
 					if(res.data.code===30001){
