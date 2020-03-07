@@ -205,9 +205,14 @@ var _default =
     },
     skip24: function skip24() {
       this.selectedIndex = 4;
-      uni.redirectTo({
-        url: '../article/article' });
+      uni.showToast({
+        title: "学业繁忙没空搞",
+        image: "../../static/icos/xixi.png",
+        duration: 4000 });
 
+      // uni.redirectTo({
+      //     url: '../article/article'
+      // });
     },
     skip25: function skip25() {
       this.selectedIndex = 5;

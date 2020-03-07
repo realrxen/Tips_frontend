@@ -180,10 +180,11 @@ var serverUrl = _common.default.serverUrl;var _default =
   data: function data() {
     return {
       show: false,
-      keywords: "",
+      keywords: " ",
       coverData: [],
       selectedIndex: 2,
-      myPageHelper: {} };
+      myPageHelper: {},
+      none: true };
 
   },
   onPullDownRefresh: function onPullDownRefresh() {var _this = this;
@@ -199,10 +200,15 @@ var serverUrl = _common.default.serverUrl;var _default =
 
   },
   onReachBottom: function onReachBottom() {
+    var keywords = this.keywords;
     var currentPage = this.myPageHelper.pageNum + 1;
     var hasNextPage = this.myPageHelper.hasNextPage;
     if (hasNextPage) {
-      this.getMoreArticles(currentPage, 7);
+      if (this.none) {
+        this.getMoreHomeArticles(currentPage, 7);
+      } else {
+        this.getMoreSearchArticles(keywords, currentPage, 7);
+      }
     } else {
       return;
     }
@@ -226,7 +232,7 @@ var serverUrl = _common.default.serverUrl;var _default =
     this.show = false;
   },
   methods: {
-    getMoreArticles: function getMoreArticles(currentNum, size) {var _this3 = this;
+    getMoreHomeArticles: function getMoreHomeArticles(currentNum, size) {var _this3 = this;
       uni.request({
         header: {
           "Authorization": this.token,
@@ -241,7 +247,6 @@ var serverUrl = _common.default.serverUrl;var _default =
             var newList = oldList.concat(myData.list);
             myData.list = newList;
             _this3.myPageHelper = myData;
-            _this3.coverData = myData.list;
           }
 
         },
@@ -249,16 +254,60 @@ var serverUrl = _common.default.serverUrl;var _default =
         complete: function complete() {} });
 
     },
-    search: function search(data) {var _this4 = this;
-      this.keywords = data;
+    getMoreSearchArticles: function getMoreSearchArticles(keywords, currentNum, size) {var _this4 = this;
       uni.request({
-        url: serverUrl + '/posts/search?keywords=' + this.keywords,
+        header: {
+          "Authorization": this.token,
+          "type": this.type },
+
+        url: serverUrl + '/articles/search?keywords=' + keywords + '&currentNum=' + currentNum + '&size=' + size,
         method: 'GET',
         success: function success(res) {
-          if (res.data.code === 0) {
-            _this4.coverData = res.data.data;
+          if (res.data.code == 0) {
+            var myData = res.data.data;
+            var oldList = _this4.myPageHelper.list;
+            var newList = oldList.concat(myData.list);
+            myData.list = newList;
+            _this4.myPageHelper = myData;
           }
-        } });
+
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    },
+    search: function search(data) {var _this5 = this;
+      if (data.length !== 0) {
+        this.none = false;
+      }
+      console.log(this.none);
+      if (this.none) {
+        uni.request({
+          url: serverUrl + '/articles/search?currentNum=1',
+          method: 'GET',
+          success: function success(res) {
+            if (res.data.code === 0) {
+              _this5.myPageHelper = res.data.data;
+            }
+          } });
+
+        return;
+      } else {
+        var keywords = data;
+        this.keywords = data;
+        uni.request({
+          url: serverUrl + '/articles/search?keywords=' + keywords + '&currentNum=1',
+          method: 'GET',
+          success: function success(res) {
+            if (res.data.code === 0) {
+              _this5.myPageHelper = res.data.data;
+            }
+          } });
+
+      }
+
+
+
 
     },
     pop: function pop(data) {
