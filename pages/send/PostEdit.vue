@@ -99,7 +99,7 @@
 				success: (res) => {
 					if (res.data.code === 0) {
 						this.hasPostContent = res.data.data.content
-						console.log(res.data.data.content)
+						// console.log(res.data.data.content)
 					}
 				},
 				fail: () => {

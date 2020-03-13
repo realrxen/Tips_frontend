@@ -118,6 +118,7 @@
 		width: 30rpx;
 		height: 30rpx;
 		margin-right: 5rpx;
+		border-radius: 100%;
 	}
 	.myIcon{
 	}

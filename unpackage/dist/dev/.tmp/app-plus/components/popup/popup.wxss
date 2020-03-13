@@ -70,7 +70,7 @@
   width: 360rpx;
   padding: 50rpx;
   box-sizing: border-box;
-  margin: -25px 108px;
+  margin: -20px auto;
 }
 .tabbar-box-wrap .tabbar-box.data-v-bb286048 {
     position: relative;

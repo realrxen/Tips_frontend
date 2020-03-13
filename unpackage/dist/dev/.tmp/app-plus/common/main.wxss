@@ -32,8 +32,6 @@
 
 
 
-
-
 	/*每个页面公共css */
 @charset "UTF-8";
     /*!
@@ -6207,7 +6205,8 @@ to {
 	margin-right: 0.3em;
 }
 .cu-bar .action:last-child {
-	margin-right: 30rpx;
+	/*30upx -> 10upx*/
+	margin-right: 10rpx;
 }
 .cu-bar .action>text[class*="cuIcon-"],
 .cu-bar .action>view[class*="cuIcon-"] {
@@ -6405,7 +6404,8 @@ to {
 	position: relative;
 	display: block;
 	height: auto;
-	margin: 0 auto 10rpx;
+	/*修改此处margin-bottom*/
+	margin: 0 auto;
 	text-align: center;
 	font-size: 40rpx;
 }

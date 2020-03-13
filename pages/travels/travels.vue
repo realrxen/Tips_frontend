@@ -62,7 +62,6 @@
 						<i class="iconfont icon-outdent" data-name="indent" data-value="-1"></i>
 						<i class="iconfont icon-indent" data-name="indent" data-value="+1"></i>
 						<i class="iconfont icon-fengexian" @tap="insertDivider"></i>
-						<i class="iconfont icon-preview" @tap="store" id="2"></i>
 						<i :class="'iconfont icon-zitixiabiao ' + (formats.script === 'sub' ? 'ql-active' : '')" data-name="script"
 						   data-value="sub"></i>
 						<i :class="'iconfont icon-zitishangbiao ' + (formats.script === 'super' ? 'ql-active' : '')" data-name="script"
@@ -72,6 +71,7 @@
 						<i :class="'iconfont icon-direction-rtl ' + (formats.direction === 'rtl' ? 'ql-active' : '')" data-name="direction"
 						   data-value="rtl"></i>
 						<i class="iconfont icon-baocun" @tap="store" id="1"></i>
+						<i class="iconfont icon-preview" @tap="store" id="2"></i>
 					</view>
 					<view class="container">
 						<editor id="editor" :adjust-position="false" show-img-size :read-only="isEdit" show-img-resize show-img-toolbar class="ql-container"
@@ -250,8 +250,10 @@
 				this.editorCtx.getContents({
 					success: (res)=> {
 						var htmlContent = res.html
-						if(htmlContent.length<=42){
-							this.warning("内容不能为空哟!")
+						console.log(htmlContent)
+						console.log(htmlContent.length)
+						if(htmlContent.length<=100){
+							this.warning("内容太少可不行哟!")
 							return
 						}
 						uni.showLoading({

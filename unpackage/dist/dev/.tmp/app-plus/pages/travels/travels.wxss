@@ -9,8 +9,27 @@
             flex-direction: column;
     padding: 10rpx 20rpx;
 }
+.myTitle{
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+}
+.myTitle0{
+    background-color: #f1f1f1;
+    padding: 1rpx 20rpx;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    min-height: 100rpx;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+}
 .myUpload{
-    width: 600rpx;
+    width: 800rpx;
     height: 100rpx;
     bottom: 160px;
     font-size: 40rpx;
@@ -25,35 +44,81 @@
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
     -webkit-box-align: center;
     -webkit-align-items: center;
             align-items: center;
 }
 .release-text{
-    width: 600rpx;
-    height: 100rpx;
-    bottom: 80px;
-    font-size: 40rpx;
-    line-height: 100rpx;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    width: 550rpx;
+    height: 70rpx;
+    font-size: 35rpx;
+    font-weight: 600;
+    line-height: 50rpx;
     text-align: center;
-    position: fixed;
+    color: #FFFEFF;
     z-index: 999;
     background-color: #FFD655;
-    border-radius: 20rpx;
+    border-radius: 30rpx;
+    margin: 30rpx;
 }
-
+.myDraft {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    margin-left: 50rpx;
+}
+.myDraftIcon{
+    font-size: 45rpx;
+    /*color: #ffd655;*/
+    color: silver;
+}
+.myDraftText{
+    font-size: 25rpx;
+    color: #c8c8c8;
+    margin-top: -10rpx;
+}
 /*release-text{*/
-
 /*    width: 100%;*/
-
 /*    height: 100rpx;*/
-
 /*    background: #FFD655;*/
-
 /*}*/
+.operationWrapper{
+    position: fixed;
+    bottom: 0;
+    z-index: 2000;
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+}
 @font-face {font-family: "iconfont";
   src: url('//at.alicdn.com/t/font_945958_zfsfjju1dim.eot?t=1547618146468'); /* IE9 */
   src: url('//at.alicdn.com/t/font_945958_zfsfjju1dim.eot?t=1547618146468#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -255,7 +320,7 @@
 .ql-container {
 	/*box-sizing: border-box;*/
 	width: 100%;
-	height: 50px;
+	height: 300px;
 	font-size: 16px;
 	line-height: 1.2;
 	/*overflow: auto;*/

@@ -33,5 +33,6 @@
     "cu-custom": "/components/colorui/components/cu-custom",
     "tabbar": "/components/colorui/components/bar",
     "pop-up": "/components/popup/popup"
-  }
+  },
+  "sitemapLocation": "sitemap10.json"
 }

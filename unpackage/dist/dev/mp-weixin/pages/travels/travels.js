@@ -245,7 +245,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages.vue */ 224));};var TColorPicker = function TColorPicker() {return __webpack_require__.e(/*! import() | components/t-color-picker/t-color-picker */ "components/t-color-picker/t-color-picker").then(__webpack_require__.bind(null, /*! ../../components/t-color-picker/t-color-picker */ 231));};var UploadImages = function UploadImages() {return Promise.all(/*! import() | components/colorui/components/uploadImages */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/uploadImages")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 238));};
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var HMmessages = function HMmessages() {return __webpack_require__.e(/*! import() | components/HM-messages/HMmessages */ "components/HM-messages/HMmessages").then(__webpack_require__.bind(null, /*! ../../components/HM-messages/HMmessages.vue */ 222));};var TColorPicker = function TColorPicker() {return __webpack_require__.e(/*! import() | components/t-color-picker/t-color-picker */ "components/t-color-picker/t-color-picker").then(__webpack_require__.bind(null, /*! ../../components/t-color-picker/t-color-picker */ 229));};var UploadImages = function UploadImages() {return Promise.all(/*! import() | components/colorui/components/uploadImages */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/colorui/components/uploadImages")]).then(__webpack_require__.bind(null, /*! ../../components/colorui/components/uploadImages */ 236));};
 
 
 
@@ -390,8 +390,10 @@ var _self;var _default =
       this.editorCtx.getContents({
         success: function success(res) {
           var htmlContent = res.html;
-          if (htmlContent.length <= 42) {
-            _this3.warning("内容不能为空哟!");
+          console.log(htmlContent);
+          console.log(htmlContent.length);
+          if (htmlContent.length <= 100) {
+            _this3.warning("内容太少可不行哟!");
             return;
           }
           uni.showLoading({

@@ -52,6 +52,12 @@
 				none:true
 			}
 		},
+		onShareAppMessage: (res) => {
+			return {
+				title:'Hi,Tips!',
+				path:'/pages/search/search'
+			}
+		},
 		onPullDownRefresh(){
 			uni.request({
 				url:serverUrl+'/articles/search?currentNum=1',

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "article-header": "/pages/article/components/ArticleHeader",
+    "article-bottom": "/pages/article/components/ArticleBottom"
+  }
+}

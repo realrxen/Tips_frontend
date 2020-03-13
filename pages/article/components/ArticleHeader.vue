@@ -3,7 +3,7 @@
 		<view class="box">
 			<view class="cu-bar bg-white">
 				<view class="userInfo">
-					<image class="myIcon" src="../../../static/icos/default-face.png" mode=""></image>
+					<image class="myIcon" :src="article.faceIcon" mode=""></image>
 					<view>
 						<view class="myNickname">{{article.nickname}}</view>
 						<view class="releaseTime" v-if="article.createTime===article.updateTime">发布于 {{article.createTime}}</view>

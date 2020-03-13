@@ -7,7 +7,7 @@
 				<view class="userInfoWrapper" :data-postId="post.postId" @click="goToPostDetail(post)">
 					<image :src="post.faceIcon" class="faceIcon" :data-postId="post.postId" lazy-load @click="goToPostDetail(post)"></image>
 					<view class="userDetailWrapper">
-						<view class="userName" :data-postId="post.postId" @click="goToPostDetail(post)">{{post.username}}</view>
+						<view class="userName" :data-postId="post.postId" @click="goToPostDetail(post)">{{post.nickname}}</view>
 						<view class="createTime" :data-postId="post.postId" @click="goToPostDetail(post)">{{post.createTime}}</view>
 					</view>
 				</view>

@@ -7,7 +7,7 @@
 				<view class="userInfoWrapper">
 					<image :src="post.faceIcon" class="faceIcon" lazy-load @click="openSpace"></image>
 					<view class="userDetailWrapper">
-						<view class="userName">{{post.username}}</view>
+						<view class="userName">{{post.nickname}}</view>
 						<view class="createTime">{{post.createTime}}</view>
 					</view>
 				</view>
@@ -221,8 +221,8 @@
 			},
 			onShareAppMessage: (res) => {
 				return {
-					title:'Hi,this is Tips!',
-					path:'/pages/post/post'
+					title:'Hi Tips!',
+					path:'/pages/post/PostDetail'
 				}
 			},
 		onReachBottom() {

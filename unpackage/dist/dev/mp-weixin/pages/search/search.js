@@ -168,7 +168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var SearchBar = function SearchBar() {return __webpack_require__.e(/*! import() | components/colorui/components/searchbar */ "components/colorui/components/searchbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/searchbar.vue */ 280));};var SearchItem = function SearchItem() {return __webpack_require__.e(/*! import() | pages/search/components/SearchItem */ "pages/search/components/SearchItem").then(__webpack_require__.bind(null, /*! ./components/SearchItem.vue */ 287));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar */ 189));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 196));};
+var _common = _interopRequireDefault(__webpack_require__(/*! ../../common/common.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var SearchBar = function SearchBar() {return __webpack_require__.e(/*! import() | components/colorui/components/searchbar */ "components/colorui/components/searchbar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/searchbar.vue */ 278));};var SearchItem = function SearchItem() {return __webpack_require__.e(/*! import() | pages/search/components/SearchItem */ "pages/search/components/SearchItem").then(__webpack_require__.bind(null, /*! ./components/SearchItem.vue */ 285));};var Tabbar = function Tabbar() {return __webpack_require__.e(/*! import() | components/colorui/components/bar */ "components/colorui/components/bar").then(__webpack_require__.bind(null, /*! ../../components/colorui/components/bar */ 187));};var PopUp = function PopUp() {return __webpack_require__.e(/*! import() | components/popup/popup */ "components/popup/popup").then(__webpack_require__.bind(null, /*! ../../components/popup/popup */ 194));};
 var serverUrl = _common.default.serverUrl;var _default =
 {
   components: {
@@ -185,6 +185,12 @@ var serverUrl = _common.default.serverUrl;var _default =
       selectedIndex: 2,
       myPageHelper: {},
       none: true };
+
+  },
+  onShareAppMessage: function onShareAppMessage(res) {
+    return {
+      title: 'Hi,Tips!',
+      path: '/pages/search/search' };
 
   },
   onPullDownRefresh: function onPullDownRefresh() {var _this = this;

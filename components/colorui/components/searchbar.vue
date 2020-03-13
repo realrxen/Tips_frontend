@@ -5,7 +5,7 @@
 				<view class="cu-avatar round" :style="face?'background-image:url('+userInfo.faceIcon+')':'background-image:url(http://img4.imgtn.bdimg.com/it/u=3006607636,42691152&fm=11&gp=0.jpg)'"></view>
 				<view class="search-form round">
 					<text class="cuIcon-search"></text>
-					<input focus :adjust-position="false" type="text" placeholder="游记/攻略/地点" confirm-type="search" value=""
+					<input :focus="isFocus" :adjust-position="false" type="text" placeholder="游记/攻略/地点" confirm-type="search" value=""
 						   @confirm="searchMe">
 				</view>
 				<view class="action">
@@ -21,7 +21,8 @@
 
 		data() {
 			return {
-				userInfo:{}
+				userInfo:{},
+				isFocus:false
 			}
 		},
 		created() {

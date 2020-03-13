@@ -1,2 +1,2 @@
-setCssToHead([".",[1],"myPost{ padding-bottom: ",[0,100],"; }\n",],undefined,{path:"./pages/post/post.wxss"})();
+setCssToHead([".",[1],"myPost{ padding-bottom: ",[0,130],"; }\n.",[1],"getMore{ text-align: center; color: #C8C8C8; }\n",],undefined,{path:"./pages/post/post.wxss"})();
 document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/post/post.wxml') } }));

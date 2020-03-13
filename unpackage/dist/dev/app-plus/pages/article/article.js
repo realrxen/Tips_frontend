@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"content{ margin-top: ",[0,130],"; padding-bottom: ",[0,102],"; }\n",],undefined,{path:"./pages/article/article.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/article/article.wxml') } }));

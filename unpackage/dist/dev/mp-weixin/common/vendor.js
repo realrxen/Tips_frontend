@@ -737,7 +737,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7187,7 +7187,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7208,14 +7208,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7291,7 +7291,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7695,9 +7695,9 @@ internalMixin(Vue);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const serverUrl = "http://10.3.186.123:8080"
-// const serverUrl = "http://192.168.1.7:8087/tips"
-var serverUrl = "https://www.seeumt.club/tips";
-// const serverUrl = "http://192.168.1.7:8082"
+// const serverUrl = "http://47.110.58.50/tips"
+// const serverUrl = "https://www.seeumt.club/tips"
+var serverUrl = "http://192.168.1.7:8086/tips";
 // const serverUrl = "http://47.105.147.103:8086"
 
 function keyUtil() {
@@ -8535,7 +8535,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 341:
+/***/ 339:
 /*!******************************************************!*\
   !*** D:/Uni-app/travel/components/sx-rate/common.js ***!
   \******************************************************/
@@ -8554,7 +8554,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 379:
+/***/ 377:
 /*!**************************************************************!*\
   !*** D:/Uni-app/travel/components/uni-ui/uni-icons/icons.js ***!
   \**************************************************************/
@@ -9614,7 +9614,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true, "usingComponents": { "nav": "/components/colorui/components/nav", "user-post": "/pages/post/components/UserPost", "card": "/components/colorui/components/card", "tabbar": "/components/colorui/components/bar", "pop-up": "/components/popup/popup" }, "usingAutoImportComponents": {} }, "pages/travels/travels": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages", "t-color-picker": "/components/t-color-picker/t-color-picker", "upload-images": "/components/colorui/components/uploadImages" }, "usingAutoImportComponents": {} }, "pages/me/me": { "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655", "usingComponents": { "my-text-area": "/pages/send/components/TextArea", "tags": "/components/colorui/components/tags", "upload-images": "/components/colorui/components/uploadImages", "h-mmessages": "/components/HM-messages/HMmessages", "bottom-bar": "/pages/send/components/BottomBar" }, "usingAutoImportComponents": {} }, "pages/registLogin/registLogin": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/information/information": { "usingComponents": { "user-post": "/pages/information/components/UserPost" }, "usingAutoImportComponents": {} }, "pages/search/search": { "enablePullDownRefresh": true, "usingComponents": { "search-item": "/pages/search/components/SearchItem", "search-bar": "/components/colorui/components/searchbar", "tabbar": "/components/colorui/components/bar", "pop-up": "/components/popup/popup" }, "usingAutoImportComponents": {} }, "pages/travels/components/preview": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/userspace/UserSpace": { "navigationBarTextStyle": "white", "navigationBarTitleText": "个人空间", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/registLogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/registLogin/teleLogin": { "usingComponents": { "uni-status-bar": "/components/uni-ui/uni-status-bar/uni-status-bar" }, "usingAutoImportComponents": {} }, "pages/post/PostDetail": { "usingComponents": { "cut-bar": "/components/colorui/components/cutbar", "review": "/components/dl-review/review", "chat-bar": "/components/colorui/components/chatbar", "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/send/PostEdit": { "usingComponents": { "my-text-area": "/pages/send/components/TextArea", "tags": "/components/colorui/components/tags", "upload-images": "/components/colorui/components/uploadImages", "h-mmessages": "/components/HM-messages/HMmessages", "bottom-bar": "/pages/send/components/BottomBar" }, "usingAutoImportComponents": {} }, "pages/souvenir/SouvenirDetail": { "usingComponents": { "goods-header": "/pages/souvenir/components/GoodsHeader", "popup-spec": "/common/popupSpec", "star": "/components/sx-rate/index" }, "usingAutoImportComponents": {} }, "pages/souvenir/tabBar/cart/cart": { "usingComponents": { "counter": "/common/counter" }, "usingAutoImportComponents": {} }, "pages/pic/pic": { "navigationBarTextStyle": "white", "navigationBarTitleText": "图片", "navigationBarBackgroundColor": "#FFD655", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/meInfo/children/telephone": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/meInfo/children/password": { "usingComponents": { "h-mmessages": "/components/HM-messages/HMmessages" }, "usingAutoImportComponents": {} }, "pages/souvenir/souvenir": { "enablePullDownRefresh": true, "usingComponents": { "goods-header": "/pages/souvenir/components/GoodsHeader", "good-list": "/pages/souvenir/components/GoodsList" }, "usingAutoImportComponents": {} }, "pages/article/article": { "usingComponents": { "article-header": "/pages/article/components/ArticleHeader", "article-bottom": "/pages/article/components/ArticleBottom" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/post/post": { "enablePullDownRefresh": true }, "pages/travels/travels": {}, "pages/me/me": {}, "pages/send/Send": { "navigationBarTextStyle": "white", "navigationBarTitleText": "发动态", "navigationBarBackgroundColor": "#FFD655" }, "pages/registLogin/registLogin": {}, "pages/meInfo/meInfo": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#FFD655" }, "pages/information/information": {}, "pages/search/search": { "enablePullDownRefresh": true }, "pages/travels/components/preview": {}, "pages/registLogin/login": {}, "pages/registLogin/teleLogin": {}, "pages/post/PostDetail": {}, "pages/send/PostEdit": {}, "pages/souvenir/SouvenirDetail": {}, "pages/souvenir/tabBar/cart/cart": {}, "pages/pic/pic": { "navigationBarTextStyle": "white", "navigationBarTitleText": "图片", "navigationBarBackgroundColor": "#FFD655" }, "pages/meInfo/children/telephone": {}, "pages/meInfo/children/password": {}, "pages/souvenir/souvenir": { "enablePullDownRefresh": true }, "pages/article/article": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Tips", "navigationBarBackgroundColor": "#FFD655", "backgroundColor": "#FFFEFF" } };exports.default = _default;
 
 /***/ }),
 

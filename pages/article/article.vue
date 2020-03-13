@@ -27,6 +27,12 @@
 				content:""
 			}
 		},
+		onShareAppMessage: (res) => {
+			return {
+				title:'Hi,Tips!',
+				path:'/pages/article/article'
+			}
+		},
 		onShow(){
 			var userInfo = uni.getStorageSync("globalUser")
 			if(userInfo!==null&&userInfo!==""&&userInfo!==undefined){
@@ -44,7 +50,7 @@
 				success: (res) => {
 					if(res.data.code===0){
 						this.article=res.data.data
-						console.log(this.article)
+						// console.log(this.article)
 						this.content = res.data.data.htmlContent
 					}
 					if(res.data.code===30001){

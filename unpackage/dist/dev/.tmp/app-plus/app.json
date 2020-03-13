@@ -8,7 +8,7 @@
     "pages/meInfo/meInfo",
     "pages/information/information",
     "pages/search/search",
-    "pages/userspace/UserSpace",
+    "pages/travels/components/preview",
     "pages/registLogin/login",
     "pages/registLogin/teleLogin",
     "pages/post/PostDetail",
@@ -18,7 +18,8 @@
     "pages/pic/pic",
     "pages/meInfo/children/telephone",
     "pages/meInfo/children/password",
-    "pages/souvenir/souvenir"
+    "pages/souvenir/souvenir",
+    "pages/article/article"
   ],
   "window": {
     "navigationBarTextStyle": "black",
